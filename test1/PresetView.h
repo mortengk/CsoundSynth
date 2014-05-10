@@ -9,13 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "MGKViewController.h"
 
+@class MGKViewController;
 @interface PresetView : UIView
 
-@property (nonatomic, retain) MGKViewController* vc;
+@property (nonatomic, strong) MGKViewController* vc;
 @property (nonatomic, retain) NSMutableArray* myPresetArray;
 @property (nonatomic, weak) IBOutlet UITableView *myTable;
 
 - (IBAction)closeButtonPressed:(id)sender;
 - (IBAction)saveCurrentParameterValuesToDict:(id)sender;
+- (id)initWithFrame:(CGRect)frame andViewController:(MGKViewController*)theVC;
 
 @end

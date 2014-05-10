@@ -7,26 +7,44 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MHRotaryKnob.h"
+#import "MGKRotaryKnob.h"
+#import "PlainOscillator1View.h"
+#import "SampleOscillator1View.h"
+#import "customOscillatorSlider.h"
+#import "customEnvelopeSlider.h"
+#import "envelopeView.h"
+#import "OscillatorView.h"
+#import "LFOView.h"
+#import "FilterView.h"
 
 @interface View1 : UIView
 
 @property (nonatomic, retain) IBOutlet View1 *view;
 
 // Knobs
-@property (weak, nonatomic) IBOutlet UISlider *valueSlider;
-@property (weak, nonatomic) IBOutlet UILabel *valueLabel;
 
-@property (weak, nonatomic) IBOutlet UIView *knobPlaceholder1;
-@property (weak, nonatomic) IBOutlet UIView *knobPlaceholder2;
-@property (weak, nonatomic) IBOutlet UIView *knobPlaceholder3;
-@property (weak, nonatomic) IBOutlet UIView *knobPlaceholder4;
 
-@property (strong, nonatomic) MHRotaryKnob *mhKnob1;
-@property (strong, nonatomic) MHRotaryKnob *mhKnob2;
-@property (strong, nonatomic) MHRotaryKnob *mhKnob3;
-@property (strong, nonatomic) MHRotaryKnob *mhKnob4;
+@property (strong, nonatomic) IBOutlet UIView *envelopePlaceholder;
+@property (strong, nonatomic) IBOutlet UIView *filterPlaceholder;
+@property (strong, nonatomic) IBOutlet UIView *lfoPlaceholder;
+@property (strong, nonatomic) IBOutlet UIView *oscillatorPlaceholder;
 
-- (IBAction)handleValueChanged:(id)sender;
+@property (strong, nonatomic) PlainOscillator1View *oscillator1View;
+@property (strong, nonatomic) envelopeView *envView;
+@property (strong, nonatomic) OscillatorView *oscView;
+@property (strong, nonatomic) FilterView *filterView;
+@property (strong, nonatomic) LFOView *lfoView;
+
+@property (strong, nonatomic) IBOutlet UISegmentedControl *oscillator1SegmentedControl;
+@property (strong, nonatomic) IBOutlet customOscillatorSlider *oscillator1Slider;
+@property (strong, nonatomic) IBOutlet UISlider *oscillator2Slider;
+
+@property (strong, nonatomic) IBOutlet UISegmentedControl *oscillator2SegmentedControl;
+
+- (IBAction)oscillator1Changed:(UISegmentedControl *)sender;
+- (IBAction)oscillator2Changed:(UISegmentedControl *)sender;
+- (IBAction)oscillator1SliderChanged:(UISlider *)sender;
+- (IBAction)oscillator2SliderChanged:(UISlider *)sender;
+
 
 @end

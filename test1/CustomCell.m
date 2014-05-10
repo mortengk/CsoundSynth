@@ -22,8 +22,6 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
 + (CustomCell *)cellFromNibNamed:(NSString *)nibName {
@@ -34,7 +32,7 @@
     while ((nibItem = [nibEnumerator nextObject]) != nil) {
         if ([nibItem isKindOfClass:[CustomCell class]]) {
             customCell = (CustomCell *)nibItem;
-            break; // we have a winner
+            break;
         }
     }
     return customCell;

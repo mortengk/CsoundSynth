@@ -16,8 +16,6 @@
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) MGKViewController *viewController;
 
-
-
 //Core data
 //@property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 //@property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;

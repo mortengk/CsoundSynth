@@ -6,36 +6,107 @@
 //  Copyright (c) 2014 NTNU. All rights reserved.
 //
 
+#import "DatabaseHandler.h"
 #import <UIKit/UIKit.h>
 #import "PlaceholderView.h"
+#import "KeyboardView.h"
 #import "View1.h"
 #import "View2.h"
 #import "View3.h"
 #import "View4.h"
+#import "View5.h"
+#import "CsoundObj.h"
+#import "MidiWidgetsManager.h"
+#import "PGMidi.h"
+#import "MGKPresetViewController.h"
+#import "MGKSoundfontSelectionViewController.h"
 
-@interface MGKViewController : UIViewController {
-    NSNumber* knob1value;
-    NSNumber* knob2value;
-    NSNumber* knob3value;
-    NSNumber* knob4value;
+#import <AVFoundation/AVFoundation.h>
+
+
+@class TouchForwardingUIScrollView;
+@class DatabaseHandler;
+@class View4;
+@class PresetView;
+@class MGKPresetViewController;
+@class MGKSoundfontSelectionViewController;
+
+@interface MGKViewController : UIViewController <KeyboardDelegate, CsoundObjCompletionListener, AVAudioPlayerDelegate> {
+    CsoundObj* mCsound;
+    @private
+    TouchForwardingUIScrollView* keyboardScrollView;
+    KeyboardView* keyboardView;
 }
+
+// Csound
+@property (nonatomic, strong) CsoundObj* csound;
+@property (nonatomic, strong) MidiWidgetsManager* widgetsManager;
+@property (nonatomic) BOOL isPolyphonic;
+- (IBAction)polyphonySwitch:(id)sender;
+
+- (void)updateCsoundValues;
+- (void)noteOn:(int)note;
+- (void)noteOff:(int)note;
+
+
+// Midi
+
+@property (nonatomic, strong) PGMidi *midiConnection;
+
+
+// Motion
+@property (nonatomic, strong) CMMotionManager* motionManager;
+@property (nonatomic) double gravityX;
+@property (nonatomic) double gravityY;
+@property (nonatomic) double gravityZ;
+@property (nonatomic) double magneticFieldX;
+@property (nonatomic) double magneticFieldY;
+@property (nonatomic) double magneticFieldZ;
+@property (nonatomic) double accelerometerX;
+@property (nonatomic) double accelerometerY;
+@property (nonatomic) double accelerometerZ;
+
+
+// Mod matrix
+@property (nonatomic, strong) NSMutableArray* controlDestinations;
+@property (nonatomic, strong) NSMutableArray* controlSources;
+
+// Soundfont
+- (IBAction)showSoundfontPresets:(UIButton *)sender;
 
 // GUI
 @property (nonatomic, retain) IBOutlet PlaceholderView *pView;
-@property (nonatomic, retain) View1 *v1;
+@property (nonatomic, retain) IBOutlet UIScrollView *keyboardScrollView;
+@property (nonatomic, weak) IBOutlet UITableView *myTable;
+@property (weak, nonatomic) IBOutlet UIStepper *stepper;
+@property (strong, nonatomic) IBOutlet UIButton *presetButton;
+@property (strong, nonatomic) IBOutlet UISwitch *lockSwitch;
+@property (nonatomic, strong) View1 *v1;
 @property (nonatomic, retain) View2 *v2;
 @property (nonatomic, retain) View3 *v3;
 @property (nonatomic, retain) View4 *v4;
-@property (nonatomic, weak) IBOutlet UITableView *myTable;
+@property (nonatomic, strong) View5 *v5;
+@property (nonatomic) BOOL isRecording;
 
 - (IBAction)segmentedControlPressed:(id)sender;
 - (IBAction)presetButtonPressed:(id)sender;
+- (IBAction)scrollLockButton:(UISwitch*)sender;
+- (IBAction)octaveDownButtonPressed:(UIButton *)sender;
+- (IBAction)octaveUpButtonPressed:(UIButton *)sender;
+- (IBAction)stepperPressed:(UIStepper*)sender;
+- (void)startMotionManager;
+- (void)record;
 
-// Database 2
-@property (nonatomic, retain) NSMutableArray* myPresetArray;
-- (IBAction)saveCurrentParameterValuesToDict:(id)sender;
-- (void)setParametersFromPreset:(NSString*)presetName;
+// Database
+@property (nonatomic, strong) DatabaseHandler* databaseHandler;
+
+@property (nonatomic, strong) NSMutableArray* myTestArray;
+- (void)myTestMethod;
 
 
+@property (strong, nonatomic) MGKPresetViewController* vc2;
+@property (strong, nonatomic) MGKSoundfontSelectionViewController* soundfontViewController;
+@property (nonatomic, strong) NSString* selectedPreset;
+- (void)changeSoundfontInstrumentTo:(NSString*)numberString;
 
 @end

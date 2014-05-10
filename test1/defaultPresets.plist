@@ -4,36 +4,84 @@
 <dict>
 	<key>Preset 1</key>
 	<dict>
-		<key>knob1value</key>
+		<key>oscillator1SegmentedControl</key>
+		<integer>0</integer>
+		<key>oscillator2SegmentedControl</key>
+		<integer>0</integer>
+		<key>ampAttack</key>
 		<real>0.7</real>
-		<key>knob2value</key>
+		<key>ampDecay</key>
 		<real>0.8</real>
-		<key>knob3value</key>
+		<key>ampSustain</key>
 		<real>0.9</real>
-		<key>knob4value</key>
-		<real>1</real>
+		<key>ampRelease</key>
+		<integer>1</integer>
+		<key>filterCutoff</key>
+		<integer>1000</integer>
+		<key>filterResonance</key>
+		<real>0.5</real>
+		<key>filterAttack</key>
+		<real>0.7</real>
+		<key>filterDecay</key>
+		<real>0.8</real>
+		<key>filterSustain</key>
+		<real>0.9</real>
+		<key>filterRelease</key>
+		<integer>1</integer>
 	</dict>
 	<key>Preset 2020</key>
 	<dict>
-		<key>knob1value</key>
-		<real>0.2</real>
-		<key>knob2value</key>
+		<key>oscillator1SegmentedControl</key>
+		<integer>4</integer>
+		<key>oscillator2SegmentedControl</key>
+		<integer>0</integer>
+		<key>filterResonance</key>
 		<real>0.6</real>
-		<key>knob3value</key>
+		<key>filterCutoff</key>
+		<integer>4000</integer>
+		<key>ampAttack</key>
+		<real>0.2</real>
+		<key>ampDecay</key>
+		<real>0.6</real>
+		<key>ampSustain</key>
 		<real>0.8</real>
-		<key>knob4value</key>
+		<key>ampRelease</key>
 		<real>0.1</real>
+		<key>filterAttack</key>
+		<real>0.7</real>
+		<key>filterDecay</key>
+		<real>0.8</real>
+		<key>filterSustain</key>
+		<real>0.9</real>
+		<key>filterRelease</key>
+		<integer>1</integer>
 	</dict>
 	<key>PresetXXX</key>
 	<dict>
-		<key>knob1value</key>
+		<key>oscillator1SegmentedControl</key>
+		<integer>0</integer>
+		<key>oscillator2SegmentedControl</key>
+		<integer>5</integer>
+		<key>filterResonance</key>
+		<real>0.3</real>
+		<key>filterCutoff</key>
+		<integer>2000</integer>
+		<key>ampAttack</key>
 		<real>0</real>
-		<key>knob2value</key>
+		<key>ampDecay</key>
 		<real>0.06666666269302368</real>
-		<key>knob3value</key>
+		<key>ampSustain</key>
 		<real>0.1722221970558167</real>
-		<key>knob4value</key>
+		<key>ampRelease</key>
 		<real>0.2111110985279083</real>
+		<key>filterAttack</key>
+		<real>0.7</real>
+		<key>filterDecay</key>
+		<real>0.8</real>
+		<key>filterSustain</key>
+		<real>0.9</real>
+		<key>filterRelease</key>
+		<integer>1</integer>
 	</dict>
 </dict>
 </plist>
