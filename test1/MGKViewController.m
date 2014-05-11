@@ -111,6 +111,8 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
         sourcePointerArray[i] = &gravityX;
     }
     
+    // Hellåo
+    
     [self initKeyboardViewWithWidth:OCTAVE_WIDTH over:NUMBER_OF_OCTAVES];
     databaseHandler = [[DatabaseHandler alloc]initWithViewController:self];
     //NSLog(@"MYPRESETARRAY:: \n%@", databaseHandler.myPresetArray);
