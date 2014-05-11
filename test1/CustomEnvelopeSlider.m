@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 NTNU. All rights reserved.
 //
 
-#import "customEnvelopeSlider.h"
+#import "CustomEnvelopeSlider.h"
 
-@implementation customEnvelopeSlider
+@implementation CustomEnvelopeSlider
 
 - (id)initWithFrame:(CGRect)frame
 {

@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface customOscillatorSlider : UISlider
+@interface CustomOscillatorSlider : UISlider
 
 @end

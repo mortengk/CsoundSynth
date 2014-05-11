@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 NTNU. All rights reserved.
 //
 
-#import "customOscillatorSlider.h"
+#import "CustomOscillatorSlider.h"
 
-@implementation customOscillatorSlider
+@implementation CustomOscillatorSlider
 
 - (id)initWithFrame:(CGRect)frame
 {

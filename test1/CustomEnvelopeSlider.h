@@ -1,5 +1,5 @@
 //
-//  customEnvelopeSlider.h
+//  CustomEnvelopeSlider.h
 //  test1
 //
 //  Created by Morten Kleveland on 20.03.14.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface customEnvelopeSlider : UISlider
+@interface CustomEnvelopeSlider : UISlider
 
 @end
