@@ -236,10 +236,11 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
     //[self connectToHost];
 }
 
+
 - (void)initViews
 {
     // Placeholder view
-    UIView *placeholder = [[PlaceholderView alloc]initWithFrame:CGRectZero];
+    UIView *placeholder = [[UIView alloc]initWithFrame:CGRectZero];
     placeholder = [self.pView initWithFrame:CGRectZero];
     
     //LINE OF DOOM 1
@@ -344,6 +345,7 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
 
 
 #pragma mark KeyboardView
+
 - (void)initKeyboardViewWithWidth:(int)width over:(int)NUMBER_OF_OCTAVES {
     CGRect keyboardViewFrame;
     keyboardViewFrame.origin.x = 0;
@@ -362,6 +364,7 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
     [keyboardScrollView setTouchView:keyboardView];
 }
 
+
 - (void)noteOff:(int)keyNum {
     int midikey = keyNum;
 	//[mCsound sendScore:[NSString stringWithFormat:@"i-%@.%003d 0 0", CURRENT_INSTRUMENT_OSC1, midikey]];
@@ -374,6 +377,7 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
     }
 
 }
+
 
 - (void)noteOn:(int)keyNum {
     int midikey = keyNum;
@@ -393,6 +397,7 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
 
 }
 
+
 - (IBAction)scrollLockButton:(UISwitch*)sender {
     if ([keyboardScrollView isScrollEnabled]) {
         keyboardScrollView.scrollEnabled = NO;
@@ -401,6 +406,7 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
     }
     //NSLog(@"%@", NSStringFromCGPoint(keyboardScrollView.contentOffset));
 }
+
 
 - (IBAction)stepperPressed:(UIStepper*)sender {
     if (sender.value > lastStepperValue) {
@@ -412,6 +418,7 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
     }
 }
 
+
 - (IBAction)octaveDownButtonPressed:(UIButton *)sender {
     NSInteger currentXPosition = keyboardScrollView.contentOffset.x;
     if (currentXPosition <= OCTAVE_WIDTH) {
@@ -419,6 +426,7 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
     }
     keyboardScrollView.contentOffset = CGPointMake(currentXPosition - OCTAVE_WIDTH, 0);
 }
+
 
 - (IBAction)octaveUpButtonPressed:(UIButton *)sender {
     NSInteger currentXPosition = keyboardScrollView.contentOffset.x;
@@ -428,13 +436,17 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
     keyboardScrollView.contentOffset = CGPointMake(currentXPosition + OCTAVE_WIDTH, 0);
 }
 
+
 #pragma mark Csound
+
 - (void)csoundObjDidStart:(CsoundObj *)csoundObj {
 }
+
 
 - (void)csoundObjComplete:(CsoundObj *)csoundObj {
 	//[mSwitch setOn:NO animated:YES];
 }
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -443,12 +455,14 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
     // Dispose of any resources that can be recreated.
 }
 
+
 - (void)viewDidAppear:(BOOL)animated {
     NSIndexPath *indexPath=[NSIndexPath indexPathForRow:0 inSection:0];
     [self.myTable selectRowAtIndexPath:indexPath animated:YES  scrollPosition:UITableViewScrollPositionBottom];
     //[self initAudiobus];
 
 }
+
 
 - (void)updateCsoundValues
 {
@@ -483,6 +497,7 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
     [v5.reverbView.reverbMixKnob sendActionsForControlEvents:UIControlEventValueChanged];
 }
 
+
 #pragma mark Motion methods
 
 - (void)initControlSources
@@ -497,6 +512,7 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
         [controlSources setObject:num atIndexedSubscript:i];
     }
 }
+
 
 - (void)initTableViewDictionaries
 {
@@ -571,10 +587,12 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
     }
 }
 
+
 - (void)stopMotionManager
 {
     motionManager = nil;
 }
+
 
 - (void)updateDestinationSourceValues
 {
@@ -637,6 +655,7 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
     }
 }
 
+
 - (void)modMatrixDestinationUpdated:(NSNotification*)notification
 {
     int destinationIndex = 0;
@@ -695,6 +714,7 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
     NSLog(@"%@", newMessage);
 }
 
+
 - (void)messageCallback:(NSValue *)infoObj
 {
     @autoreleasepool {
@@ -709,9 +729,11 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
     }
 }
 
+
 - (void)filterTypeChanged
 {
 }
+
 
 #pragma mark MIDI
 
@@ -731,6 +753,7 @@ static void CheckError(OSStatus error, const char *operation) {
     
     exit(1);
 }
+
 
 -(void)connectToHost {
     MIDINetworkHost *host = [MIDINetworkHost hostWithName:@"MyMIDIWifi"
@@ -768,6 +791,7 @@ static void CheckError(OSStatus error, const char *operation) {
 
 }
 
+
 -(void)sendStatus:(Byte)status data1:(Byte)data1 data2:(Byte)data2 {
     MIDIPacketList packetList;
     
@@ -781,6 +805,7 @@ static void CheckError(OSStatus error, const char *operation) {
     CheckError(MIDISend(self.outputPort, self.destinationEndPoint, &packetList), "Kunne ikke sende MIDI-pakkelista");
 }
 
+
 - (void)initMidi
 {
     midiConnection = [[PGMidi alloc]init];
@@ -789,34 +814,41 @@ static void CheckError(OSStatus error, const char *operation) {
     [midiConnection setVirtualEndpointName:@"MyApp"];
 }
 
+
 -(void)sendNoteOnEvent:(Byte)key velocity:(Byte)velocity {
     [self sendStatus:0x90 data1:key & 0x7F data2:velocity & 0x7F];
 }
 
+
 -(void)sendNoteOffEvent:(Byte)key velocity:(Byte)velocity {
     [self sendStatus:0x80 data1:key & 0x7F data2:velocity & 0x7F];
 }
+
 
 -(IBAction)handleKeyDown:(id)sender {
     NSInteger note = [sender tag];
     [self sendNoteOnEvent:(Byte)note velocity:127];
 }
 
+
 -(IBAction)handleKeyUp:(id)sender {
     NSInteger note = [sender tag];
     [self sendNoteOffEvent:(Byte)note velocity:127];
 }
+
 
 - (IBAction)showSoundfontPresets:(UIButton *)sender
 {
     [mCsound sendScore:[NSString stringWithFormat:@"i400 0 0"]];
 }
 
+
 - (void)changeSoundfontInstrumentTo:(NSString*)numberString
 {
     int number = [numberString intValue];
     [mCsound sendScore:[NSString stringWithFormat:@"i401 0 0 %i", number]];
 }
+
 
 - (void)initOscillatorTouchRecognizers {
     
@@ -851,6 +883,7 @@ static void CheckError(OSStatus error, const char *operation) {
     //[doubleTapRecognizer requireGestureRecognizerToFail:tripleTapRecognizer];
 
 }
+
 
 //The event handling method for OscillatorView
 - (void)handleDoubleTapOnOscSlider:(UITapGestureRecognizer *)recognizer {
@@ -902,7 +935,7 @@ static void CheckError(OSStatus error, const char *operation) {
 
 
 - (IBAction)presetButtonPressed:(id)sender {
-    self.vc2.vc1 = self;
+    self.presetViewController.mainViewController = self;
     NSLog(@"\n%@", self.presetButton.titleLabel.text);
 }
 
@@ -912,19 +945,20 @@ static void CheckError(OSStatus error, const char *operation) {
     // Make sure your segue name in storyboard is the same as this line
     if ([[segue identifier] isEqualToString:@"presetSegue"]) {
         // Get reference to the destination view controller
-        self.vc2 = [segue destinationViewController];
-        self.vc2.vc1 = self;
+        self.presetViewController = [segue destinationViewController];
+        self.presetViewController.mainViewController = self;
         NSLog(@"\nAddress from main view controller: %@", self);
 
         // Pass any objects to the view controller here, like...
         //[vc setMyObjectHere:object];
     } else if ([[segue identifier] isEqualToString:@"soundfontSegue"]) {
         self.soundfontViewController = [segue destinationViewController];
-        self.soundfontViewController.vc1 = self;
+        self.soundfontViewController.mainViewController = self;
     } else if ([[segue identifier] isEqualToString:@"recordingSegue"]) {
 
     }
 }
+
 
 - (void)record
 {
@@ -958,9 +992,7 @@ static void CheckError(OSStatus error, const char *operation) {
         isRecording = NO;
     }
     NSLog(@"%hhd", isRecording);
-
 }
-
 
 
 - (IBAction)polyphonySwitch:(id)sender {
@@ -972,10 +1004,32 @@ static void CheckError(OSStatus error, const char *operation) {
     isPolyphonic = !isPolyphonic;
 }
 
+
 - (void)myTestMethod {
     NSLog(@"hei");
 }
 
+
+- (NSMutableDictionary*)getDictOfCurrentParameters
+{
+    NSMutableDictionary* currentValues = [[NSMutableDictionary alloc]init];
+    [currentValues setValue:[NSNumber numberWithFloat:self.v1.envView.ampEnvelopeView.ampAttackKnob.value] forKey:@"ampAttack"];
+    [currentValues setValue:[NSNumber numberWithFloat:self.v1.envView.ampEnvelopeView.ampDecayKnob.value] forKey:@"ampDecay"];
+    [currentValues setValue:[NSNumber numberWithFloat:self.v1.envView.ampEnvelopeView.ampSustainKnob.value] forKey:@"ampSustain"];
+    [currentValues setValue:[NSNumber numberWithFloat:self.v1.envView.ampEnvelopeView.ampReleaseKnob.value] forKey:@"ampRelease"];
+    [currentValues setValue:[NSNumber numberWithFloat:self.v1.filterView.filterCutoffKnob.value] forKey:@"filterCutoff"];
+    [currentValues setValue:[NSNumber numberWithFloat:self.v1.filterView.filterResonanceKnob.value] forKey:@"filterResonance"];
+    [currentValues setValue:[NSNumber numberWithFloat:self.v1.envView.filterEnvelopeView.filterAttackKnob.value] forKey:@"filterAttack"];
+    [currentValues setValue:[NSNumber numberWithFloat:self.v1.envView.filterEnvelopeView.filterDecayKnob.value] forKey:@"filterDecay"];
+    [currentValues setValue:[NSNumber numberWithFloat:self.v1.envView.filterEnvelopeView.filterSustainKnob.value] forKey:@"filterSustain"];
+    [currentValues setValue:[NSNumber numberWithFloat:self.v1.envView.filterEnvelopeView.filterReleaseKnob.value] forKey:@"filterRelease"];
+    
+    //    [currentValues setValue:[NSNumber numberWithInt:self.vc.v1.oscillator1SegmentedControl.selectedSegmentIndex] forKey:@"oscillator1SegmentedControl"];
+    //    [currentValues setValue:[NSNumber numberWithInt:self.vc.v1.oscillator2SegmentedControl.selectedSegmentIndex] forKey:@"oscillator2SegmentedControl"];
+    
+    NSLog(@"MGKViewController:\n%@, View: %@", currentValues, self.v1);
+    return currentValues;
+}
 
 
 @end

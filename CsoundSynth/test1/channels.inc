@@ -1,2 +1,0 @@
-
-prints "Jaja!\n"

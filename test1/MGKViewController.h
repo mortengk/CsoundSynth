@@ -8,7 +8,6 @@
 
 #import "DatabaseHandler.h"
 #import <UIKit/UIKit.h>
-#import "PlaceholderView.h"
 #import "KeyboardView.h"
 #import "View1.h"
 #import "View2.h"
@@ -20,16 +19,15 @@
 #import "PGMidi.h"
 #import "MGKPresetViewController.h"
 #import "MGKSoundfontSelectionViewController.h"
-
 #import <AVFoundation/AVFoundation.h>
 
 
 @class TouchForwardingUIScrollView;
-@class DatabaseHandler;
 @class View4;
 @class PresetView;
 @class MGKPresetViewController;
 @class MGKSoundfontSelectionViewController;
+@class DatabaseHandler;
 
 @interface MGKViewController : UIViewController <KeyboardDelegate, CsoundObjCompletionListener, AVAudioPlayerDelegate> {
     CsoundObj* mCsound;
@@ -42,15 +40,14 @@
 @property (nonatomic, strong) CsoundObj* csound;
 @property (nonatomic, strong) MidiWidgetsManager* widgetsManager;
 @property (nonatomic) BOOL isPolyphonic;
-- (IBAction)polyphonySwitch:(id)sender;
 
+- (IBAction)polyphonySwitch:(id)sender;
 - (void)updateCsoundValues;
 - (void)noteOn:(int)note;
 - (void)noteOff:(int)note;
 
 
 // Midi
-
 @property (nonatomic, strong) PGMidi *midiConnection;
 
 
@@ -71,11 +68,13 @@
 @property (nonatomic, strong) NSMutableArray* controlDestinations;
 @property (nonatomic, strong) NSMutableArray* controlSources;
 
+
 // Soundfont
 - (IBAction)showSoundfontPresets:(UIButton *)sender;
 
+
 // GUI
-@property (nonatomic, retain) IBOutlet PlaceholderView *pView;
+@property (nonatomic, retain) IBOutlet UIView *pView;
 @property (nonatomic, retain) IBOutlet UIScrollView *keyboardScrollView;
 @property (nonatomic, weak) IBOutlet UITableView *myTable;
 @property (weak, nonatomic) IBOutlet UIStepper *stepper;
@@ -99,14 +98,16 @@
 
 // Database
 @property (nonatomic, strong) DatabaseHandler* databaseHandler;
-
 @property (nonatomic, strong) NSMutableArray* myTestArray;
+
 - (void)myTestMethod;
+- (NSMutableDictionary*)getDictOfCurrentParameters;
 
 
-@property (strong, nonatomic) MGKPresetViewController* vc2;
+@property (strong, nonatomic) MGKPresetViewController* presetViewController;
 @property (strong, nonatomic) MGKSoundfontSelectionViewController* soundfontViewController;
 @property (nonatomic, strong) NSString* selectedPreset;
+
 - (void)changeSoundfontInstrumentTo:(NSString*)numberString;
 
 @end

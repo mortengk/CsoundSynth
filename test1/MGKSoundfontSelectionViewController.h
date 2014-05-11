@@ -11,7 +11,6 @@
 
 @interface MGKSoundfontSelectionViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, strong) MGKViewController* vc1;
-@property (nonatomic, weak) IBOutlet UITableView *myTable;
+@property (nonatomic, strong) MGKViewController* mainViewController;
 
 @end

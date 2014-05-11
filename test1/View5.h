@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "MGKRotaryKnob.h"
-#import "PlaceholderView.h"
 #import "DistortionView.h"
 #import "PhaserView.h"
 #import "ReverbView.h"
@@ -19,9 +18,9 @@
 @property (nonatomic, retain) DistortionView* distortionView;
 @property (nonatomic, retain) PhaserView* phaserView;
 @property (nonatomic, retain) ReverbView* reverbView;
-@property (weak, nonatomic) IBOutlet PlaceholderView *distortionPlaceholder;
-@property (weak, nonatomic) IBOutlet PlaceholderView *phaserPlaceholder;
-@property (weak, nonatomic) IBOutlet PlaceholderView *reverbPlaceholder;
+@property (weak, nonatomic) IBOutlet UIView *distortionPlaceholder;
+@property (weak, nonatomic) IBOutlet UIView *phaserPlaceholder;
+@property (weak, nonatomic) IBOutlet UIView *reverbPlaceholder;
 
 
 @end

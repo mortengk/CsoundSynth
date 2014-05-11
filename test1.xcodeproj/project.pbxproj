@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5A02581518CFC3E300A951FD /* lfo.inc in Resources */ = {isa = PBXBuildFile; fileRef = 5A02581318CFC3D800A951FD /* lfo.inc */; };
+		5A04618F191F95D900C62735 /* CustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A04618E191F95D900C62735 /* CustomCell.xib */; };
 		5A04C29718DB7958002EDD3F /* OscillatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A04C29618DB7958002EDD3F /* OscillatorView.m */; };
 		5A04C29918DB7A00002EDD3F /* OscillatorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A04C29818DB7A00002EDD3F /* OscillatorView.xib */; };
 		5A04C29B18DB9B09002EDD3F /* LFOView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A04C29A18DB9B09002EDD3F /* LFOView.xib */; };
@@ -39,7 +40,6 @@
 		5A54B46C188FF2240083FFDD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5A54B46A188FF2240083FFDD /* InfoPlist.strings */; };
 		5A54B46E188FF2240083FFDD /* test1Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A54B46D188FF2240083FFDD /* test1Tests.m */; };
 		5A54B478188FF2C50083FFDD /* View1.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A54B477188FF2C50083FFDD /* View1.xib */; };
-		5A54B47D188FF6F40083FFDD /* PlaceholderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A54B47C188FF6F40083FFDD /* PlaceholderView.m */; };
 		5A54B480189034920083FFDD /* View1.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A54B47F189034920083FFDD /* View1.m */; };
 		5A54B48318904DFB0083FFDD /* View2.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A54B48218904DFB0083FFDD /* View2.m */; };
 		5A54B48518904E320083FFDD /* View2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A54B48418904E320083FFDD /* View2.xib */; };
@@ -88,7 +88,6 @@
 		5AAFDB03189F0E0E007BE1D5 /* metal1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5AAFDB02189F0E0E007BE1D5 /* metal1.jpg */; };
 		5AAFDB05189FE972007BE1D5 /* PresetView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AAFDB04189FE972007BE1D5 /* PresetView.xib */; };
 		5AAFDB08189FE986007BE1D5 /* PresetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AAFDB07189FE986007BE1D5 /* PresetView.m */; };
-		5AAFDB1018A0009D007BE1D5 /* CustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AAFDB0F18A0009D007BE1D5 /* CustomCell.xib */; };
 		5AAFDB1318A000BB007BE1D5 /* CustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AAFDB1218A000BB007BE1D5 /* CustomCell.m */; };
 		5AAFDB1518A176B4007BE1D5 /* defaultPresets.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5AAFDB1418A176B4007BE1D5 /* defaultPresets.plist */; };
 		5AAFDB2418A3E719007BE1D5 /* KeyboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AAFDB1918A3E719007BE1D5 /* KeyboardView.m */; };
@@ -179,6 +178,7 @@
 
 /* Begin PBXFileReference section */
 		5A02581318CFC3D800A951FD /* lfo.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.pascal; path = lfo.inc; sourceTree = "<group>"; };
+		5A04618E191F95D900C62735 /* CustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomCell.xib; sourceTree = "<group>"; };
 		5A04C29518DB7958002EDD3F /* OscillatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OscillatorView.h; sourceTree = "<group>"; };
 		5A04C29618DB7958002EDD3F /* OscillatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OscillatorView.m; sourceTree = "<group>"; };
 		5A04C29818DB7A00002EDD3F /* OscillatorView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OscillatorView.xib; sourceTree = "<group>"; };
@@ -221,8 +221,6 @@
 		5A54B46B188FF2240083FFDD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5A54B46D188FF2240083FFDD /* test1Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = test1Tests.m; sourceTree = "<group>"; };
 		5A54B477188FF2C50083FFDD /* View1.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = View1.xib; sourceTree = "<group>"; };
-		5A54B47B188FF6F40083FFDD /* PlaceholderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaceholderView.h; path = ../PlaceholderView.h; sourceTree = "<group>"; };
-		5A54B47C188FF6F40083FFDD /* PlaceholderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaceholderView.m; path = ../PlaceholderView.m; sourceTree = "<group>"; };
 		5A54B47E189034920083FFDD /* View1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = View1.h; sourceTree = "<group>"; };
 		5A54B47F189034920083FFDD /* View1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = View1.m; sourceTree = "<group>"; };
 		5A54B48118904DFB0083FFDD /* View2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = View2.h; sourceTree = "<group>"; };
@@ -302,7 +300,6 @@
 		5AAFDB04189FE972007BE1D5 /* PresetView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PresetView.xib; sourceTree = "<group>"; };
 		5AAFDB06189FE986007BE1D5 /* PresetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresetView.h; sourceTree = "<group>"; };
 		5AAFDB07189FE986007BE1D5 /* PresetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresetView.m; sourceTree = "<group>"; };
-		5AAFDB0F18A0009D007BE1D5 /* CustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CustomCell.xib; path = ../CustomCell.xib; sourceTree = "<group>"; };
 		5AAFDB1118A000BB007BE1D5 /* CustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCell.h; sourceTree = "<group>"; };
 		5AAFDB1218A000BB007BE1D5 /* CustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCell.m; sourceTree = "<group>"; };
 		5AAFDB1418A176B4007BE1D5 /* defaultPresets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = defaultPresets.plist; sourceTree = "<group>"; };
@@ -540,8 +537,6 @@
 				5A87B01418C6826800649083 /* PGMidi.h */,
 				5A87B01518C6826800649083 /* PGMidi.mm */,
 				5A87B01718C6870A00649083 /* PGArc.h */,
-				5A54B47B188FF6F40083FFDD /* PlaceholderView.h */,
-				5A54B47C188FF6F40083FFDD /* PlaceholderView.m */,
 				5AA66D3F18EEAAF6002E18CD /* Audiobus */,
 				5AAFDB7818A3FBEF007BE1D5 /* Synth engine */,
 				5A54B492189058210083FFDD /* Views */,
@@ -702,7 +697,7 @@
 				5AAFDB04189FE972007BE1D5 /* PresetView.xib */,
 				5AAFDB1118A000BB007BE1D5 /* CustomCell.h */,
 				5AAFDB1218A000BB007BE1D5 /* CustomCell.m */,
-				5AAFDB0F18A0009D007BE1D5 /* CustomCell.xib */,
+				5A04618E191F95D900C62735 /* CustomCell.xib */,
 			);
 			name = PresetView;
 			sourceTree = "<group>";
@@ -1029,6 +1024,7 @@
 				5AF33A0518970A080079CD74 /* Knob Highlighted.png in Resources */,
 				5AF33A0318970A080079CD74 /* Knob Disabled.png in Resources */,
 				5AAFDB03189F0E0E007BE1D5 /* metal1.jpg in Resources */,
+				5A04618F191F95D900C62735 /* CustomCell.xib in Resources */,
 				5A87B00B18C5FFA100649083 /* PlainOscillator1View.xib in Resources */,
 				5AA9BE6B18E96B8300F3A630 /* waveformsSineOn.png in Resources */,
 				5A04C2A518DBAAF4002EDD3F /* background_grey@2x.png in Resources */,
@@ -1063,7 +1059,6 @@
 				5ACEA17818DCA38800135C4F /* envelopeSliderBackground@2x.png in Resources */,
 				5AB5CAC618DA25F400D5F57C /* oscillatorSlider@2x.png in Resources */,
 				5ABF31D018E609D200E317F5 /* PitchEnvelopeView.xib in Resources */,
-				5AAFDB1018A0009D007BE1D5 /* CustomCell.xib in Resources */,
 				5AAE609E18DF0B7400AB39BF /* knobMedium@2x.png in Resources */,
 				5AC7A3B818B6E0A100280C4B /* leather.png in Resources */,
 				5AF33A0718970A080079CD74 /* Knob.png in Resources */,
@@ -1136,7 +1131,6 @@
 				5A87B01618C6826800649083 /* PGMidi.mm in Sources */,
 				5AAFDB6C18A3FA05007BE1D5 /* CachedAttitude.m in Sources */,
 				5A54B48318904DFB0083FFDD /* View2.m in Sources */,
-				5A54B47D188FF6F40083FFDD /* PlaceholderView.m in Sources */,
 				5AAFDB8218A5147E007BE1D5 /* ConsoleView.m in Sources */,
 				5AAFDB6B18A3FA05007BE1D5 /* CachedAccelerometer.m in Sources */,
 				5AAFDB6D18A3FA05007BE1D5 /* CachedButton.m in Sources */,
