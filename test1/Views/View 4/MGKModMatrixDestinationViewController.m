@@ -43,9 +43,6 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSLog(@"array: %@", destinationArray);
-
-    NSLog(@"NUmber of destinations: %lu", (unsigned long)[self.destinationArray count]);
     return (unsigned long)[self.destinationArray count];
 }
 

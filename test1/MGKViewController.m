@@ -83,6 +83,10 @@ NSString* phaserSpeedString = @"Phaser speed";
 @synthesize controlDestinations;
 @synthesize controlSources;
 
+// Soundfont
+@synthesize soundfontSelectionViewController;
+@synthesize soundfontPopoverController;
+
 // Audiobus
 @synthesize audiobusController = _audiobusController;
 @synthesize output = _output;
@@ -94,6 +98,7 @@ NSString* phaserSpeedString = @"Phaser speed";
 @synthesize outputPort;
 @synthesize midiConnection;
 
+int NUMBER_OF_OSCILLATORS = 5;
 int OCTAVE_WIDTH = 500;
 int NUMBER_OF_OCTAVES = 8;
 float lastStepperValue = 0;
@@ -907,7 +912,6 @@ static void CheckError(OSStatus error, const char *operation) {
         return;
     }
     
-    int NUMBER_OF_OSCILLATORS = 5;
     double relativeXPositionInSubview = location.x - subview.frame.origin.x;
     double subviewWidth = subview.frame.size.width;
     
@@ -930,7 +934,44 @@ static void CheckError(OSStatus error, const char *operation) {
 
 - (void)handleTripleTapOnOscSlider:(UITapGestureRecognizer *)recognizer
 {
-    NSLog(@"Triple tap");
+    UISlider* slider;
+    UIView* subview;
+    CGPoint location = [recognizer locationInView:recognizer.view];
+    
+    // Get correct oscillator tap (or return direct if double tap is outside both subview)
+    if (CGRectContainsPoint(v1.oscView.oscillator1HiddenSubviewTouchRecognization.frame, location)) {
+        NSLog(@"Triple tap in osc1slider registered!");
+        slider = v1.oscView.oscillator1Slider;
+        subview = v1.oscView.oscillator1HiddenSubviewTouchRecognization;
+    } else if(CGRectContainsPoint(v1.oscView.oscillator2HiddenSubviewTouchRecognization.frame, location)) {
+        NSLog(@"Triple tap in osc2slider registered!");
+        slider = v1.oscView.oscillator2Slider;
+        subview = v1.oscView.oscillator2HiddenSubviewTouchRecognization;
+    } else {
+        return;
+    }
+    
+    double relativeXPositionInSubview = location.x - subview.frame.origin.x;
+    double subviewWidth = subview.frame.size.width;
+    
+    if (relativeXPositionInSubview > subviewWidth*4/NUMBER_OF_OSCILLATORS && relativeXPositionInSubview < subviewWidth*5/NUMBER_OF_OSCILLATORS) {
+        NSLog(@"Hei!");
+        [self openDestinationPopoverControllerFromSlider:slider withDictionaryKey:@"123"];
+    }
+}
+
+- (void)openDestinationPopoverControllerFromSlider:(UISlider*)sender withDictionaryKey:(NSString*)dictionaryKey
+{
+    soundfontSelectionViewController = [[MGKSoundfontSelectionViewController alloc] initWithNibName:@"MGKSoundfontSelectionViewController" bundle:nil];
+    //destViewController.dictionaryKey = dictionaryKey;
+    soundfontPopoverController = [[UIPopoverController alloc] initWithContentViewController:soundfontSelectionViewController];
+    soundfontPopoverController.delegate = self;
+    soundfontPopoverController.popoverContentSize = CGSizeMake(300, 400);
+    
+    CGRect correctPopoverPosition = sender.frame;
+    correctPopoverPosition.origin.x += 127; // This number is just a hack.
+    [soundfontPopoverController presentPopoverFromRect:correctPopoverPosition inView:self.v1.oscView permittedArrowDirections: UIPopoverArrowDirectionUp | UIPopoverArrowDirectionRight animated:YES];
+    //destViewController.destinationArray = destinationArray;
 }
 
 

@@ -29,7 +29,7 @@
 @class MGKSoundfontSelectionViewController;
 @class DatabaseHandler;
 
-@interface MGKViewController : UIViewController <KeyboardDelegate, CsoundObjCompletionListener, AVAudioPlayerDelegate> {
+@interface MGKViewController : UIViewController <KeyboardDelegate, CsoundObjCompletionListener, AVAudioPlayerDelegate, UIPopoverControllerDelegate> {
     CsoundObj* mCsound;
     @private
     TouchForwardingUIScrollView* keyboardScrollView;
@@ -70,6 +70,9 @@
 
 
 // Soundfont
+@property (nonatomic, strong) MGKSoundfontSelectionViewController* soundfontSelectionViewController;
+@property (strong, nonatomic) UIPopoverController *soundfontPopoverController;
+
 - (IBAction)showSoundfontPresets:(UIButton *)sender;
 
 

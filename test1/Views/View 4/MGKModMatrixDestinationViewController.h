@@ -18,5 +18,4 @@
 @property (strong, nonatomic) UIButton *button;
 @property (nonatomic, strong) NSString *dictionaryKey;
 
-
 @end

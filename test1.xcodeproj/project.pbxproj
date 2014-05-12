@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5A4BBC311920C75F0064072C /* MGKSoundfontSelectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A4BBC301920C75F0064072C /* MGKSoundfontSelectionViewController.xib */; };
 		5A54B443188FF2240083FFDD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A54B442188FF2240083FFDD /* Foundation.framework */; };
 		5A54B445188FF2240083FFDD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A54B444188FF2240083FFDD /* CoreGraphics.framework */; };
 		5A54B447188FF2240083FFDD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A54B446188FF2240083FFDD /* UIKit.framework */; };
@@ -175,6 +176,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5A4BBC301920C75F0064072C /* MGKSoundfontSelectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MGKSoundfontSelectionViewController.xib; sourceTree = "<group>"; };
 		5A54B43F188FF2240083FFDD /* test1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = test1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A54B442188FF2240083FFDD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		5A54B444188FF2240083FFDD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -525,6 +527,7 @@
 				5AF339F71897083B0079CD74 /* MGKRotaryKnob.m */,
 				5A9969DE1901C77800A08BAA /* MGKSoundfontSelectionViewController.h */,
 				5A9969DF1901C77800A08BAA /* MGKSoundfontSelectionViewController.m */,
+				5A4BBC301920C75F0064072C /* MGKSoundfontSelectionViewController.xib */,
 				5A54B457188FF2240083FFDD /* MGKViewController.h */,
 				5A54B458188FF2240083FFDD /* MGKViewController.m */,
 				5A87B01418C6826800649083 /* PGMidi.h */,
@@ -1014,6 +1017,7 @@
 				5A920F86192031AE002AD8CB /* View3.xib in Resources */,
 				5A921026192035B4002AD8CB /* Knob Disabled@2x.png in Resources */,
 				5A921013192035B4002AD8CB /* background_grey@2x.png in Resources */,
+				5A4BBC311920C75F0064072C /* MGKSoundfontSelectionViewController.xib in Resources */,
 				5A921020192035B4002AD8CB /* filterSelectorHPon.png in Resources */,
 				5A921040192035B4002AD8CB /* waveformsSineOff.png in Resources */,
 				5A921014192035B4002AD8CB /* backgroundView1.png in Resources */,
