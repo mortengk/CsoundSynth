@@ -14,6 +14,7 @@
 @synthesize lfoFreqKnob;
 @synthesize lfoDelayKnob;
 @synthesize lfoSegmentedControl;
+@synthesize lfoAmpPlaceholder;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -29,7 +30,7 @@
         lfoAmpKnob = [[MGKRotaryKnob alloc]initWithFrame:self.lfoAmpPlaceholder.bounds];
         self.lfoAmpPlaceholder.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"blank_image"]];
         [self.lfoAmpPlaceholder addSubview:self.lfoAmpKnob];
-        [self.view addSubview:self.lfoAmpPlaceholder];
+        [self.view addSubview:lfoAmpPlaceholder];
         self.lfoAmpKnob.defaultValue = 0.01;
         self.lfoAmpKnob.minimumValue = 0;
         self.lfoAmpKnob.maximumValue = 1;

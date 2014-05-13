@@ -15,8 +15,8 @@ kFltrCutoffPort	portk 	kCutoff, .01
 ; Lowpass filter
 if (gkFilterType == 0) then 
 	aFiltered	lpf18 aTempL, kFltrCutoffPort, gkFilterRes*.98, 0
+	;aFiltered 	moogladder aTempL, kFltrCutoffPort, gkFilterRes*.98, 5000000
 	aFiltered	balance aFiltered, (aTempL)
-	;aL 			moogladder a1L + a2L, kCutoff, kFltrResWthPort*.98, 5000000
 	;aL 			butterlp a1L + a2L, kCutoff
 ;	aR 			moogladder a1R + a2R, kCutoff, kFltrResWthPort*.98
 ; Highpass filter

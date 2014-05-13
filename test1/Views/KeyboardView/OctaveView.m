@@ -48,7 +48,7 @@ static const int kBlackKey2Count = sizeof(kBlackKey2Numbers) / sizeof(int);
     
     // Add two black keys for C# and D#
     keyFrame.origin.x = kBlackKeyOffset * keyFrame.size.width;
-      keyFrame.origin.y += 6;
+      keyFrame.origin.y -= 5;
     keyFrame.size.height = kBlackKeyHeightScale * frame.size.height + 3;
     for (int i = 0; i < kBlackKey1Count; ++i) {
       BlackKeyView* key =

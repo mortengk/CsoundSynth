@@ -83,9 +83,15 @@ NSString* phaserSpeedString = @"Phaser speed";
 @synthesize controlDestinations;
 @synthesize controlSources;
 
-// Soundfont
-@synthesize soundfontSelectionViewController;
+// Soundfont-popover
+@synthesize soundfontOscillator1SelectionViewController;
+@synthesize soundfontOscillator2SelectionViewController;
 @synthesize soundfontPopoverController;
+
+// FM-popover
+@synthesize FMOscillator1SelectionViewController;
+@synthesize FMOscillator2SelectionViewController;
+@synthesize FMPopoverController;
 
 // Audiobus
 @synthesize audiobusController = _audiobusController;
@@ -108,15 +114,12 @@ NSInteger CURRENT_INSTRUMENT_OSC1_INT;
 double CURRENT_INSTRUMENT_OSC1_NUMBER;
 NSInteger CURRENT_INSTRUMENT_OSC2_INT;
 
-
 - (void)viewDidLoad
 {
     sourceTable1Pointer = &gravityX;
     for (int i = 0; i < 8; i++) {
         sourcePointerArray[i] = &gravityX;
     }
-    
-    // Hellåo
     
     [self initKeyboardViewWithWidth:OCTAVE_WIDTH over:NUMBER_OF_OCTAVES];
     databaseHandler = [[DatabaseHandler alloc]initWithViewController:self];
@@ -125,6 +128,7 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
     [self startMotionManager];
     [self initControlSources];
     [self initViews];
+    [self initPopoverViewControllersAndKnobs];
     [self initTableViewDictionaries];
     [self initOscillatorTouchRecognizers];
     //[self initMidi];
@@ -239,8 +243,10 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
 //    NSLog(@"%@", [self getSoundfontPresets:soundfontURL]);
     
     //[self connectToHost];
+    [self polyphonySwitch:nil];
+    self.polyphonySwitcher.on = NO;
+    
 }
-
 
 - (void)initViews
 {
@@ -281,7 +287,6 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
         v1.alpha = 1.0;
     } completion:nil];
 }
-
 
 - (void)segmentedControlPressed:(UISegmentedControl*)sender
 {
@@ -327,7 +332,6 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
     }
 }
 
-
 - (void)initAudiobus
 {
     // Create an Audiobus instance
@@ -351,7 +355,8 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
 
 #pragma mark KeyboardView
 
-- (void)initKeyboardViewWithWidth:(int)width over:(int)NUMBER_OF_OCTAVES {
+- (void)initKeyboardViewWithWidth:(int)width over:(int)NUMBER_OF_OCTAVES
+{
     CGRect keyboardViewFrame;
     keyboardViewFrame.origin.x = 0;
     keyboardViewFrame.origin.y = 0;
@@ -369,8 +374,8 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
     [keyboardScrollView setTouchView:keyboardView];
 }
 
-
-- (void)noteOff:(int)keyNum {
+- (void)noteOff:(int)keyNum
+{
     int midikey = keyNum;
 	//[mCsound sendScore:[NSString stringWithFormat:@"i-%@.%003d 0 0", CURRENT_INSTRUMENT_OSC1, midikey]];
     //[mCsound sendScore:[NSString stringWithFormat:@"i-%@.%003d 0 0", CURRENT_INSTRUMENT_OSC2, midikey]];
@@ -380,11 +385,10 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
     } else {
         [mCsound sendScore:[NSString stringWithFormat:@"i-2.%003d 0 0", midikey]];
     }
-
 }
 
-
-- (void)noteOn:(int)keyNum {
+- (void)noteOn:(int)keyNum
+{
     int midikey = keyNum;
     // NSInteger note = midikey;
     //[self sendNoteOnEvent:(Byte)note velocity:127];
@@ -399,11 +403,10 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
 
         [mCsound sendScore:[NSString stringWithFormat:@"i2.%003d 0 -2 %d 0", midikey, midikey]];
     }
-
 }
 
-
-- (IBAction)scrollLockButton:(UISwitch*)sender {
+- (IBAction)scrollLockButton:(UISwitch*)sender
+{
     if ([keyboardScrollView isScrollEnabled]) {
         keyboardScrollView.scrollEnabled = NO;
     } else {
@@ -412,8 +415,8 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
     //NSLog(@"%@", NSStringFromCGPoint(keyboardScrollView.contentOffset));
 }
 
-
-- (IBAction)stepperPressed:(UIStepper*)sender {
+- (IBAction)stepperPressed:(UIStepper*)sender
+{
     if (sender.value > lastStepperValue) {
         [self octaveUpButtonPressed:nil];
         lastStepperValue++;
@@ -423,8 +426,8 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
     }
 }
 
-
-- (IBAction)octaveDownButtonPressed:(UIButton *)sender {
+- (IBAction)octaveDownButtonPressed:(UIButton *)sender
+{
     NSInteger currentXPosition = keyboardScrollView.contentOffset.x;
     if (currentXPosition <= OCTAVE_WIDTH) {
         currentXPosition = OCTAVE_WIDTH;
@@ -432,8 +435,8 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
     keyboardScrollView.contentOffset = CGPointMake(currentXPosition - OCTAVE_WIDTH, 0);
 }
 
-
-- (IBAction)octaveUpButtonPressed:(UIButton *)sender {
+- (IBAction)octaveUpButtonPressed:(UIButton *)sender
+{
     NSInteger currentXPosition = keyboardScrollView.contentOffset.x;
     if (currentXPosition + OCTAVE_WIDTH >= OCTAVE_WIDTH * NUMBER_OF_OCTAVES - keyboardScrollView.bounds.size.width) {
         currentXPosition = OCTAVE_WIDTH * NUMBER_OF_OCTAVES - keyboardScrollView.bounds.size.width - OCTAVE_WIDTH;
@@ -444,11 +447,13 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
 
 #pragma mark Csound
 
-- (void)csoundObjDidStart:(CsoundObj *)csoundObj {
+- (void)csoundObjDidStart:(CsoundObj *)csoundObj
+{
 }
 
 
-- (void)csoundObjComplete:(CsoundObj *)csoundObj {
+- (void)csoundObjComplete:(CsoundObj *)csoundObj
+{
 	//[mSwitch setOn:NO animated:YES];
 }
 
@@ -461,11 +466,11 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
 }
 
 
-- (void)viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated
+{
     NSIndexPath *indexPath=[NSIndexPath indexPathForRow:0 inSection:0];
     [self.myTable selectRowAtIndexPath:indexPath animated:YES  scrollPosition:UITableViewScrollPositionBottom];
     //[self initAudiobus];
-
 }
 
 
@@ -518,7 +523,6 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
     }
 }
 
-
 - (void)initTableViewDictionaries
 {
     // This method initiates what we see in the UITableViews in view4.
@@ -559,7 +563,6 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
     self.v4.destViewController.destinationArray = tempDestinationArray;
 }
 
-
 - (void)startMotionManager
 {
     if (motionManager) {
@@ -592,12 +595,10 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
     }
 }
 
-
 - (void)stopMotionManager
 {
     motionManager = nil;
 }
-
 
 - (void)updateDestinationSourceValues
 {
@@ -613,7 +614,6 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
     }
     [self updateCsoundValues];
 }
-
 
 - (void)modMatrixSourceUpdated:(NSNotification*)notification
 {
@@ -659,7 +659,6 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
         [controlSources replaceObjectAtIndex:sourceIndex withObject:[NSNull null]];
     }
 }
-
 
 - (void)modMatrixDestinationUpdated:(NSNotification*)notification
 {
@@ -734,7 +733,6 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
     }
 }
 
-
 - (void)filterTypeChanged
 {
 }
@@ -742,7 +740,8 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
 
 #pragma mark MIDI
 
-static void CheckError(OSStatus error, const char *operation) {
+static void CheckError(OSStatus error, const char *operation)
+{
     if(error == noErr) return;
     
     char errorString[20];
@@ -759,8 +758,8 @@ static void CheckError(OSStatus error, const char *operation) {
     exit(1);
 }
 
-
--(void)connectToHost {
+-(void)connectToHost
+{
     MIDINetworkHost *host = [MIDINetworkHost hostWithName:@"MyMIDIWifi"
                                                   address:DESTINATION_ADDRESS
                                                      port:5004];
@@ -790,14 +789,11 @@ static void CheckError(OSStatus error, const char *operation) {
         self.outputPort = outport;
         NSLog(@"Got output port!");
         //MIDIInputPortCreate(client, CFSTR("MyMIDI Input port"), NULL, NULL, &outport);
-
     }
-    
-
 }
 
-
--(void)sendStatus:(Byte)status data1:(Byte)data1 data2:(Byte)data2 {
+-(void)sendStatus:(Byte)status data1:(Byte)data1 data2:(Byte)data2
+{
     MIDIPacketList packetList;
     
     packetList.numPackets = 1;
@@ -810,7 +806,6 @@ static void CheckError(OSStatus error, const char *operation) {
     CheckError(MIDISend(self.outputPort, self.destinationEndPoint, &packetList), "Kunne ikke sende MIDI-pakkelista");
 }
 
-
 - (void)initMidi
 {
     midiConnection = [[PGMidi alloc]init];
@@ -819,44 +814,50 @@ static void CheckError(OSStatus error, const char *operation) {
     [midiConnection setVirtualEndpointName:@"MyApp"];
 }
 
-
--(void)sendNoteOnEvent:(Byte)key velocity:(Byte)velocity {
+-(void)sendNoteOnEvent:(Byte)key velocity:(Byte)velocity
+{
     [self sendStatus:0x90 data1:key & 0x7F data2:velocity & 0x7F];
 }
 
-
--(void)sendNoteOffEvent:(Byte)key velocity:(Byte)velocity {
+-(void)sendNoteOffEvent:(Byte)key velocity:(Byte)velocity
+{
     [self sendStatus:0x80 data1:key & 0x7F data2:velocity & 0x7F];
 }
 
-
--(IBAction)handleKeyDown:(id)sender {
+-(IBAction)handleKeyDown:(id)sender
+{
     NSInteger note = [sender tag];
     [self sendNoteOnEvent:(Byte)note velocity:127];
 }
 
-
--(IBAction)handleKeyUp:(id)sender {
+-(IBAction)handleKeyUp:(id)sender
+{
     NSInteger note = [sender tag];
     [self sendNoteOffEvent:(Byte)note velocity:127];
 }
 
-
 - (IBAction)showSoundfontPresets:(UIButton *)sender
 {
+    NSLog(@"FMViewcontroller 1 is now: %@", FMOscillator1SelectionViewController);
+    NSLog(@"The first button is: %@", FMOscillator1SelectionViewController.fmKnob1);
+
     [mCsound sendScore:[NSString stringWithFormat:@"i400 0 0"]];
 }
 
-
-- (void)changeSoundfontInstrumentTo:(NSString*)numberString
+- (void)changeOscillator1SoundfontInstrumentTo:(NSString*)numberString
 {
     int number = [numberString intValue];
     [mCsound sendScore:[NSString stringWithFormat:@"i401 0 0 %i", number]];
 }
 
+- (void)changeOscillator2SoundfontInstrumentTo:(NSString*)numberString
+{
+    int number = [numberString intValue];
+    [mCsound sendScore:[NSString stringWithFormat:@"i402 0 0 %i", number]];
+}
 
-- (void)initOscillatorTouchRecognizers {
-    
+- (void)initOscillatorTouchRecognizers
+{
     // Get Oscillator image size
     UIImage *img = [UIImage imageNamed:@"oscillatorBackground.png"];
     int imgX = img.size.width;
@@ -889,10 +890,9 @@ static void CheckError(OSStatus error, const char *operation) {
 
 }
 
-
 //The event handling method for OscillatorView
-- (void)handleDoubleTapOnOscSlider:(UITapGestureRecognizer *)recognizer {
-    
+- (void)handleDoubleTapOnOscSlider:(UITapGestureRecognizer *)recognizer
+{
     UISlider* slider;
     UIView* subview;
     CGPoint location = [recognizer locationInView:recognizer.view];
@@ -930,8 +930,6 @@ static void CheckError(OSStatus error, const char *operation) {
     [self updateCsoundValues];
 }
 
-
-
 - (void)handleTripleTapOnOscSlider:(UITapGestureRecognizer *)recognizer
 {
     UISlider* slider;
@@ -943,43 +941,104 @@ static void CheckError(OSStatus error, const char *operation) {
         NSLog(@"Triple tap in osc1slider registered!");
         slider = v1.oscView.oscillator1Slider;
         subview = v1.oscView.oscillator1HiddenSubviewTouchRecognization;
+        
+        double relativeXPositionInSubview = location.x - subview.frame.origin.x;
+        double subviewWidth = subview.frame.size.width;
+        
+        if (relativeXPositionInSubview > subviewWidth*3/NUMBER_OF_OSCILLATORS && relativeXPositionInSubview < subviewWidth*4/NUMBER_OF_OSCILLATORS) {
+            [self openOscillator1FMPopoverControllerFromSlider:slider withDictionaryKey:@"Barack Obama"];
+        } else if (relativeXPositionInSubview > subviewWidth*4/NUMBER_OF_OSCILLATORS && relativeXPositionInSubview < subviewWidth*5/NUMBER_OF_OSCILLATORS) {
+            [self openOscillator1SoundfontPopoverControllerFromSlider:slider withDictionaryKey:@"Vladimir Putin"];
+        }
     } else if(CGRectContainsPoint(v1.oscView.oscillator2HiddenSubviewTouchRecognization.frame, location)) {
         NSLog(@"Triple tap in osc2slider registered!");
         slider = v1.oscView.oscillator2Slider;
         subview = v1.oscView.oscillator2HiddenSubviewTouchRecognization;
+        
+        double relativeXPositionInSubview = location.x - subview.frame.origin.x;
+        double subviewWidth = subview.frame.size.width;
+        
+        if (relativeXPositionInSubview > subviewWidth*3/NUMBER_OF_OSCILLATORS && relativeXPositionInSubview < subviewWidth*4/NUMBER_OF_OSCILLATORS) {
+            [self openOscillator1FMPopoverControllerFromSlider:slider withDictionaryKey:@"Barack Obama"];
+        } else if (relativeXPositionInSubview > subviewWidth*4/NUMBER_OF_OSCILLATORS && relativeXPositionInSubview < subviewWidth*5/NUMBER_OF_OSCILLATORS) {
+            [self openOscillator2SoundfontPopoverControllerFromSlider:slider withDictionaryKey:@"Vladimir Putin"];
+        }
     } else {
         return;
     }
     
-    double relativeXPositionInSubview = location.x - subview.frame.origin.x;
-    double subviewWidth = subview.frame.size.width;
-    
-    if (relativeXPositionInSubview > subviewWidth*4/NUMBER_OF_OSCILLATORS && relativeXPositionInSubview < subviewWidth*5/NUMBER_OF_OSCILLATORS) {
-        NSLog(@"Hei!");
-        [self openDestinationPopoverControllerFromSlider:slider withDictionaryKey:@"123"];
-    }
+
 }
 
-- (void)openDestinationPopoverControllerFromSlider:(UISlider*)sender withDictionaryKey:(NSString*)dictionaryKey
+- (void)initPopoverViewControllersAndKnobs
 {
-    soundfontSelectionViewController = [[MGKSoundfontSelectionViewController alloc] initWithNibName:@"MGKSoundfontSelectionViewController" bundle:nil];
+    FMOscillator1SelectionViewController = [[MGKFMSelectionViewController alloc] initWithNibName:@"MGKFMSelectionViewController" bundle:nil];
+    FMOscillator2SelectionViewController = [[MGKFMSelectionViewController alloc] initWithNibName:@"MGKFMSelectionViewController" bundle:nil];
+    soundfontOscillator1SelectionViewController = [[MGKSoundfontSelectionViewController alloc] initWithNibName:@"MGKSoundfontSelectionViewController" bundle:nil];
+    soundfontOscillator2SelectionViewController = [[MGKSoundfontSelectionViewController alloc] initWithNibName:@"MGKSoundfontSelectionViewController" bundle:nil];
+}
+
+- (void)openOscillator1FMPopoverControllerFromSlider:(UISlider*)slider withDictionaryKey:(NSString*)dictionaryKey
+{
+    FMPopoverController = [[UIPopoverController alloc] initWithContentViewController:FMOscillator1SelectionViewController];
+    FMPopoverController.delegate = self;
+    FMPopoverController.popoverContentSize = CGSizeMake(100, 200);
+    
+    CGRect correctPopoverPosition = slider.frame;
+    correctPopoverPosition.origin.x += 66; // This number is just a hack.
+    [FMPopoverController presentPopoverFromRect:correctPopoverPosition inView:self.v1.oscView permittedArrowDirections: UIPopoverArrowDirectionUp animated:YES];
+    FMPopoverController.passthroughViews = [NSArray arrayWithObjects:v1.oscView.oscillator1ModKnob, v1.oscView.oscillator2ModKnob, keyboardView, nil];
+}
+
+- (void)openOscillator2FMPopoverControllerFromSlider:(UISlider*)slider withDictionaryKey:(NSString*)dictionaryKey
+{
+    FMPopoverController = [[UIPopoverController alloc] initWithContentViewController:FMOscillator2SelectionViewController];
+    FMPopoverController.delegate = self;
+    FMPopoverController.popoverContentSize = CGSizeMake(100, 200);
+    
+    CGRect correctPopoverPosition = slider.frame;
+    correctPopoverPosition.origin.x += 66; // This number is just a hack.
+    [FMPopoverController presentPopoverFromRect:correctPopoverPosition inView:self.v1.oscView permittedArrowDirections: UIPopoverArrowDirectionUp animated:YES];
+    FMPopoverController.passthroughViews = [NSArray arrayWithObjects:v1.oscView.oscillator1ModKnob, v1.oscView.oscillator2ModKnob, keyboardView, nil];
+}
+
+- (void)openOscillator1SoundfontPopoverControllerFromSlider:(UISlider*)slider withDictionaryKey:(NSString*)dictionaryKey
+{
+    soundfontOscillator1SelectionViewController.mainViewController = self;
     //destViewController.dictionaryKey = dictionaryKey;
-    soundfontPopoverController = [[UIPopoverController alloc] initWithContentViewController:soundfontSelectionViewController];
+    soundfontPopoverController = [[UIPopoverController alloc] initWithContentViewController:soundfontOscillator1SelectionViewController];
     soundfontPopoverController.delegate = self;
     soundfontPopoverController.popoverContentSize = CGSizeMake(300, 400);
     
-    CGRect correctPopoverPosition = sender.frame;
+    CGRect correctPopoverPosition = slider.frame;
     correctPopoverPosition.origin.x += 127; // This number is just a hack.
     [soundfontPopoverController presentPopoverFromRect:correctPopoverPosition inView:self.v1.oscView permittedArrowDirections: UIPopoverArrowDirectionUp | UIPopoverArrowDirectionRight animated:YES];
+    soundfontPopoverController.passthroughViews = [NSArray arrayWithObjects:v1.oscView.oscillator1ModKnob, v1.oscView.oscillator2ModKnob, keyboardView, nil];
+
     //destViewController.destinationArray = destinationArray;
 }
 
+- (void)openOscillator2SoundfontPopoverControllerFromSlider:(UISlider*)slider withDictionaryKey:(NSString*)dictionaryKey
+{
+    //destViewController.dictionaryKey = dictionaryKey;
+    soundfontOscillator2SelectionViewController.mainViewController = self;
+    soundfontPopoverController = [[UIPopoverController alloc] initWithContentViewController:soundfontOscillator2SelectionViewController];
+    soundfontPopoverController.delegate = self;
+    soundfontPopoverController.popoverContentSize = CGSizeMake(300, 400);
+    
+    CGRect correctPopoverPosition = slider.frame;
+    correctPopoverPosition.origin.x += 127; // This number is just a hack.
+    [soundfontPopoverController presentPopoverFromRect:correctPopoverPosition inView:self.v1.oscView permittedArrowDirections: UIPopoverArrowDirectionUp | UIPopoverArrowDirectionRight animated:YES];
+    soundfontPopoverController.passthroughViews = [NSArray arrayWithObjects:v1.oscView.oscillator1ModKnob, v1.oscView.oscillator2ModKnob, keyboardView, nil];
+    
+    //destViewController.destinationArray = destinationArray;
+}
 
-- (IBAction)presetButtonPressed:(id)sender {
+- (IBAction)presetButtonPressed:(id)sender
+{
     self.presetViewController.mainViewController = self;
     NSLog(@"\n%@", self.presetButton.titleLabel.text);
 }
-
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -999,7 +1058,6 @@ static void CheckError(OSStatus error, const char *operation) {
 
     }
 }
-
 
 - (void)record
 {
@@ -1035,8 +1093,8 @@ static void CheckError(OSStatus error, const char *operation) {
     NSLog(@"%hhd", isRecording);
 }
 
-
-- (IBAction)polyphonySwitch:(id)sender {
+- (IBAction)polyphonySwitch:(id)sender
+{
     if (isPolyphonic) {
         [mCsound sendScore:[NSString stringWithFormat:@"i450 0 0"]];
     } else {
@@ -1045,11 +1103,10 @@ static void CheckError(OSStatus error, const char *operation) {
     isPolyphonic = !isPolyphonic;
 }
 
-
-- (void)myTestMethod {
+- (void)myTestMethod
+{
     NSLog(@"hei");
 }
-
 
 - (NSMutableDictionary*)getDictOfCurrentParameters
 {
@@ -1071,6 +1128,5 @@ static void CheckError(OSStatus error, const char *operation) {
     NSLog(@"MGKViewController:\n%@, View: %@", currentValues, self.v1);
     return currentValues;
 }
-
 
 @end

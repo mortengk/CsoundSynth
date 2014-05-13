@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		5A4BBC311920C75F0064072C /* MGKSoundfontSelectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A4BBC301920C75F0064072C /* MGKSoundfontSelectionViewController.xib */; };
+		5A4BBC34192147780064072C /* MGKFMSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A4BBC33192147780064072C /* MGKFMSelectionViewController.m */; };
+		5A4BBC36192147820064072C /* MGKFMSelectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A4BBC35192147820064072C /* MGKFMSelectionViewController.xib */; };
+		5A4BBC3F19214B590064072C /* ampEnvelope.inc in Sources */ = {isa = PBXBuildFile; fileRef = 5A4BBC3B19214B590064072C /* ampEnvelope.inc */; };
+		5A4BBC4019214B590064072C /* channels.inc in Sources */ = {isa = PBXBuildFile; fileRef = 5A4BBC3C19214B590064072C /* channels.inc */; };
+		5A4BBC4119214B590064072C /* filters.inc in Sources */ = {isa = PBXBuildFile; fileRef = 5A4BBC3D19214B590064072C /* filters.inc */; };
+		5A4BBC4219214B590064072C /* lfo.inc in Sources */ = {isa = PBXBuildFile; fileRef = 5A4BBC3E19214B590064072C /* lfo.inc */; };
 		5A54B443188FF2240083FFDD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A54B442188FF2240083FFDD /* Foundation.framework */; };
 		5A54B445188FF2240083FFDD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A54B444188FF2240083FFDD /* CoreGraphics.framework */; };
 		5A54B447188FF2240083FFDD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A54B446188FF2240083FFDD /* UIKit.framework */; };
@@ -73,11 +79,7 @@
 		5A920FC5192032DB002AD8CB /* SampleOscillator1View.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A920FB0192032DB002AD8CB /* SampleOscillator1View.xib */; };
 		5A920FC6192032DB002AD8CB /* View1.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A920FB2192032DB002AD8CB /* View1.m */; };
 		5A920FC7192032DB002AD8CB /* View1.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A920FB3192032DB002AD8CB /* View1.xib */; };
-		5A920FD31920344A002AD8CB /* ampEnvelope.inc in Sources */ = {isa = PBXBuildFile; fileRef = 5A920FC91920344A002AD8CB /* ampEnvelope.inc */; };
-		5A920FD41920344A002AD8CB /* channels.inc in Sources */ = {isa = PBXBuildFile; fileRef = 5A920FCA1920344A002AD8CB /* channels.inc */; };
-		5A920FD51920344A002AD8CB /* filters.inc in Sources */ = {isa = PBXBuildFile; fileRef = 5A920FCB1920344A002AD8CB /* filters.inc */; };
 		5A920FD61920344A002AD8CB /* kickroll.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5A920FCC1920344A002AD8CB /* kickroll.wav */; };
-		5A920FD71920344A002AD8CB /* lfo.inc in Sources */ = {isa = PBXBuildFile; fileRef = 5A920FCD1920344A002AD8CB /* lfo.inc */; };
 		5A920FD81920344A002AD8CB /* midiTest.csd in Resources */ = {isa = PBXBuildFile; fileRef = 5A920FCE1920344A002AD8CB /* midiTest.csd */; };
 		5A920FD91920344A002AD8CB /* midiTest2.csd in Resources */ = {isa = PBXBuildFile; fileRef = 5A920FCF1920344A002AD8CB /* midiTest2.csd */; };
 		5A920FDA1920344A002AD8CB /* sf_GMbank.sf2 in Resources */ = {isa = PBXBuildFile; fileRef = 5A920FD01920344A002AD8CB /* sf_GMbank.sf2 */; };
@@ -177,6 +179,13 @@
 
 /* Begin PBXFileReference section */
 		5A4BBC301920C75F0064072C /* MGKSoundfontSelectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MGKSoundfontSelectionViewController.xib; sourceTree = "<group>"; };
+		5A4BBC32192147780064072C /* MGKFMSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGKFMSelectionViewController.h; sourceTree = "<group>"; };
+		5A4BBC33192147780064072C /* MGKFMSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGKFMSelectionViewController.m; sourceTree = "<group>"; };
+		5A4BBC35192147820064072C /* MGKFMSelectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MGKFMSelectionViewController.xib; sourceTree = "<group>"; };
+		5A4BBC3B19214B590064072C /* ampEnvelope.inc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.pascal; path = ampEnvelope.inc; sourceTree = "<group>"; };
+		5A4BBC3C19214B590064072C /* channels.inc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.pascal; path = channels.inc; sourceTree = "<group>"; };
+		5A4BBC3D19214B590064072C /* filters.inc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.pascal; path = filters.inc; sourceTree = "<group>"; };
+		5A4BBC3E19214B590064072C /* lfo.inc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.pascal; path = lfo.inc; sourceTree = "<group>"; };
 		5A54B43F188FF2240083FFDD /* test1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = test1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A54B442188FF2240083FFDD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		5A54B444188FF2240083FFDD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -278,11 +287,7 @@
 		5A920FB1192032DB002AD8CB /* View1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = View1.h; sourceTree = "<group>"; };
 		5A920FB2192032DB002AD8CB /* View1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = View1.m; sourceTree = "<group>"; };
 		5A920FB3192032DB002AD8CB /* View1.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = View1.xib; sourceTree = "<group>"; };
-		5A920FC91920344A002AD8CB /* ampEnvelope.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.pascal; path = ampEnvelope.inc; sourceTree = "<group>"; };
-		5A920FCA1920344A002AD8CB /* channels.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.pascal; path = channels.inc; sourceTree = "<group>"; };
-		5A920FCB1920344A002AD8CB /* filters.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.pascal; path = filters.inc; sourceTree = "<group>"; };
 		5A920FCC1920344A002AD8CB /* kickroll.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = kickroll.wav; sourceTree = "<group>"; };
-		5A920FCD1920344A002AD8CB /* lfo.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.pascal; path = lfo.inc; sourceTree = "<group>"; };
 		5A920FCE1920344A002AD8CB /* midiTest.csd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = midiTest.csd; sourceTree = "<group>"; };
 		5A920FCF1920344A002AD8CB /* midiTest2.csd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = midiTest2.csd; sourceTree = "<group>"; };
 		5A920FD01920344A002AD8CB /* sf_GMbank.sf2 */ = {isa = PBXFileReference; lastKnownFileType = file; path = sf_GMbank.sf2; sourceTree = "<group>"; };
@@ -528,6 +533,9 @@
 				5A9969DE1901C77800A08BAA /* MGKSoundfontSelectionViewController.h */,
 				5A9969DF1901C77800A08BAA /* MGKSoundfontSelectionViewController.m */,
 				5A4BBC301920C75F0064072C /* MGKSoundfontSelectionViewController.xib */,
+				5A4BBC32192147780064072C /* MGKFMSelectionViewController.h */,
+				5A4BBC33192147780064072C /* MGKFMSelectionViewController.m */,
+				5A4BBC35192147820064072C /* MGKFMSelectionViewController.xib */,
 				5A54B457188FF2240083FFDD /* MGKViewController.h */,
 				5A54B458188FF2240083FFDD /* MGKViewController.m */,
 				5A87B01418C6826800649083 /* PGMidi.h */,
@@ -698,11 +706,11 @@
 		5A920FC81920344A002AD8CB /* Synth engine */ = {
 			isa = PBXGroup;
 			children = (
-				5A920FC91920344A002AD8CB /* ampEnvelope.inc */,
-				5A920FCA1920344A002AD8CB /* channels.inc */,
-				5A920FCB1920344A002AD8CB /* filters.inc */,
+				5A4BBC3B19214B590064072C /* ampEnvelope.inc */,
+				5A4BBC3C19214B590064072C /* channels.inc */,
+				5A4BBC3D19214B590064072C /* filters.inc */,
+				5A4BBC3E19214B590064072C /* lfo.inc */,
 				5A920FCC1920344A002AD8CB /* kickroll.wav */,
-				5A920FCD1920344A002AD8CB /* lfo.inc */,
 				5A920FCE1920344A002AD8CB /* midiTest.csd */,
 				5A920FCF1920344A002AD8CB /* midiTest2.csd */,
 				5A920FD01920344A002AD8CB /* sf_GMbank.sf2 */,
@@ -997,6 +1005,7 @@
 				5A92103D192035B4002AD8CB /* unnamed.jpg in Resources */,
 				5A921021192035B4002AD8CB /* filterSelectorLPoff.png in Resources */,
 				5A921038192035B4002AD8CB /* powerButtonOn.png in Resources */,
+				5A4BBC36192147820064072C /* MGKFMSelectionViewController.xib in Resources */,
 				5A921017192035B4002AD8CB /* button_selector.png in Resources */,
 				5A921025192035B4002AD8CB /* Knob Disabled.png in Resources */,
 				5AAFDB1518A176B4007BE1D5 /* defaultPresets.plist in Resources */,
@@ -1081,10 +1090,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A4BBC3F19214B590064072C /* ampEnvelope.inc in Sources */,
+				5A4BBC4019214B590064072C /* channels.inc in Sources */,
+				5A4BBC4119214B590064072C /* filters.inc in Sources */,
+				5A4BBC4219214B590064072C /* lfo.inc in Sources */,
 				5A920F93192031AE002AD8CB /* View5.m in Sources */,
 				5A920FC2192032DB002AD8CB /* PlainOscillator1View.m in Sources */,
 				5AAFDB6718A3FA05007BE1D5 /* CsoundMIDI.m in Sources */,
-				5A920FD31920344A002AD8CB /* ampEnvelope.inc in Sources */,
 				5AB5CACC18DB50E100D5F57C /* CustomEnvelopeSlider.m in Sources */,
 				5A920F7F192031AE002AD8CB /* CustomCell.m in Sources */,
 				5A920F81192031AE002AD8CB /* PresetView.m in Sources */,
@@ -1101,7 +1113,6 @@
 				5AAFDB6E18A3FA05007BE1D5 /* CachedGyroscope.m in Sources */,
 				5A920FBC192032DB002AD8CB /* LFOView.m in Sources */,
 				5A920F7B192031AE002AD8CB /* KeyView.m in Sources */,
-				5A920FD71920344A002AD8CB /* lfo.inc in Sources */,
 				5A8DCAFB1900137800FE132D /* MGKPresetViewController.m in Sources */,
 				5A54B459188FF2240083FFDD /* MGKViewController.m in Sources */,
 				5A920F7E192031AE002AD8CB /* WhiteKeyView.m in Sources */,
@@ -1111,13 +1122,12 @@
 				5A920F83192031AE002AD8CB /* View2.m in Sources */,
 				5AAFDB6818A3FA05007BE1D5 /* MidiWidgetsManager.m in Sources */,
 				5A920F79192031AE002AD8CB /* BlackKeyView.m in Sources */,
-				5A920FD41920344A002AD8CB /* channels.inc in Sources */,
 				5A8568BA190470D4008DDC51 /* MGKRecordViewController.m in Sources */,
 				5AAFDB6A18A3FA05007BE1D5 /* BaseValueCacheable.m in Sources */,
 				5A920F7D192031AE002AD8CB /* TouchForwardingUIScrollView.m in Sources */,
+				5A4BBC34192147780064072C /* MGKFMSelectionViewController.m in Sources */,
 				5A920F87192031AE002AD8CB /* MGKModMatrixDestinationViewController.m in Sources */,
 				5A87B01618C6826800649083 /* PGMidi.mm in Sources */,
-				5A920FD51920344A002AD8CB /* filters.inc in Sources */,
 				5A920F91192031AE002AD8CB /* ReverbView.m in Sources */,
 				5A920F85192031AE002AD8CB /* View3.m in Sources */,
 				5A920FC0192032DB002AD8CB /* PitchEnvelopeView.m in Sources */,

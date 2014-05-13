@@ -79,7 +79,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [mainViewController changeSoundfontInstrumentTo:[self.soundfontPresetArray objectAtIndex:indexPath.row]];
+    if ([self isEqual:mainViewController.soundfontOscillator1SelectionViewController]) {
+        [mainViewController changeOscillator1SoundfontInstrumentTo:[self.soundfontPresetArray objectAtIndex:indexPath.row]];
+    } else if ([self isEqual:mainViewController.soundfontOscillator2SelectionViewController]) {
+        [mainViewController changeOscillator2SoundfontInstrumentTo:[self.soundfontPresetArray objectAtIndex:indexPath.row]];
+    }
 }
 
 @end

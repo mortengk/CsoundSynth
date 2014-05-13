@@ -33,7 +33,7 @@
         [self.view addSubview:self.filterAttackPlaceholder];
         self.filterAttackKnob.minimumValue = 0.0015;
         self.filterAttackKnob.maximumValue = 4;
-        self.filterAttackKnob.value = 0.5;
+        self.filterAttackKnob.value = 0.0;
         
         // Filter envelope decay
         filterDecayKnob = [[CustomEnvelopeSlider alloc]initWithFrame:self.filterDecayPlaceholder.bounds];
@@ -60,7 +60,7 @@
         [self.view addSubview:self.filterReleasePlaceholder];
         self.filterReleaseKnob.minimumValue = 0.01;
         self.filterReleaseKnob.maximumValue = .5;
-        self.filterReleaseKnob.value = 0.5;
+        self.filterReleaseKnob.value = 0.0;
     }
     return self;
 }

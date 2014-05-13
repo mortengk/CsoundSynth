@@ -157,6 +157,7 @@
                         <outlet property="keyboardScrollView" destination="4MU-km-OTN" id="NIe-ab-KmA"/>
                         <outlet property="lockSwitch" destination="28I-73-83t" id="BsY-4m-zA9"/>
                         <outlet property="pView" destination="MEL-eF-gQs" id="ayP-SI-6pA"/>
+                        <outlet property="polyphonySwitcher" destination="qn0-pr-QoS" id="vHZ-NH-Lgy"/>
                         <outlet property="presetButton" destination="gBP-Ep-0B2" id="xgm-fB-Hqc"/>
                         <outlet property="stepper" destination="SGu-uK-KhS" id="MhQ-gk-cei"/>
                     </connections>

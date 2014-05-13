@@ -71,7 +71,7 @@
         self.oscillator1ModKnob.defaultValue = .5;
         self.oscillator1ModKnob.minimumValue = 0;
         self.oscillator1ModKnob.maximumValue = 1;
-        self.oscillator1ModKnob.value = 1;
+        self.oscillator1ModKnob.value = .5;
         
         // OSCILLATOR 2
         // Fine tune
@@ -112,7 +112,7 @@
         self.oscillator2ModKnob.defaultValue = .5;
         self.oscillator2ModKnob.minimumValue = 0;
         self.oscillator2ModKnob.maximumValue = 1;
-        self.oscillator2ModKnob.value = 1;
+        self.oscillator2ModKnob.value = .5;
 
     }
     return self;
