@@ -13,10 +13,12 @@
 @synthesize oscillator1AmplitudeKnob;
 @synthesize oscillator1FineTuneKnob;
 @synthesize oscillator1ModKnob;
+@synthesize oscillator1Mod2Knob;
 @synthesize oscillator2AmplitudeKnob;
 @synthesize oscillator2FineTuneKnob;
 @synthesize oscillator2TuneKnob;
 @synthesize oscillator2ModKnob;
+@synthesize oscillator2Mod2Knob;
 @synthesize oscillator1Slider;
 @synthesize oscillator2Slider;
 
@@ -73,6 +75,16 @@
         self.oscillator1ModKnob.maximumValue = 1;
         self.oscillator1ModKnob.value = .5;
         
+        // Mod 2
+        oscillator1Mod2Knob = [[MGKRotaryKnob alloc]initWithFrame:self.oscillator1Mod2Placeholder.bounds];
+        self.oscillator1Mod2Placeholder.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"blank_image"]];
+        [self.oscillator1Mod2Placeholder addSubview:self.oscillator1Mod2Knob];
+        [self.view addSubview:self.oscillator1ModPlaceholder];
+        self.oscillator1Mod2Knob.defaultValue = .5;
+        self.oscillator1Mod2Knob.minimumValue = 0;
+        self.oscillator1Mod2Knob.maximumValue = 1;
+        self.oscillator1Mod2Knob.value = .5;
+        
         // OSCILLATOR 2
         // Fine tune
         oscillator2FineTuneKnob = [[MGKRotaryKnob alloc]initWithFrame:self.oscillator2FineTunePlaceholder.bounds];
@@ -113,6 +125,16 @@
         self.oscillator2ModKnob.minimumValue = 0;
         self.oscillator2ModKnob.maximumValue = 1;
         self.oscillator2ModKnob.value = .5;
+        
+        // Mod 2
+        oscillator2Mod2Knob = [[MGKRotaryKnob alloc]initWithFrame:self.oscillator2Mod2Placeholder.bounds];
+        self.oscillator2Mod2Placeholder.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"blank_image"]];
+        [self.oscillator2Mod2Placeholder addSubview:self.oscillator2Mod2Knob];
+        [self.view addSubview:self.oscillator2ModPlaceholder];
+        self.oscillator2Mod2Knob.defaultValue = .5;
+        self.oscillator2Mod2Knob.minimumValue = 0;
+        self.oscillator2Mod2Knob.maximumValue = 1;
+        self.oscillator2Mod2Knob.value = .5;
 
     }
     return self;

@@ -163,6 +163,12 @@
 		5AAFDB8218A5147E007BE1D5 /* ConsoleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AAFDB8118A5147E007BE1D5 /* ConsoleView.m */; };
 		5AB5CAC918DB45DE00D5F57C /* CustomOscillatorSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB5CAC818DB45DE00D5F57C /* CustomOscillatorSlider.m */; };
 		5AB5CACC18DB50E100D5F57C /* CustomEnvelopeSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB5CACB18DB50E100D5F57C /* CustomEnvelopeSlider.m */; };
+		5ACFAEC319375BB6009AA375 /* ChorusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACFAEC219375BB6009AA375 /* ChorusView.m */; };
+		5ACFAEC619375BF2009AA375 /* DelayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACFAEC519375BF2009AA375 /* DelayView.m */; };
+		5ACFAEC919375C00009AA375 /* FlangerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACFAEC819375C00009AA375 /* FlangerView.m */; };
+		5ACFAECB19375C1D009AA375 /* ChorusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5ACFAECA19375C1D009AA375 /* ChorusView.xib */; };
+		5ACFAECD19375C2A009AA375 /* DelayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5ACFAECC19375C2A009AA375 /* DelayView.xib */; };
+		5ACFAECF19375C34009AA375 /* FlangerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5ACFAECE19375C34009AA375 /* FlangerView.xib */; };
 		5AE8A1A218AAAA06001222FB /* DatabaseHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AE8A1A118AAAA06001222FB /* DatabaseHandler.m */; };
 		5AF339F81897083B0079CD74 /* MGKRotaryKnob.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF339F71897083B0079CD74 /* MGKRotaryKnob.m */; };
 /* End PBXBuildFile section */
@@ -428,6 +434,15 @@
 		5AB5CAC818DB45DE00D5F57C /* CustomOscillatorSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomOscillatorSlider.m; sourceTree = "<group>"; };
 		5AB5CACA18DB50E100D5F57C /* CustomEnvelopeSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomEnvelopeSlider.h; sourceTree = "<group>"; };
 		5AB5CACB18DB50E100D5F57C /* CustomEnvelopeSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomEnvelopeSlider.m; sourceTree = "<group>"; };
+		5ACFAEC119375BB6009AA375 /* ChorusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChorusView.h; sourceTree = "<group>"; };
+		5ACFAEC219375BB6009AA375 /* ChorusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChorusView.m; sourceTree = "<group>"; };
+		5ACFAEC419375BF2009AA375 /* DelayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DelayView.h; sourceTree = "<group>"; };
+		5ACFAEC519375BF2009AA375 /* DelayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DelayView.m; sourceTree = "<group>"; };
+		5ACFAEC719375C00009AA375 /* FlangerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlangerView.h; sourceTree = "<group>"; };
+		5ACFAEC819375C00009AA375 /* FlangerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlangerView.m; sourceTree = "<group>"; };
+		5ACFAECA19375C1D009AA375 /* ChorusView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChorusView.xib; sourceTree = "<group>"; };
+		5ACFAECC19375C2A009AA375 /* DelayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DelayView.xib; sourceTree = "<group>"; };
+		5ACFAECE19375C34009AA375 /* FlangerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FlangerView.xib; sourceTree = "<group>"; };
 		5AE8A1A018AAAA06001222FB /* DatabaseHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatabaseHandler.h; sourceTree = "<group>"; };
 		5AE8A1A118AAAA06001222FB /* DatabaseHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatabaseHandler.m; sourceTree = "<group>"; };
 		5AEA05771903CD22005D2253 /* test1.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = test1.entitlements; sourceTree = "<group>"; };
@@ -658,6 +673,15 @@
 				5A920F73192031AE002AD8CB /* ReverbView.h */,
 				5A920F74192031AE002AD8CB /* ReverbView.m */,
 				5A920F75192031AE002AD8CB /* ReverbView.xib */,
+				5ACFAEC119375BB6009AA375 /* ChorusView.h */,
+				5ACFAEC219375BB6009AA375 /* ChorusView.m */,
+				5ACFAECA19375C1D009AA375 /* ChorusView.xib */,
+				5ACFAEC419375BF2009AA375 /* DelayView.h */,
+				5ACFAEC519375BF2009AA375 /* DelayView.m */,
+				5ACFAECC19375C2A009AA375 /* DelayView.xib */,
+				5ACFAEC719375C00009AA375 /* FlangerView.h */,
+				5ACFAEC819375C00009AA375 /* FlangerView.m */,
+				5ACFAECE19375C34009AA375 /* FlangerView.xib */,
 				5A920F76192031AE002AD8CB /* View5.h */,
 				5A920F77192031AE002AD8CB /* View5.m */,
 				5A920F78192031AE002AD8CB /* View5.xib */,
@@ -1011,6 +1035,7 @@
 				5AAFDB1518A176B4007BE1D5 /* defaultPresets.plist in Resources */,
 				5A920FC7192032DB002AD8CB /* View1.xib in Resources */,
 				5A92102E192035B4002AD8CB /* knobMinimalisticTop@2x.png in Resources */,
+				5ACFAECD19375C2A009AA375 /* DelayView.xib in Resources */,
 				5A921029192035B4002AD8CB /* Knob.png in Resources */,
 				5A921044192035B4002AD8CB /* waveformsTriangleOff.png in Resources */,
 				5A54B44D188FF2240083FFDD /* InfoPlist.strings in Resources */,
@@ -1056,9 +1081,11 @@
 				5A920F92192031AE002AD8CB /* ReverbView.xib in Resources */,
 				5A920F80192031AE002AD8CB /* CustomCell.xib in Resources */,
 				5A921016192035B4002AD8CB /* blue.jpg in Resources */,
+				5ACFAECF19375C34009AA375 /* FlangerView.xib in Resources */,
 				5A920FDB1920344A002AD8CB /* SuperMarioWorld.sf2 in Resources */,
 				5A920F94192031AE002AD8CB /* View5.xib in Resources */,
 				5A92102A192035B4002AD8CB /* Knob@2x.png in Resources */,
+				5ACFAECB19375C1D009AA375 /* ChorusView.xib in Resources */,
 				5A921012192035B4002AD8CB /* adsr.png in Resources */,
 				5A921015192035B4002AD8CB /* blank_image.png in Resources */,
 				5A92101B192035B4002AD8CB /* filterSelectorBPoff.png in Resources */,
@@ -1096,6 +1123,7 @@
 				5A4BBC4219214B590064072C /* lfo.inc in Sources */,
 				5A920F93192031AE002AD8CB /* View5.m in Sources */,
 				5A920FC2192032DB002AD8CB /* PlainOscillator1View.m in Sources */,
+				5ACFAEC919375C00009AA375 /* FlangerView.m in Sources */,
 				5AAFDB6718A3FA05007BE1D5 /* CsoundMIDI.m in Sources */,
 				5AB5CACC18DB50E100D5F57C /* CustomEnvelopeSlider.m in Sources */,
 				5A920F7F192031AE002AD8CB /* CustomCell.m in Sources */,
@@ -1138,12 +1166,14 @@
 				5AAFDB6B18A3FA05007BE1D5 /* CachedAccelerometer.m in Sources */,
 				5AAFDB6D18A3FA05007BE1D5 /* CachedButton.m in Sources */,
 				5A9969E01901C77800A08BAA /* MGKSoundfontSelectionViewController.m in Sources */,
+				5ACFAEC619375BF2009AA375 /* DelayView.m in Sources */,
 				5A54B44F188FF2240083FFDD /* main.m in Sources */,
 				5A87B01318C63B4B00649083 /* CachedUISegmentedControl.m in Sources */,
 				5AAFDB7F18A41321007BE1D5 /* CachedCustomKnob.m in Sources */,
 				5A920F7A192031AE002AD8CB /* KeyboardView.m in Sources */,
 				5A920FB6192032DB002AD8CB /* envelopeView.m in Sources */,
 				5A920FBA192032DB002AD8CB /* FilterView.m in Sources */,
+				5ACFAEC319375BB6009AA375 /* ChorusView.m in Sources */,
 				5A920F8D192031AE002AD8CB /* DistortionView.m in Sources */,
 				5AAFDB6918A3FA05007BE1D5 /* SliderMidiWidgetWrapper.m in Sources */,
 				5AAFDB7018A3FA05007BE1D5 /* CachedSwitch.m in Sources */,

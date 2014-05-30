@@ -161,10 +161,12 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
     [self.csound addValueCacheable:[[CachedCustomKnob alloc]init:v1.oscView.oscillator1FineTuneKnob channelName:@"oscil1FineTune"]];
     [self.csound addValueCacheable:[[CachedCustomKnob alloc]init:v1.oscView.oscillator1AmplitudeKnob channelName:@"oscil1Amp"]];
     [self.csound addValueCacheable:[[CachedCustomKnob alloc]init:v1.oscView.oscillator1ModKnob channelName:@"oscil1Mod"]];
+    [self.csound addValueCacheable:[[CachedCustomKnob alloc]init:v1.oscView.oscillator1Mod2Knob channelName:@"oscil1Mod2"]];
     [self.csound addValueCacheable:[[CachedCustomKnob alloc]init:v1.oscView.oscillator2FineTuneKnob channelName:@"oscil2FineTune"]];
     [self.csound addValueCacheable:[[CachedCustomKnob alloc]init:v1.oscView.oscillator2TuneKnob channelName:@"oscil2Tune"]];
     [self.csound addValueCacheable:[[CachedCustomKnob alloc]init:v1.oscView.oscillator2AmplitudeKnob channelName:@"oscil2Amp"]];
     [self.csound addValueCacheable:[[CachedCustomKnob alloc]init:v1.oscView.oscillator2ModKnob channelName:@"oscil2Mod"]];
+    [self.csound addValueCacheable:[[CachedCustomKnob alloc]init:v1.oscView.oscillator2Mod2Knob channelName:@"oscil2Mod2"]];
 
     [self.csound addSlider:v1.envView.ampEnvelopeView.ampAttackKnob forChannelName:@"attack"];
     [self.csound addSlider:v1.envView.ampEnvelopeView.ampDecayKnob forChannelName:@"decay"];
@@ -204,6 +206,17 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
     [self.csound addValueCacheable:[[CachedCustomKnob alloc]init:v5.reverbView.reverbRoomSizeKnob channelName:@"reverbRoomSize"]];
     [self.csound addValueCacheable:[[CachedCustomKnob alloc]init:v5.reverbView.reverbFreqKnob channelName:@"reverbFreq"]];
     [self.csound addValueCacheable:[[CachedCustomKnob alloc]init:v5.reverbView.reverbMixKnob channelName:@"reverbMix"]];
+    
+    [self.csound addSwitch:v5.chorusView.powerSwitch forChannelName:@"chorusState"];
+    [self.csound addValueCacheable:[[CachedCustomKnob alloc]init:v5.chorusView.param1Knob channelName:@"chorusFreq"]];
+    [self.csound addValueCacheable:[[CachedCustomKnob alloc]init:v5.chorusView.param2Knob channelName:@"chorusDepth"]];
+    [self.csound addValueCacheable:[[CachedCustomKnob alloc]init:v5.chorusView.param3Knob channelName:@"chorusWidth"]];
+    [self.csound addValueCacheable:[[CachedCustomKnob alloc]init:v5.chorusView.mixKnob channelName:@"chorusMix"]];
+    
+    [self.csound addSwitch:v5.delayView.powerSwitch forChannelName:@"delayState"];
+    [self.csound addValueCacheable:[[CachedCustomKnob alloc]init:v5.delayView.param1Knob channelName:@"delayTime"]];
+    [self.csound addValueCacheable:[[CachedCustomKnob alloc]init:v5.delayView.param2Knob channelName:@"delayFeedback"]];
+    [self.csound addValueCacheable:[[CachedCustomKnob alloc]init:v5.delayView.mixKnob channelName:@"delayMix"]];
     
     [self.csound startCsound:tempFile];
 

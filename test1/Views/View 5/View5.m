@@ -14,6 +14,8 @@
 @synthesize distortionPlaceholder;
 @synthesize phaserPlaceholder;
 @synthesize reverbPlaceholder;
+@synthesize chorusPlaceholder;
+@synthesize delayPlaceholder;
 
 CGPoint hei;
 
@@ -39,6 +41,16 @@ CGPoint hei;
         self.reverbView = [[ReverbView alloc]initWithFrame:reverbPlaceholder.bounds];
         [reverbPlaceholder addSubview:self.reverbView];
         [view addSubview:reverbPlaceholder];
+        
+        chorusPlaceholder.backgroundColor = [UIColor clearColor];
+        self.chorusView = [[ChorusView alloc]initWithFrame:chorusPlaceholder.bounds];
+        [chorusPlaceholder addSubview:self.chorusView];
+        [view addSubview:chorusPlaceholder];
+        
+        delayPlaceholder.backgroundColor = [UIColor clearColor];
+        self.delayView = [[DelayView alloc]initWithFrame:delayPlaceholder.bounds];
+        [delayPlaceholder addSubview:self.delayView];
+        [view addSubview:delayPlaceholder];
         
     }
     return self;

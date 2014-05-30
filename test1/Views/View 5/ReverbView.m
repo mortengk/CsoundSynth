@@ -55,7 +55,7 @@
         reverbMixKnob.maximumValue = 1;
         reverbMixKnob.value = .25;
         
-        [reverbSwitch setOn:YES];
+        [reverbSwitch setOn:NO];
     }
     return self;
 }
