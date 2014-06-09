@@ -31,12 +31,6 @@
     [super viewDidLoad];
 }
 
-- (void)awakeFromNib
-{
-//    [self.myTable registerNib:[UINib nibWithNibName:@"CustomCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"Cell"];
-//    self.myTable.backgroundColor = [UIColor clearColor];
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -46,43 +40,57 @@
 #pragma mark - Table view data source
 - (NSInteger)numberOfSectionsInViewTableView:(UITableView*)tableView
 {
-    return 1;
+    return 2;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return @"Default presets";
+    if(section == 0) {
+        return @"Factory presets";
+    } else if(section == 1) {
+        return @"User presets";
+    }
+    return nil;
 }
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.vc1.databaseHandler.myPresetArray count];
+    if(!db) {
+        db = [[DatabaseHandler alloc]init];
+        // Updating reference to db
+        self.db.mainViewController = self.mainViewController;
+    }
+    return [db.myPresetArray count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-//    
-//    cell.textLabel.text = [self.vc1.databaseHandler.myPresetArray objectAtIndex:indexPath.row];
-//    return cell;
+    if(!db) {
+        db = [[DatabaseHandler alloc]init];
+        // Updating reference to db
+        self.db.mainViewController = self.mainViewController;
+    }
+
     
-    NSString *cellIdentifier = @"MyCellIdentifier"; // Attempt to request the reusable cell.
-    
+    NSString *cellIdentifier = @"MyCellIdentifier";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    // No cell available - create one.
     if(cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                       reuseIdentifier:cellIdentifier];
     }
 
     // If preset is the selected one.
-    if ([self.vc1.selectedPreset isEqualToString:[self.vc1.databaseHandler.myPresetArray objectAtIndex:indexPath.row]]) {
+    if ([self.mainViewController.selectedPreset isEqualToString:[db.myPresetArray objectAtIndex:indexPath.row]]) {
         [self.myTable selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
     }
     
     // Set the text of the cell to the row index.
-    cell.textLabel.text = [self.vc1.databaseHandler.myPresetArray objectAtIndex:indexPath.row];
+    if (indexPath.section == 0) {
+        cell.textLabel.text = [db.myPresetArray objectAtIndex:indexPath.row];
+    } else if(indexPath.section == 1) {
+        cell.textLabel.text = [db.myPresetArray objectAtIndex:indexPath.row];
+    }
     
     return cell;
 }
@@ -90,29 +98,38 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [self.vc1.databaseHandler.myPresetArray removeObjectAtIndex:[indexPath row]];
+        [self.mainViewController.databaseHandler.myPresetArray removeObjectAtIndex:[indexPath row]];
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        [self.vc1.myTable reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.mainViewController.myTable reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *preset = [self.vc1.databaseHandler.myPresetArray objectAtIndex:indexPath.row];
-    [self.vc1.databaseHandler setParametersFromPreset:preset];
-    [self.vc1.presetButton setTitle:preset forState:UIControlStateNormal];
-    self.vc1.selectedPreset = [self.vc1.databaseHandler.myPresetArray objectAtIndex:indexPath.row];
+    if(!db) {
+        db = [[DatabaseHandler alloc]init];
+        // Updating reference to db
+        self.db.mainViewController = self.mainViewController;
+    }
+    NSString *preset = [db.myPresetArray objectAtIndex:indexPath.row];
+    self.mainViewController.databaseHandler.mainViewController = self.mainViewController;
+    [self.mainViewController.databaseHandler setParametersFromPreset:preset];
+    [self.mainViewController.presetButton setTitle:preset forState:UIControlStateNormal];
+    self.mainViewController.selectedPreset = [db.myPresetArray objectAtIndex:indexPath.row];
 }
 
 - (IBAction)saveButtonPressed:(id)sender
 {
-    // 1. open uialertview and write in a new name
     db = [[DatabaseHandler alloc]init];
-    [self noteInput];
     
+    // Updating reference to db
+    self.db.mainViewController = self.mainViewController;
+    
+    // Show UIAlertView with preset name input
+    [self showPresetSavePopup];
 }
 
-- (void)noteInput
+- (void)showPresetSavePopup
 {
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Name your new preset"
                                                         message:@"Please give it a beautiful name!"
@@ -124,7 +141,7 @@
     [alertView show];
 }
 
-- (void)noteInput2
+- (void)showPresetSavePopupIfUserEnteredTakenPresetName
 {
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"That name is already taken"
                                                         message:@"Please try again"
@@ -144,16 +161,21 @@
         UITextField *noteText = [alertView textFieldAtIndex:0];
         presetString = noteText.text;
         
-        // 2. If the string already exists as a key in the preset dictionary, ask for a new preset name.
+        // If the string already exists as a key in the preset dictionary, ask for a new preset name.
         if([db.myPresetArray containsObject:presetString]) {
-            [self noteInput2];
+            [self showPresetSavePopupIfUserEnteredTakenPresetName];
         } else {
             // Insert the current settings as a new preset.
             [db saveCurrentParameterValuesToDict:nil withName:presetString];
         }
-        NSLog(@"%@", db.myPresetArray);
     }
+}
 
+- (void)updateTableView
+{
+    UITableView *t = self.myTable;
+    [t reloadData];
+    NSLog(@"mitable: %@", t);
 }
 
 @end

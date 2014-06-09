@@ -27,7 +27,6 @@
 @property (strong, nonatomic) ABAudiobusController *audiobusController;
 @property (strong, nonatomic) ABAudiobusAudioUnitWrapper *audiobusAudioUnitWrapper;
 @property (strong, nonatomic) ABOutputPort *output;
-
 @end
 
 // Sources
@@ -83,6 +82,16 @@ NSString* phaserSpeedString = @"Phaser speed";
 @synthesize controlDestinations;
 @synthesize controlSources;
 
+// Soundfont-popover
+@synthesize soundfontOscillator1SelectionViewController;
+@synthesize soundfontOscillator2SelectionViewController;
+@synthesize soundfontPopoverController;
+
+// FM-popover
+@synthesize FMOscillator1SelectionViewController;
+@synthesize FMOscillator2SelectionViewController;
+@synthesize FMPopoverController;
+
 // Audiobus
 @synthesize audiobusController = _audiobusController;
 @synthesize output = _output;
@@ -94,6 +103,7 @@ NSString* phaserSpeedString = @"Phaser speed";
 @synthesize outputPort;
 @synthesize midiConnection;
 
+int NUMBER_OF_OSCILLATORS = 5;
 int OCTAVE_WIDTH = 500;
 int NUMBER_OF_OCTAVES = 8;
 float lastStepperValue = 0;
@@ -102,7 +112,6 @@ NSString* CURRENT_INSTRUMENT_OSC2;
 NSInteger CURRENT_INSTRUMENT_OSC1_INT;
 double CURRENT_INSTRUMENT_OSC1_NUMBER;
 NSInteger CURRENT_INSTRUMENT_OSC2_INT;
-
 
 - (void)viewDidLoad
 {
@@ -118,6 +127,7 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
     [self startMotionManager];
     [self initControlSources];
     [self initViews];
+    [self initPopoverViewControllersAndKnobs];
     [self initTableViewDictionaries];
     [self initOscillatorTouchRecognizers];
     //[self initMidi];
@@ -150,10 +160,15 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
     [self.csound addValueCacheable:[[CachedCustomKnob alloc]init:v1.oscView.oscillator1FineTuneKnob channelName:@"oscil1FineTune"]];
     [self.csound addValueCacheable:[[CachedCustomKnob alloc]init:v1.oscView.oscillator1AmplitudeKnob channelName:@"oscil1Amp"]];
     [self.csound addValueCacheable:[[CachedCustomKnob alloc]init:v1.oscView.oscillator1ModKnob channelName:@"oscil1Mod"]];
+    [self.csound addValueCacheable:[[CachedCustomKnob alloc]init:v1.oscView.oscillator1Mod2Knob channelName:@"oscil1Mod2"]];
+    [self.csound addValueCacheable:[[CachedCustomKnob alloc]init:v1.oscView.oscillator1FatnessKnob channelName:@"oscil1Fatness"]];
+
     [self.csound addValueCacheable:[[CachedCustomKnob alloc]init:v1.oscView.oscillator2FineTuneKnob channelName:@"oscil2FineTune"]];
     [self.csound addValueCacheable:[[CachedCustomKnob alloc]init:v1.oscView.oscillator2TuneKnob channelName:@"oscil2Tune"]];
     [self.csound addValueCacheable:[[CachedCustomKnob alloc]init:v1.oscView.oscillator2AmplitudeKnob channelName:@"oscil2Amp"]];
     [self.csound addValueCacheable:[[CachedCustomKnob alloc]init:v1.oscView.oscillator2ModKnob channelName:@"oscil2Mod"]];
+    [self.csound addValueCacheable:[[CachedCustomKnob alloc]init:v1.oscView.oscillator2Mod2Knob channelName:@"oscil2Mod2"]];
+    [self.csound addValueCacheable:[[CachedCustomKnob alloc]init:v1.oscView.oscillator2FatnessKnob channelName:@"oscil2Fatness"]];
 
     [self.csound addSlider:v1.envView.ampEnvelopeView.ampAttackKnob forChannelName:@"attack"];
     [self.csound addSlider:v1.envView.ampEnvelopeView.ampDecayKnob forChannelName:@"decay"];
@@ -194,6 +209,17 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
     [self.csound addValueCacheable:[[CachedCustomKnob alloc]init:v5.reverbView.reverbFreqKnob channelName:@"reverbFreq"]];
     [self.csound addValueCacheable:[[CachedCustomKnob alloc]init:v5.reverbView.reverbMixKnob channelName:@"reverbMix"]];
     
+    [self.csound addSwitch:v5.chorusView.powerSwitch forChannelName:@"chorusState"];
+    [self.csound addValueCacheable:[[CachedCustomKnob alloc]init:v5.chorusView.param1Knob channelName:@"chorusFreq"]];
+    [self.csound addValueCacheable:[[CachedCustomKnob alloc]init:v5.chorusView.param2Knob channelName:@"chorusDepth"]];
+    [self.csound addValueCacheable:[[CachedCustomKnob alloc]init:v5.chorusView.param3Knob channelName:@"chorusWidth"]];
+    [self.csound addValueCacheable:[[CachedCustomKnob alloc]init:v5.chorusView.mixKnob channelName:@"chorusMix"]];
+    
+    [self.csound addSwitch:v5.delayView.powerSwitch forChannelName:@"delayState"];
+    [self.csound addValueCacheable:[[CachedCustomKnob alloc]init:v5.delayView.param1Knob channelName:@"delayTime"]];
+    [self.csound addValueCacheable:[[CachedCustomKnob alloc]init:v5.delayView.param2Knob channelName:@"delayFeedback"]];
+    [self.csound addValueCacheable:[[CachedCustomKnob alloc]init:v5.delayView.mixKnob channelName:@"delayMix"]];
+    
     [self.csound startCsound:tempFile];
 
     self.stepper.minimumValue = 0;
@@ -232,12 +258,15 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
 //    NSLog(@"%@", [self getSoundfontPresets:soundfontURL]);
     
     //[self connectToHost];
+    [self polyphonySwitch:nil];
+    self.polyphonySwitcher.on = NO;
+    
 }
 
 - (void)initViews
 {
     // Placeholder view
-    UIView *placeholder = [[PlaceholderView alloc]initWithFrame:CGRectZero];
+    UIView *placeholder = [[UIView alloc]initWithFrame:CGRectZero];
     placeholder = [self.pView initWithFrame:CGRectZero];
     
     //LINE OF DOOM 1
@@ -273,7 +302,6 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
         v1.alpha = 1.0;
     } completion:nil];
 }
-
 
 - (void)segmentedControlPressed:(UISegmentedControl*)sender
 {
@@ -319,7 +347,6 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
     }
 }
 
-
 - (void)initAudiobus
 {
     // Create an Audiobus instance
@@ -342,7 +369,9 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
 
 
 #pragma mark KeyboardView
-- (void)initKeyboardViewWithWidth:(int)width over:(int)NUMBER_OF_OCTAVES {
+
+- (void)initKeyboardViewWithWidth:(int)width over:(int)NUMBER_OF_OCTAVES
+{
     CGRect keyboardViewFrame;
     keyboardViewFrame.origin.x = 0;
     keyboardViewFrame.origin.y = 0;
@@ -360,7 +389,8 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
     [keyboardScrollView setTouchView:keyboardView];
 }
 
-- (void)noteOff:(int)keyNum {
+- (void)noteOff:(int)keyNum
+{
     int midikey = keyNum;
 	//[mCsound sendScore:[NSString stringWithFormat:@"i-%@.%003d 0 0", CURRENT_INSTRUMENT_OSC1, midikey]];
     //[mCsound sendScore:[NSString stringWithFormat:@"i-%@.%003d 0 0", CURRENT_INSTRUMENT_OSC2, midikey]];
@@ -368,12 +398,13 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
     if (isPolyphonic) {
         [mCsound sendScore:[NSString stringWithFormat:@"i-1.%003d 0 0", midikey]];
     } else {
-        [mCsound sendScore:[NSString stringWithFormat:@"i-2.%003d 0 0", midikey]];
+        NSLog(@"Monophonic MOno, mono");
+        [mCsound sendScore:[NSString stringWithFormat:@"i-5.%003d 0 0", midikey]];
     }
-
 }
 
-- (void)noteOn:(int)keyNum {
+- (void)noteOn:(int)keyNum
+{
     int midikey = keyNum;
     // NSInteger note = midikey;
     //[self sendNoteOnEvent:(Byte)note velocity:127];
@@ -386,12 +417,12 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
     } else {
         NSLog(@"Note on, mono");
 
-        [mCsound sendScore:[NSString stringWithFormat:@"i2.%003d 0 -2 %d 0", midikey, midikey]];
+        [mCsound sendScore:[NSString stringWithFormat:@"i5.%003d 0 -2 %d 0", midikey, midikey]];
     }
-
 }
 
-- (IBAction)scrollLockButton:(UISwitch*)sender {
+- (IBAction)scrollLockButton:(UISwitch*)sender
+{
     if ([keyboardScrollView isScrollEnabled]) {
         keyboardScrollView.scrollEnabled = NO;
     } else {
@@ -400,7 +431,8 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
     //NSLog(@"%@", NSStringFromCGPoint(keyboardScrollView.contentOffset));
 }
 
-- (IBAction)stepperPressed:(UIStepper*)sender {
+- (IBAction)stepperPressed:(UIStepper*)sender
+{
     if (sender.value > lastStepperValue) {
         [self octaveUpButtonPressed:nil];
         lastStepperValue++;
@@ -410,7 +442,8 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
     }
 }
 
-- (IBAction)octaveDownButtonPressed:(UIButton *)sender {
+- (IBAction)octaveDownButtonPressed:(UIButton *)sender
+{
     NSInteger currentXPosition = keyboardScrollView.contentOffset.x;
     if (currentXPosition <= OCTAVE_WIDTH) {
         currentXPosition = OCTAVE_WIDTH;
@@ -418,7 +451,8 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
     keyboardScrollView.contentOffset = CGPointMake(currentXPosition - OCTAVE_WIDTH, 0);
 }
 
-- (IBAction)octaveUpButtonPressed:(UIButton *)sender {
+- (IBAction)octaveUpButtonPressed:(UIButton *)sender
+{
     NSInteger currentXPosition = keyboardScrollView.contentOffset.x;
     if (currentXPosition + OCTAVE_WIDTH >= OCTAVE_WIDTH * NUMBER_OF_OCTAVES - keyboardScrollView.bounds.size.width) {
         currentXPosition = OCTAVE_WIDTH * NUMBER_OF_OCTAVES - keyboardScrollView.bounds.size.width - OCTAVE_WIDTH;
@@ -426,13 +460,19 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
     keyboardScrollView.contentOffset = CGPointMake(currentXPosition + OCTAVE_WIDTH, 0);
 }
 
+
 #pragma mark Csound
-- (void)csoundObjDidStart:(CsoundObj *)csoundObj {
+
+- (void)csoundObjDidStart:(CsoundObj *)csoundObj
+{
 }
 
-- (void)csoundObjComplete:(CsoundObj *)csoundObj {
+
+- (void)csoundObjComplete:(CsoundObj *)csoundObj
+{
 	//[mSwitch setOn:NO animated:YES];
 }
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -441,17 +481,32 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
     // Dispose of any resources that can be recreated.
 }
 
-- (void)viewDidAppear:(BOOL)animated {
+
+- (void)viewDidAppear:(BOOL)animated
+{
     NSIndexPath *indexPath=[NSIndexPath indexPathForRow:0 inSection:0];
     [self.myTable selectRowAtIndexPath:indexPath animated:YES  scrollPosition:UITableViewScrollPositionBottom];
     //[self initAudiobus];
-
 }
+
 
 - (void)updateCsoundValues
 {
     [v1.oscView.oscillator1Slider sendActionsForControlEvents:UIControlEventValueChanged];
+    [v1.oscView.oscillator1FineTuneKnob sendActionsForControlEvents:UIControlEventValueChanged];
+    [v1.oscView.oscillator1ModKnob sendActionsForControlEvents:UIControlEventValueChanged];
+    [v1.oscView.oscillator1Mod2Knob sendActionsForControlEvents:UIControlEventValueChanged];
+    [v1.oscView.oscillator1AmplitudeKnob sendActionsForControlEvents:UIControlEventValueChanged];
+    [v1.oscView.oscillator1FatnessKnob sendActionsForControlEvents:UIControlEventValueChanged];
+    
     [v1.oscView.oscillator2Slider sendActionsForControlEvents:UIControlEventValueChanged];
+    [v1.oscView.oscillator2FineTuneKnob sendActionsForControlEvents:UIControlEventValueChanged];
+    [v1.oscView.oscillator2TuneKnob sendActionsForControlEvents:UIControlEventValueChanged];
+    [v1.oscView.oscillator2ModKnob sendActionsForControlEvents:UIControlEventValueChanged];
+    [v1.oscView.oscillator2Mod2Knob sendActionsForControlEvents:UIControlEventValueChanged];
+    [v1.oscView.oscillator2AmplitudeKnob sendActionsForControlEvents:UIControlEventValueChanged];
+    [v1.oscView.oscillator2FatnessKnob sendActionsForControlEvents:UIControlEventValueChanged];
+    
     [v1.envView.ampEnvelopeView.ampAttackKnob sendActionsForControlEvents:UIControlEventValueChanged];
     [v1.envView.ampEnvelopeView.ampDecayKnob sendActionsForControlEvents:UIControlEventValueChanged];
     [v1.envView.ampEnvelopeView.ampSustainKnob sendActionsForControlEvents:UIControlEventValueChanged];
@@ -465,21 +520,30 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
     [v1.filterView.filterEnvAmtKnob sendActionsForControlEvents:UIControlEventValueChanged];
     [v1.lfoView.lfoAmpKnob sendActionsForControlEvents:UIControlEventValueChanged];
     [v1.lfoView.lfoFreqKnob sendActionsForControlEvents:UIControlEventValueChanged];
-    [v1.oscView.oscillator1FineTuneKnob sendActionsForControlEvents:UIControlEventValueChanged];
-    [v1.oscView.oscillator1AmplitudeKnob sendActionsForControlEvents:UIControlEventValueChanged];
-    [v1.oscView.oscillator2FineTuneKnob sendActionsForControlEvents:UIControlEventValueChanged];
-    [v1.oscView.oscillator2AmplitudeKnob sendActionsForControlEvents:UIControlEventValueChanged];
+    
     
     // EFFECTS
     [v5.distortionView.distGainKnob sendActionsForControlEvents:UIControlEventValueChanged];
     [v5.distortionView.distMixKnob sendActionsForControlEvents:UIControlEventValueChanged];
+    
     [v5.phaserView.phaserFreqKnob sendActionsForControlEvents:UIControlEventValueChanged];
     [v5.phaserView.phaserFeedbackKnob sendActionsForControlEvents:UIControlEventValueChanged];
     [v5.phaserView.phaserMixKnob sendActionsForControlEvents:UIControlEventValueChanged];
+    
+    [v5.chorusView.param1Knob sendActionsForControlEvents:UIControlEventValueChanged];
+    [v5.chorusView.param2Knob sendActionsForControlEvents:UIControlEventValueChanged];
+    [v5.chorusView.param3Knob sendActionsForControlEvents:UIControlEventValueChanged];
+    [v5.chorusView.mixKnob sendActionsForControlEvents:UIControlEventValueChanged];
+
+    [v5.delayView.param1Knob sendActionsForControlEvents:UIControlEventValueChanged];
+    [v5.delayView.param2Knob sendActionsForControlEvents:UIControlEventValueChanged];
+    [v5.delayView.mixKnob sendActionsForControlEvents:UIControlEventValueChanged];
+    
     [v5.reverbView.reverbRoomSizeKnob sendActionsForControlEvents:UIControlEventValueChanged];
     [v5.reverbView.reverbFreqKnob sendActionsForControlEvents:UIControlEventValueChanged];
     [v5.reverbView.reverbMixKnob sendActionsForControlEvents:UIControlEventValueChanged];
 }
+
 
 #pragma mark Motion methods
 
@@ -536,7 +600,6 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
     self.v4.destViewController.destinationArray = tempDestinationArray;
 }
 
-
 - (void)startMotionManager
 {
     if (motionManager) {
@@ -588,7 +651,6 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
     }
     [self updateCsoundValues];
 }
-
 
 - (void)modMatrixSourceUpdated:(NSNotification*)notification
 {
@@ -693,6 +755,7 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
     NSLog(@"%@", newMessage);
 }
 
+
 - (void)messageCallback:(NSValue *)infoObj
 {
     @autoreleasepool {
@@ -711,9 +774,11 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
 {
 }
 
+
 #pragma mark MIDI
 
-static void CheckError(OSStatus error, const char *operation) {
+static void CheckError(OSStatus error, const char *operation)
+{
     if(error == noErr) return;
     
     char errorString[20];
@@ -730,7 +795,8 @@ static void CheckError(OSStatus error, const char *operation) {
     exit(1);
 }
 
--(void)connectToHost {
+-(void)connectToHost
+{
     MIDINetworkHost *host = [MIDINetworkHost hostWithName:@"MyMIDIWifi"
                                                   address:DESTINATION_ADDRESS
                                                      port:5004];
@@ -760,13 +826,11 @@ static void CheckError(OSStatus error, const char *operation) {
         self.outputPort = outport;
         NSLog(@"Got output port!");
         //MIDIInputPortCreate(client, CFSTR("MyMIDI Input port"), NULL, NULL, &outport);
-
     }
-    
-
 }
 
--(void)sendStatus:(Byte)status data1:(Byte)data1 data2:(Byte)data2 {
+-(void)sendStatus:(Byte)status data1:(Byte)data1 data2:(Byte)data2
+{
     MIDIPacketList packetList;
     
     packetList.numPackets = 1;
@@ -787,37 +851,50 @@ static void CheckError(OSStatus error, const char *operation) {
     [midiConnection setVirtualEndpointName:@"MyApp"];
 }
 
--(void)sendNoteOnEvent:(Byte)key velocity:(Byte)velocity {
+-(void)sendNoteOnEvent:(Byte)key velocity:(Byte)velocity
+{
     [self sendStatus:0x90 data1:key & 0x7F data2:velocity & 0x7F];
 }
 
--(void)sendNoteOffEvent:(Byte)key velocity:(Byte)velocity {
+-(void)sendNoteOffEvent:(Byte)key velocity:(Byte)velocity
+{
     [self sendStatus:0x80 data1:key & 0x7F data2:velocity & 0x7F];
 }
 
--(IBAction)handleKeyDown:(id)sender {
+-(IBAction)handleKeyDown:(id)sender
+{
     NSInteger note = [sender tag];
     [self sendNoteOnEvent:(Byte)note velocity:127];
 }
 
--(IBAction)handleKeyUp:(id)sender {
+-(IBAction)handleKeyUp:(id)sender
+{
     NSInteger note = [sender tag];
     [self sendNoteOffEvent:(Byte)note velocity:127];
 }
 
 - (IBAction)showSoundfontPresets:(UIButton *)sender
 {
+    NSLog(@"FMViewcontroller 1 is now: %@", FMOscillator1SelectionViewController);
+    NSLog(@"The first button is: %@", FMOscillator1SelectionViewController.fmKnob1);
+
     [mCsound sendScore:[NSString stringWithFormat:@"i400 0 0"]];
 }
 
-- (void)changeSoundfontInstrumentTo:(NSString*)numberString
+- (void)changeOscillator1SoundfontInstrumentTo:(NSString*)numberString
 {
     int number = [numberString intValue];
     [mCsound sendScore:[NSString stringWithFormat:@"i401 0 0 %i", number]];
 }
 
-- (void)initOscillatorTouchRecognizers {
-    
+- (void)changeOscillator2SoundfontInstrumentTo:(NSString*)numberString
+{
+    int number = [numberString intValue];
+    [mCsound sendScore:[NSString stringWithFormat:@"i402 0 0 %i", number]];
+}
+
+- (void)initOscillatorTouchRecognizers
+{
     // Get Oscillator image size
     UIImage *img = [UIImage imageNamed:@"oscillatorBackground.png"];
     int imgX = img.size.width;
@@ -851,8 +928,8 @@ static void CheckError(OSStatus error, const char *operation) {
 }
 
 //The event handling method for OscillatorView
-- (void)handleDoubleTapOnOscSlider:(UITapGestureRecognizer *)recognizer {
-    
+- (void)handleDoubleTapOnOscSlider:(UITapGestureRecognizer *)recognizer
+{
     UISlider* slider;
     UIView* subview;
     CGPoint location = [recognizer locationInView:recognizer.view];
@@ -872,7 +949,6 @@ static void CheckError(OSStatus error, const char *operation) {
         return;
     }
     
-    int NUMBER_OF_OSCILLATORS = 5;
     double relativeXPositionInSubview = location.x - subview.frame.origin.x;
     double subviewWidth = subview.frame.size.width;
     
@@ -891,34 +967,130 @@ static void CheckError(OSStatus error, const char *operation) {
     [self updateCsoundValues];
 }
 
-
-
 - (void)handleTripleTapOnOscSlider:(UITapGestureRecognizer *)recognizer
 {
-    NSLog(@"Triple tap");
+    UISlider* slider;
+    UIView* subview;
+    CGPoint location = [recognizer locationInView:recognizer.view];
+    
+    // Get correct oscillator tap (or return direct if double tap is outside both subview)
+    if (CGRectContainsPoint(v1.oscView.oscillator1HiddenSubviewTouchRecognization.frame, location)) {
+        NSLog(@"Triple tap in osc1slider registered!");
+        slider = v1.oscView.oscillator1Slider;
+        subview = v1.oscView.oscillator1HiddenSubviewTouchRecognization;
+        
+        double relativeXPositionInSubview = location.x - subview.frame.origin.x;
+        double subviewWidth = subview.frame.size.width;
+        
+        if (relativeXPositionInSubview > subviewWidth*3/NUMBER_OF_OSCILLATORS && relativeXPositionInSubview < subviewWidth*4/NUMBER_OF_OSCILLATORS) {
+            [self openOscillator1FMPopoverControllerFromSlider:slider withDictionaryKey:@"Barack Obama"];
+        } else if (relativeXPositionInSubview > subviewWidth*4/NUMBER_OF_OSCILLATORS && relativeXPositionInSubview < subviewWidth*5/NUMBER_OF_OSCILLATORS) {
+            [self openOscillator1SoundfontPopoverControllerFromSlider:slider withDictionaryKey:@"Vladimir Putin"];
+        }
+    } else if(CGRectContainsPoint(v1.oscView.oscillator2HiddenSubviewTouchRecognization.frame, location)) {
+        NSLog(@"Triple tap in osc2slider registered!");
+        slider = v1.oscView.oscillator2Slider;
+        subview = v1.oscView.oscillator2HiddenSubviewTouchRecognization;
+        
+        double relativeXPositionInSubview = location.x - subview.frame.origin.x;
+        double subviewWidth = subview.frame.size.width;
+        
+        if (relativeXPositionInSubview > subviewWidth*3/NUMBER_OF_OSCILLATORS && relativeXPositionInSubview < subviewWidth*4/NUMBER_OF_OSCILLATORS) {
+            [self openOscillator1FMPopoverControllerFromSlider:slider withDictionaryKey:@"Barack Obama"];
+        } else if (relativeXPositionInSubview > subviewWidth*4/NUMBER_OF_OSCILLATORS && relativeXPositionInSubview < subviewWidth*5/NUMBER_OF_OSCILLATORS) {
+            [self openOscillator2SoundfontPopoverControllerFromSlider:slider withDictionaryKey:@"Vladimir Putin"];
+        }
+    } else {
+        return;
+    }
+    
+
 }
 
+- (void)initPopoverViewControllersAndKnobs
+{
+    FMOscillator1SelectionViewController = [[MGKFMSelectionViewController alloc] initWithNibName:@"MGKFMSelectionViewController" bundle:nil];
+    FMOscillator2SelectionViewController = [[MGKFMSelectionViewController alloc] initWithNibName:@"MGKFMSelectionViewController" bundle:nil];
+    soundfontOscillator1SelectionViewController = [[MGKSoundfontSelectionViewController alloc] initWithNibName:@"MGKSoundfontSelectionViewController" bundle:nil];
+    soundfontOscillator2SelectionViewController = [[MGKSoundfontSelectionViewController alloc] initWithNibName:@"MGKSoundfontSelectionViewController" bundle:nil];
+}
 
-- (IBAction)presetButtonPressed:(id)sender {
-    self.vc2.vc1 = self;
+- (void)openOscillator1FMPopoverControllerFromSlider:(UISlider*)slider withDictionaryKey:(NSString*)dictionaryKey
+{
+    FMPopoverController = [[UIPopoverController alloc] initWithContentViewController:FMOscillator1SelectionViewController];
+    FMPopoverController.delegate = self;
+    FMPopoverController.popoverContentSize = CGSizeMake(100, 200);
+    
+    CGRect correctPopoverPosition = slider.frame;
+    correctPopoverPosition.origin.x += 66; // This number is just a hack.
+    [FMPopoverController presentPopoverFromRect:correctPopoverPosition inView:self.v1.oscView permittedArrowDirections: UIPopoverArrowDirectionUp animated:YES];
+    FMPopoverController.passthroughViews = [NSArray arrayWithObjects:v1.oscView.oscillator1ModKnob, v1.oscView.oscillator2ModKnob, keyboardView, nil];
+}
+
+- (void)openOscillator2FMPopoverControllerFromSlider:(UISlider*)slider withDictionaryKey:(NSString*)dictionaryKey
+{
+    FMPopoverController = [[UIPopoverController alloc] initWithContentViewController:FMOscillator2SelectionViewController];
+    FMPopoverController.delegate = self;
+    FMPopoverController.popoverContentSize = CGSizeMake(100, 200);
+    
+    CGRect correctPopoverPosition = slider.frame;
+    correctPopoverPosition.origin.x += 66; // This number is just a hack.
+    [FMPopoverController presentPopoverFromRect:correctPopoverPosition inView:self.v1.oscView permittedArrowDirections: UIPopoverArrowDirectionUp animated:YES];
+    FMPopoverController.passthroughViews = [NSArray arrayWithObjects:v1.oscView.oscillator1ModKnob, v1.oscView.oscillator2ModKnob, keyboardView, nil];
+}
+
+- (void)openOscillator1SoundfontPopoverControllerFromSlider:(UISlider*)slider withDictionaryKey:(NSString*)dictionaryKey
+{
+    soundfontOscillator1SelectionViewController.mainViewController = self;
+    //destViewController.dictionaryKey = dictionaryKey;
+    soundfontPopoverController = [[UIPopoverController alloc] initWithContentViewController:soundfontOscillator1SelectionViewController];
+    soundfontPopoverController.delegate = self;
+    soundfontPopoverController.popoverContentSize = CGSizeMake(300, 400);
+    
+    CGRect correctPopoverPosition = slider.frame;
+    correctPopoverPosition.origin.x += 127; // This number is just a hack.
+    [soundfontPopoverController presentPopoverFromRect:correctPopoverPosition inView:self.v1.oscView permittedArrowDirections: UIPopoverArrowDirectionUp | UIPopoverArrowDirectionRight animated:YES];
+    soundfontPopoverController.passthroughViews = [NSArray arrayWithObjects:v1.oscView.oscillator1ModKnob, v1.oscView.oscillator2ModKnob, keyboardView, nil];
+
+    //destViewController.destinationArray = destinationArray;
+}
+
+- (void)openOscillator2SoundfontPopoverControllerFromSlider:(UISlider*)slider withDictionaryKey:(NSString*)dictionaryKey
+{
+    //destViewController.dictionaryKey = dictionaryKey;
+    soundfontOscillator2SelectionViewController.mainViewController = self;
+    soundfontPopoverController = [[UIPopoverController alloc] initWithContentViewController:soundfontOscillator2SelectionViewController];
+    soundfontPopoverController.delegate = self;
+    soundfontPopoverController.popoverContentSize = CGSizeMake(300, 400);
+    
+    CGRect correctPopoverPosition = slider.frame;
+    correctPopoverPosition.origin.x += 127; // This number is just a hack.
+    [soundfontPopoverController presentPopoverFromRect:correctPopoverPosition inView:self.v1.oscView permittedArrowDirections: UIPopoverArrowDirectionUp | UIPopoverArrowDirectionRight animated:YES];
+    soundfontPopoverController.passthroughViews = [NSArray arrayWithObjects:v1.oscView.oscillator1ModKnob, v1.oscView.oscillator2ModKnob, keyboardView, nil];
+    
+    //destViewController.destinationArray = destinationArray;
+}
+
+- (IBAction)presetButtonPressed:(id)sender
+{
+    self.presetViewController.mainViewController = self;
     NSLog(@"\n%@", self.presetButton.titleLabel.text);
 }
-
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     // Make sure your segue name in storyboard is the same as this line
     if ([[segue identifier] isEqualToString:@"presetSegue"]) {
         // Get reference to the destination view controller
-        self.vc2 = [segue destinationViewController];
-        self.vc2.vc1 = self;
+        self.presetViewController = [segue destinationViewController];
+        self.presetViewController.mainViewController = self;
         NSLog(@"\nAddress from main view controller: %@", self);
 
         // Pass any objects to the view controller here, like...
         //[vc setMyObjectHere:object];
     } else if ([[segue identifier] isEqualToString:@"soundfontSegue"]) {
         self.soundfontViewController = [segue destinationViewController];
-        self.soundfontViewController.vc1 = self;
+        self.soundfontViewController.mainViewController = self;
     } else if ([[segue identifier] isEqualToString:@"recordingSegue"]) {
 
     }
@@ -956,12 +1128,10 @@ static void CheckError(OSStatus error, const char *operation) {
         isRecording = NO;
     }
     NSLog(@"%hhd", isRecording);
-
 }
 
-
-
-- (IBAction)polyphonySwitch:(id)sender {
+- (IBAction)polyphonySwitch:(id)sender
+{
     if (isPolyphonic) {
         [mCsound sendScore:[NSString stringWithFormat:@"i450 0 0"]];
     } else {
@@ -970,10 +1140,30 @@ static void CheckError(OSStatus error, const char *operation) {
     isPolyphonic = !isPolyphonic;
 }
 
-- (void)myTestMethod {
+- (void)myTestMethod
+{
     NSLog(@"hei");
 }
 
-
+- (NSMutableDictionary*)getDictOfCurrentParameters
+{
+    NSMutableDictionary* currentValues = [[NSMutableDictionary alloc]init];
+    [currentValues setValue:[NSNumber numberWithFloat:self.v1.envView.ampEnvelopeView.ampAttackKnob.value] forKey:@"ampAttack"];
+    [currentValues setValue:[NSNumber numberWithFloat:self.v1.envView.ampEnvelopeView.ampDecayKnob.value] forKey:@"ampDecay"];
+    [currentValues setValue:[NSNumber numberWithFloat:self.v1.envView.ampEnvelopeView.ampSustainKnob.value] forKey:@"ampSustain"];
+    [currentValues setValue:[NSNumber numberWithFloat:self.v1.envView.ampEnvelopeView.ampReleaseKnob.value] forKey:@"ampRelease"];
+    [currentValues setValue:[NSNumber numberWithFloat:self.v1.filterView.filterCutoffKnob.value] forKey:@"filterCutoff"];
+    [currentValues setValue:[NSNumber numberWithFloat:self.v1.filterView.filterResonanceKnob.value] forKey:@"filterResonance"];
+    [currentValues setValue:[NSNumber numberWithFloat:self.v1.envView.filterEnvelopeView.filterAttackKnob.value] forKey:@"filterAttack"];
+    [currentValues setValue:[NSNumber numberWithFloat:self.v1.envView.filterEnvelopeView.filterDecayKnob.value] forKey:@"filterDecay"];
+    [currentValues setValue:[NSNumber numberWithFloat:self.v1.envView.filterEnvelopeView.filterSustainKnob.value] forKey:@"filterSustain"];
+    [currentValues setValue:[NSNumber numberWithFloat:self.v1.envView.filterEnvelopeView.filterReleaseKnob.value] forKey:@"filterRelease"];
+    
+    //    [currentValues setValue:[NSNumber numberWithInt:self.vc.v1.oscillator1SegmentedControl.selectedSegmentIndex] forKey:@"oscillator1SegmentedControl"];
+    //    [currentValues setValue:[NSNumber numberWithInt:self.vc.v1.oscillator2SegmentedControl.selectedSegmentIndex] forKey:@"oscillator2SegmentedControl"];
+    
+    NSLog(@"MGKViewController:\n%@, View: %@", currentValues, self.v1);
+    return currentValues;
+}
 
 @end

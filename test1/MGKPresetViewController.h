@@ -13,12 +13,12 @@
 @class DatabaseHandler;
 @interface MGKPresetViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property (strong, nonatomic) MGKViewController* vc1;
-
+@property (strong, nonatomic) MGKViewController* mainViewController;
 @property (strong, nonatomic) DatabaseHandler* db;
 @property (nonatomic, weak) IBOutlet UITableView *myTable;
 @property (nonatomic, strong) NSString* presetString;
-- (IBAction)saveButtonPressed:(id)sender;
 
+- (IBAction)saveButtonPressed:(id)sender;
+- (void)updateTableView;
 
 @end

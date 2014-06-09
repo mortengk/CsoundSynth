@@ -10,11 +10,13 @@
 
 @interface MGKSoundfontSelectionViewController ()
 
-@property (nonatomic, strong) NSMutableArray* myArray;
+@property (nonatomic, strong) NSMutableArray* soundfontPresetArray;
 
 @end
 
 @implementation MGKSoundfontSelectionViewController
+
+@synthesize mainViewController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -28,10 +30,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.myArray = [[NSMutableArray alloc]init];
-    for (int i = 0; i < 100; i++) {
+    self.soundfontPresetArray = [[NSMutableArray alloc]init];
+    for (int i = 0; i < 256; i++) {
         NSString *str = [@(i) stringValue];
-        [self.myArray addObject:str];
+        [self.soundfontPresetArray addObject:str];
     }
     // Do any additional setup after loading the view.
 }
@@ -47,10 +49,9 @@
     return @"Soundfonts";
 }
 
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.myArray count];
+    return [self.soundfontPresetArray count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -64,7 +65,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                       reuseIdentifier:cellIdentifier];
     }
-    cell.textLabel.text = [self.myArray objectAtIndex:indexPath.row];
+    cell.textLabel.text = [self.soundfontPresetArray objectAtIndex:indexPath.row];
     
     return cell;
 }
@@ -78,7 +79,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.vc1 changeSoundfontInstrumentTo:[self.myArray objectAtIndex:indexPath.row]];
+    if ([self isEqual:mainViewController.soundfontOscillator1SelectionViewController]) {
+        [mainViewController changeOscillator1SoundfontInstrumentTo:[self.soundfontPresetArray objectAtIndex:indexPath.row]];
+    } else if ([self isEqual:mainViewController.soundfontOscillator2SelectionViewController]) {
+        [mainViewController changeOscillator2SoundfontInstrumentTo:[self.soundfontPresetArray objectAtIndex:indexPath.row]];
+    }
 }
 
 @end

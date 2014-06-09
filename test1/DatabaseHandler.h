@@ -13,8 +13,10 @@
 @class MGKViewController;
 @interface DatabaseHandler : NSObject
 
+@property (nonatomic, strong) NSMutableArray* userPresetArray;
 @property (nonatomic, strong) NSMutableArray* myPresetArray;
-@property (nonatomic, strong) MGKViewController* vc;
+@property (nonatomic, strong) MGKViewController* mainViewController;
+@property (nonatomic, strong) NSMutableDictionary* dict;
 
 - (void)setParametersFromPreset:(NSString*)presetName;
 - (IBAction)saveCurrentParameterValuesToDict:(id)sender;

@@ -79,8 +79,9 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gBP-Ep-0B2">
                                 <rect key="frame" x="741" y="10" width="161" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                 <state key="normal" title="INIT">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -156,6 +157,7 @@
                         <outlet property="keyboardScrollView" destination="4MU-km-OTN" id="NIe-ab-KmA"/>
                         <outlet property="lockSwitch" destination="28I-73-83t" id="BsY-4m-zA9"/>
                         <outlet property="pView" destination="MEL-eF-gQs" id="ayP-SI-6pA"/>
+                        <outlet property="polyphonySwitcher" destination="qn0-pr-QoS" id="vHZ-NH-Lgy"/>
                         <outlet property="presetButton" destination="gBP-Ep-0B2" id="xgm-fB-Hqc"/>
                         <outlet property="stepper" destination="SGu-uK-KhS" id="MhQ-gk-cei"/>
                     </connections>
