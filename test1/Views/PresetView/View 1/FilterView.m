@@ -33,7 +33,7 @@
         [self.view addSubview:self.knobPlaceholder5];
         self.filterCutoffKnob.minimumValue = 0;
         self.filterCutoffKnob.maximumValue = 1;
-        self.filterCutoffKnob.value = .5;
+        self.filterCutoffKnob.value = 1;
         self.filterCutoffKnob.defaultValue = self.filterCutoffKnob.value;
         
         // Filter resonance
@@ -43,8 +43,8 @@
         [self.view addSubview:self.knobPlaceholder6];
         self.filterResonanceKnob.minimumValue = 0;
         self.filterResonanceKnob.maximumValue = 1;
-        self.filterResonanceKnob.value = .3;
-        self.filterResonanceKnob.defaultValue = self.filterResonanceKnob.maximumValue/2;
+        self.filterResonanceKnob.value = .2;
+        self.filterResonanceKnob.defaultValue = self.filterResonanceKnob.value;
         
         // Filter envelope amount
         filterEnvAmtKnob = [[MGKRotaryKnob alloc]initWithFrame:self.filterEnvAmtPlaceholder.bounds];

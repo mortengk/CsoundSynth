@@ -5,13 +5,11 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>0A984C7E-47EE-4ED9-8A90-2246972FFDA8</string>
+	<string>789A185C-D2B0-4379-A51A-46E89E9F866B</string>
 	<key>IDESourceControlProjectName</key>
 	<string>test1</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>A64CA9DC-770B-4308-8738-86BB3389249A</key>
-		<string>https://github.com/mortengk/CsoundSynth.git</string>
 		<key>B006695C-8F80-48E6-9CC7-B9685822536D</key>
 		<string>https://github.com/mortengk/CsoundSynth.git</string>
 	</dict>
@@ -19,8 +17,6 @@
 	<string>test1.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>A64CA9DC-770B-4308-8738-86BB3389249A</key>
-		<string>../../test1</string>
 		<key>B006695C-8F80-48E6-9CC7-B9685822536D</key>
 		<string>../..</string>
 	</dict>
@@ -39,14 +35,6 @@
 			<string>B006695C-8F80-48E6-9CC7-B9685822536D</string>
 			<key>IDESourceControlWCCName</key>
 			<string>CsoundSynth</string>
-		</dict>
-		<dict>
-			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.git</string>
-			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>A64CA9DC-770B-4308-8738-86BB3389249A</string>
-			<key>IDESourceControlWCCName</key>
-			<string>test1</string>
 		</dict>
 	</array>
 </dict>

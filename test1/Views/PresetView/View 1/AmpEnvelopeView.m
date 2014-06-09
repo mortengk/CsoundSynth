@@ -81,7 +81,7 @@
         [self.knobPlaceholder4 addSubview:self.ampReleaseKnob];
         [self.view addSubview:self.knobPlaceholder4];
         self.ampReleaseKnob.minimumValue = 0.002;
-        self.ampReleaseKnob.maximumValue = 6;
+        self.ampReleaseKnob.maximumValue = 1.5;
         self.ampReleaseKnob.value = ampReleaseKnob.minimumValue;
     
     }

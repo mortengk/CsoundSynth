@@ -1,7 +1,7 @@
 
 <CsoundSynthesizer>
 <CsOptions>
--o dac -+rtmidi=null -+rtaudio=null -+msg_color=0 -M0 -m0 -b512 -B1024 ;-d
+-o dac -+rtmidi=null -+rtaudio=null -+msg_color=0 -Ma -ma -b512 -B1024 -d
 </CsOptions>
 <CsInstruments>
 nchnls  = 2
@@ -13,12 +13,16 @@ sr      = 44100
 ;prealloc 1, 48
 maxalloc    1, 24
 maxalloc    6, 1
-giZeldaSoundfont            sfload "Zelda_3.sf2" 
-giGeneralMidiSoundfont      sfload "sf_GMbank.sf2"
-giSuperMarioWorldSoundfont  sfload "SuperMarioWorld.sf2"
-        sfilist giZeldaSoundfont 
-        sfilist giSuperMarioWorldSoundfont 
-        sfilist giGeneralMidiSoundfont 
+massign 1, 1
+
+; giZeldaSoundfont            sfload "Zelda_3.sf2" 
+; giGeneralMidiSoundfont      sfload "sf_GMbank.sf2"
+; giSuperMarioWorldSoundfont  sfload "SuperMarioWorld.sf2"
+giRolandSoundfont           sfload "RolandSC55.sf2"
+        ; sfilist giZeldaSoundfont 
+        ; sfilist giSuperMarioWorldSoundfont 
+        ; sfilist giGeneralMidiSoundfont 
+        sfilist giRolandSoundfont
 
 
 giSine          ftgen 0, 0, 2^12, 10, 1
@@ -40,10 +44,13 @@ gkFineTuneOsc2  init 0
 gkOscil1Amp     init 0
 gkOscil1Mod     init 0
 gkOscil1Mod2    init 0
+gkOscil1Fatness init 0
 gkOscil2Tune    init 0
 gkOscil2Amp     init 0
 gkOscil2Mod     init 0
 gkOscil2Mod2    init 0
+gkOscil2Fatness init 0
+
 gkAmpAttack     init 0
 gkAmpDecay      init 0
 gkAmpSustain    init 0
@@ -125,7 +132,7 @@ xout    kCPS
 endop
 
 opcode  StChorus,aa,aakkk
-    ainL,ainR,krate,kdepth,kwidth   xin                 ;READ IN INPUT ARGUMENTS
+    ainL, ainR, krate, kdepth, kwidth   xin                 ;READ IN INPUT ARGUMENTS
     ilfoshape   ftgentmp    0, 0, 131072, 19, 1, 0.5, 0,  0.5   ;POSITIVE DOMAIN ONLY SINE WAVE
     kporttime   linseg  0,0.001,0.02                    ;RAMPING UP PORTAMENTO VARIABLE
     kChoDepth   portk   kdepth*0.01, kporttime              ;SMOOTH VARIABLE CHANGES WITH PORTK
@@ -142,6 +149,24 @@ opcode  StChorus,aa,aakkk
 endop
 
 
+; instr 1
+;     midinoteonkey       p4, p5
+
+
+
+;     kRelease release
+
+;     printk2 kRelease
+
+;     if(kRelease < 0.5) then
+;         print p4
+;         print p5
+;         event_i "i", 2, 0, -2, p4, 0
+;     elseif(kRelease == 1) then
+;         event_i "i", -2, 0, 0
+;     endif
+; endin
+
 instr 1
 
 midinoteonkey       p4, p5
@@ -150,20 +175,17 @@ kCPS2               cpsmid2 p4
 gkCPSOsc1           = kCPS * cent(100/12*gkFineTuneOsc1)
 gkCPSOsc2           = kCPS2 * cent(100/12*gkFineTuneOsc2) ; Need separate frequencies for each osc
 
-kAmpAdjust          = 0.1
+kAmpAdjust          init 0.1
 a1TempL             = 0
-a1TempR             = 0
 a2TempL             = 0
-a2TempR             = 0
-a1R                 = 0
-a2R                 = 0
 
-kAmpEnvelope        linsegr 0, i(gkAmpAttack) + 0.01, 1, i(gkAmpDecay), i(gkAmpSustain), i(gkAmpRelease) + 0.01, 0
+;kAmpEnvelope        linsegr 0, i(gkAmpAttack) + 0.01, 1, i(gkAmpDecay), i(gkAmpSustain), i(gkAmpRelease) + 0.01, 0
 kPitchEnvelope      linsegr 0, i(gkPitchAttack), 1, i(gkPitchDecay), i(gkPitchSustain), i(gkPitchRelease), 0
 ;kAmpEnvelope        madsr i(gkAmpAttack) + 0.01, 1, i(gkAmpDecay), i(gkAmpSustain), i(gkAmpRelease)
 
 gkCPSOsc1           = gkCPSOsc1 + gkLFO1Osc1*gkCPSOsc1 ;
 gkCPSOsc2           = gkCPSOsc2 + gkLFO1Osc2*gkCPSOsc2
+
 
 ; ---------- OSCILLATORS ----------
 
@@ -173,78 +195,66 @@ if (gkOscil1State >= 1 && gkOscil1State < 2) then
     ; SINE
     kInstrumentNumber = 1
     kSliderCompensation = abs(kInstrumentNumber - gkOscil1State)    ; THE SLIDER CAN HAVE CONTINOUS VALUES, WHICH NEEDS TO BE COMPENSATED FOR WITH EACH INSTRUMENT -NUMBER- 
-    ;printk2 kSliderCompensation
-    a1SineL     poscil kAmpAdjust*kAmpEnvelope*gkOscil1Amp * sqrt(1 - kSliderCompensation), gkCPSOsc1, giSine
-    a1SineR     poscil kAmpAdjust*kAmpEnvelope*gkOscil1Amp * sqrt(1 - kSliderCompensation), gkCPSOsc1, giSine
+    a1SineL     poscil kAmpAdjust*gkOscil1Amp * sqrt(1 - kSliderCompensation), gkCPSOsc1, giSine
 
-
-
-    ; ; HARD SYNC
- ;    ; the slave's frequency affects the timbre 
- ;    ;kslavecps   line        i(kCPS * cent(100/12*gkFineTuneOsc1)), 1, i(kCPS * cent(100/12*gkFineTuneOsc1)) * 5
+    ; HARD SYNC
+    anosync     init        0.0
+    am, async   syncphasor  gkCPSOsc1, anosync
     
- ;    ; the master "oscillator"
- ;    ; the master has no sync input 
- ;    anosync     init        0.0
- ;    am, async   syncphasor  kCPSOsc1, anosync
-    
- ;    ; the slave "oscillator"
- ;    kOscil1Mod    portk gkOscil1Mod, .1
- ;    kCPS1Temp     = kCPS * cent(100/12*gkFineTuneOsc1)
- ;    asig, as    syncphasor kCPS1Temp*1*kOscil1Mod, async
+    ; ; the slave "oscillator"
+    kOscil1Mod    portk gkOscil1Mod, .0001
+    asig, as    syncphasor gkCPSOsc1*(kOscil1Mod * 11 + 1), async*sqrt(1 - kSliderCompensation)
 
-
-    ; a1L1 = a1SineL * (1 - gkOscil1Mod)
-    ; a1R1 = a1SineR * (1 - gkOscil1Mod)
-
-    ; a1L2 = (asig/2) * gkOscil1Mod
-    ; a1R2 = (asig/2) * gkOscil1Mod
-
-    a1TempL = a1TempL + a1SineL
-    a1TempR = a1TempR + a1SineR
+    a1SineL = a1SineL * (1 - gkOscil1Mod2)
+    a1Sync = (asig/8) * gkOscil1Mod2 * sqrt(1 - kSliderCompensation) * gkOscil1Amp
+    a1TempL = a1TempL + a1SineL + a1Sync
 endif
 
 ; SAW WAVE
 if (gkOscil1State > 1 && gkOscil1State < 3) then
     kInstrumentNumber = 2
     kSliderCompensation = abs(kInstrumentNumber - gkOscil1State)
-    a1L     vco2 kAmpAdjust*kAmpEnvelope*gkOscil1Amp*sqrt(1 - kSliderCompensation), (gkCPSOsc1 + 0), 4, (gkOscil1Mod * 0.98) + 0.01
-    a1R     vco2 kAmpAdjust*kAmpEnvelope*gkOscil1Amp*sqrt(1 - kSliderCompensation), (gkCPSOsc1 + 0), 4, (gkOscil1Mod * 0.98) + 0.01
+    a1L     vco2 kAmpAdjust*gkOscil1Amp*sqrt(1 - kSliderCompensation), gkCPSOsc1, 4, (gkOscil1Mod * 0.98) + 0.01
+
     a1TempL = a1TempL + a1L 
-    a1TempR = a1TempR + a1R 
 endif
 
 ; PWM WAVE
 if (gkOscil1State > 2 && gkOscil1State < 4) then
     kInstrumentNumber = 3
     kSliderCompensation = abs(kInstrumentNumber - gkOscil1State)
-    a1L     vco2    kAmpAdjust*kAmpEnvelope*gkOscil1Amp * sqrt(1 - kSliderCompensation)*.75, (gkCPSOsc1 + 0), 2, (gkOscil1Mod * 0.9) + 0.05
-    a1R     vco2    kAmpAdjust*kAmpEnvelope*gkOscil1Amp * sqrt(1 - kSliderCompensation)*.75, (gkCPSOsc1 + 0), 2, (gkOscil1Mod * 0.9) + 0.05
+    a1L     vco2    kAmpAdjust*gkOscil1Amp * sqrt(1 - kSliderCompensation)*.75, (gkCPSOsc1 + 0), 2, (gkOscil1Mod * 0.9) + 0.05
     a1TempL = a1TempL + a1L 
-    a1TempR = a1TempR + a1R
 endif
 
 ; FM
 if (gkOscil1State > 3 && gkOscil1State < 5) then
     kInstrumentNumber = 4
     kSliderCompensation = abs(kInstrumentNumber - gkOscil1State)
-    a1L     foscili kAmpAdjust*kAmpEnvelope*gkOscil1Amp * sqrt(1 - kSliderCompensation), (gkCPSOsc1 + 0), 1, gkOscil1Mod*1000, gkOscil1Mod2*10, giSine
-    a1R     foscili kAmpAdjust*kAmpEnvelope*gkOscil1Amp * sqrt(1 - kSliderCompensation), (gkCPSOsc1 + 0), 1, gkOscil1Mod*1000, gkOscil1Mod2*10, giSine
+    a1L     foscili kAmpAdjust*gkOscil1Amp * sqrt(1 - kSliderCompensation), (gkCPSOsc1 + 0), 1, (gkOscil1Mod^2)*10, (gkOscil1Mod2^2)*1000, giSine
+
+
+    ; kFMAmp      = gkOscil1Mod^2
+    ; kFMCPS      = sqrt(gkOscil1Mod2*5000^2)
+    ; printk2     kFMAmp
+    ; printk2     kFMCPS
+    ; aVibrato    oscili  1000, 1000, giSine
+    ; a1L         oscili  kAmpAdjust*gkOscil1Amp * sqrt(1 - kSliderCompensation), gkCPSOsc1 + aVibrato, giSine
+    
+
     a1TempL = a1TempL + a1L 
-    a1TempR = a1TempR + a1R 
 endif
 
 ; SOUNDFONT
 if (gkOscil1State > 4 && gkOscil1State <= 6) then
     kInstrumentNumber = 5
     kSliderCompensation = abs(kInstrumentNumber - gkOscil1State)
-    iAmp    = 0.001*i(kAmpAdjust)                       ;scale amplitude
+    iAmp    = 0.002*i(kAmpAdjust)                       ;scale amplitude
     iAmp    = iAmp * p4 * 1/128             ;make velocity-dependent
     ;a1, a2 sfinstr3 p5, p4, iAmp, kCPSOsc1, 180, giZeldaSoundfont, 1 ;= Slap Bass 3
-    a1L, a1R sfinstr3 p5, p4, iAmp*gkOscil1Amp*kAmpEnvelope*sqrt(1 - kSliderCompensation), (gkCPSOsc1 + 0), giSelectedOscillator1SoundfontPreset, giGeneralMidiSoundfont, 1
+    a1L, a1R sfinstr3 p5, p4, iAmp*gkOscil1Amp*sqrt(1 - kSliderCompensation), (gkCPSOsc1 + 0), giSelectedOscillator1SoundfontPreset, giRolandSoundfont, 1
     aEnv    linsegr 0,0.001,1,0.005,0
     a1TempL = a1TempL + a1L
-    a1TempR = a1TempR + a1R
 endif
 
 ; OSCILLATOR 2
@@ -253,74 +263,84 @@ endif
 if (gkOscil2State >= 11 && gkOscil2State < 12) then
     kInstrumentNumber = 11
     kSliderCompensation = abs(kInstrumentNumber - gkOscil2State)
-    a2L     poscil kAmpAdjust*kAmpEnvelope*gkOscil2Amp * sqrt(1 - kSliderCompensation), gkCPSOsc2, giSine
-    a2R     poscil kAmpAdjust*kAmpEnvelope*gkOscil2Amp * sqrt(1 - kSliderCompensation), gkCPSOsc2, giSine
-    a2TempL = a2TempL + a2L 
-    a2TempR = a2TempR + a2R 
+    a2SineL     poscil kAmpAdjust*gkOscil2Amp * sqrt(1 - kSliderCompensation), gkCPSOsc2, giSine
+    
+    ; HARD SYNC
+    anosync     init        0.0
+    am, async   syncphasor  gkCPSOsc2, anosync
+    
+    ; ; the slave "oscillator"
+    kOscil2Mod    portk gkOscil2Mod, .0001
+    asig, as    syncphasor gkCPSOsc2*(kOscil2Mod * 11 + 1), async*sqrt(1 - kSliderCompensation)
+
+    a2SineL = a2SineL * (1 - gkOscil2Mod2)
+    a2Sync = (asig/8) * gkOscil2Mod2 * sqrt(1 - kSliderCompensation) * gkOscil2Amp
+    a2TempL = a2TempL + a2SineL + a2Sync
 endif
 
 ; SAW WAVE
 if (gkOscil2State > 11 && gkOscil2State < 13) then
     kInstrumentNumber = 12
     kSliderCompensation = abs(kInstrumentNumber - gkOscil2State)
-    a2L     vco2 kAmpAdjust*kAmpEnvelope*gkOscil2Amp*sqrt(1 - kSliderCompensation), (gkCPSOsc2 + 0), 4, (gkOscil2Mod * 0.98) + 0.01
-    a2R     vco2 kAmpAdjust*kAmpEnvelope*gkOscil2Amp*sqrt(1 - kSliderCompensation), (gkCPSOsc2 + 0), 4, (gkOscil2Mod * 0.98) + 0.01
+    a2L     vco2 kAmpAdjust*gkOscil2Amp*sqrt(1 - kSliderCompensation), (gkCPSOsc2 + 0), 4, (gkOscil2Mod * 0.98) + 0.01
     a2TempL = a2TempL + a2L 
-    a2TempR = a2TempR + a2R 
 endif
 
 ; PWM WAVE
 if (gkOscil2State > 12 && gkOscil2State < 14) then
     kInstrumentNumber = 13
     kSliderCompensation = abs(kInstrumentNumber - gkOscil2State)
-    a2L     vco2    kAmpAdjust*kAmpEnvelope*gkOscil2Amp * sqrt(1 - kSliderCompensation)*.75, (gkCPSOsc2 + 0), 2, (gkOscil2Mod * 0.9) + 0.05
-    a2R     vco2    kAmpAdjust*kAmpEnvelope*gkOscil2Amp * sqrt(1 - kSliderCompensation)*.75, (gkCPSOsc2 + 0), 2, (gkOscil2Mod * 0.9) + 0.05
+    a2L     vco2    kAmpAdjust*gkOscil2Amp * sqrt(1 - kSliderCompensation)*.75, (gkCPSOsc2 + 0), 2, (gkOscil2Mod * 0.9) + 0.05
     a2TempL = a2TempL + a2L 
-    a2TempR = a2TempR + a2R 
 endif
 
 ; FM
 if (gkOscil2State > 13 && gkOscil2State < 15) then
     kInstrumentNumber = 14
     kSliderCompensation = abs(kInstrumentNumber - gkOscil2State)
-    a2L     foscili kAmpAdjust*kAmpEnvelope*gkOscil2Amp * sqrt(1 - kSliderCompensation), (gkCPSOsc2 + 0), gkOscil2Mod2*100, gkOscil2Mod*100, 4, giSine
-    a2R     foscili kAmpAdjust*kAmpEnvelope*gkOscil2Amp * sqrt(1 - kSliderCompensation), (gkCPSOsc2 + 0), gkOscil2Mod2*100, gkOscil2Mod*100, 4, giSine
+    a2L     foscili kAmpAdjust*gkOscil2Amp * sqrt(1 - kSliderCompensation), (gkCPSOsc2 + 0), (gkOscil2Mod2^2)*1000, (gkOscil2Mod^2)*10, 4, giSine
     a2TempL = a2TempL + a2L 
-    a2TempR = a2TempR + a2R 
 endif
 
 ; SAMPLE
 if (gkOscil2State > 14 && gkOscil2State <= 16) then
     kInstrumentNumber = 15
     kSliderCompensation = abs(kInstrumentNumber - gkOscil2State)
-    iAmp    = 0.001*i(kAmpAdjust)                       ;scale amplitude
+    iAmp    = 0.002*i(kAmpAdjust)                       ;scale amplitude
     iAmp    = iAmp * p4 * 1/128             ;make velocity-dependent
     ;a1, a2 sfinstr3 p5, p4, iAmp, kCPSOsc1, 180, giZeldaSoundfont, 1 ;= Slap Bass 3
-    a2L, a2R sfinstr3 p5, p4, iAmp*gkOscil2Amp*kAmpEnvelope*sqrt(1 - kSliderCompensation), (gkCPSOsc2 + 0), giSelectedOscillator2SoundfontPreset, giGeneralMidiSoundfont, 1
+    a2L, a2R sfinstr3 p5, p4, iAmp*gkOscil2Amp*sqrt(1 - kSliderCompensation), (gkCPSOsc2 + 0), giSelectedOscillator2SoundfontPreset, giRolandSoundfont, 1
     ;a2L, a2R    loscil3 kAmpAdjust*kAmpEnvelope*gkOscil2Amp * sqrt(1 - kSliderCompensation), 1, 2, 2
     a2TempL = a2TempL + a2L 
-    a2TempR = a2TempR + a2R 
 endif
 
-aTempL          = a1TempL + a2TempL
-aTempR          = a1TempR + a2TempR
+    
+aTemp           = a1TempL + a2TempL
 
-a1TempL = 0
-a1TempR = 0
-a2TempL = 0
-a2TempR = 0
+kRMS rms aTemp 
+aTemp gain aTemp, kRMS
 
+aAntiClick      linsegr 0,0.001,0,0.005,0
+aTemp           = aTemp+aAntiClick
 
 #include "filters.inc"
 ;aEnv             expsegr 0.01, i(gkAmpAttack), 1, i(gkAmpDecay), i(gkAmpSustain), i(gkAmpRelease), 0.01
 ;aL = aL * aEnv
 
-gaOscilL        = gaOscilL + aFiltered
+kAmpEnvelope        linsegr 0, i(gkAmpAttack), 1, i(gkAmpDecay), i(gkAmpSustain), i(gkAmpRelease), 0
+;kAmpEnvelope        linsegr 0, i(gkAmpAttack/2), 0.15, i(gkAmpAttack/2), 1, i(gkAmpDecay), i(gkAmpSustain), i(gkAmpRelease), 0
+;kAmpEnvelope        expsegr 0.01, i(gkAmpAttack) + 0.01, 1, i(gkAmpDecay), i(gkAmpSustain), i(gkAmpRelease) + 0.01, 0.01
+aFiltered           = aFiltered*kAmpEnvelope
+
+
+
+chnmix aFiltered, "masterL"
+chnmix aFiltered, "masterR"
 
 endin
 
 
-instr 2 ;NOTE ON/OFF AND PITCH REGISERING INSTRUMENT. THIS INSTRUMENT WILL BE TRIGGERED BY NOTE PLAYED ON THE MIDI KEYBOARD
+instr 5 ;NOTE ON/OFF AND PITCH REGISERING INSTRUMENT. THIS INSTRUMENT WILL BE TRIGGERED BY NOTE PLAYED ON THE MIDI KEYBOARD
     prints "instr 6"
     midinoteonkey       p4, p5
     gkcps               cpsmid p4
@@ -468,7 +488,7 @@ instr 6 ;SOUND PRODUCING INSTRUMENT
         iAmp    = 0.001*i(kAmpAdjust)                       ;scale amplitude
         iAmp    = iAmp * p4 * 1/128             ;make velocity-dependent
         ;a1, a2 sfinstr3 p5, p4, iAmp, kCPSOsc1, 180, giZeldaSoundfont, 1 ;= Slap Bass 3
-        a1L, a1R sfinstr3 p5, p4, iAmp*gkOscil1Amp*sqrt(1 - kSliderCompensation), (gkCPSOsc1 + 0), giSelectedOscillator1SoundfontPreset, giGeneralMidiSoundfont, 1
+        a1L, a1R sfinstr3 p5, p4, iAmp*gkOscil1Amp*sqrt(1 - kSliderCompensation), (gkCPSOsc1 + 0), giSelectedOscillator1SoundfontPreset, giRolandSoundfont, 1
         aEnv    linsegr 0,0.001,1,0.005,0
         a1TempL = a1TempL + a1L
         a1TempR = a1TempR + a1R
@@ -523,7 +543,7 @@ instr 6 ;SOUND PRODUCING INSTRUMENT
         iAmp    = 0.001*i(kAmpAdjust)                       ;scale amplitude
         iAmp    = iAmp * p4 * 1/128             ;make velocity-dependent
         ;a1, a2 sfinstr3 p5, p4, iAmp, kCPSOsc1, 180, giZeldaSoundfont, 1 ;= Slap Bass 3
-        a2L, a2R sfinstr3 p5, p4, iAmp*gkOscil2Amp*sqrt(1 - kSliderCompensation), (gkCPSOsc2 + 0), giSelectedOscillator2SoundfontPreset, giGeneralMidiSoundfont, 1
+        a2L, a2R sfinstr3 p5, p4, iAmp*gkOscil2Amp*sqrt(1 - kSliderCompensation), (gkCPSOsc2 + 0), giSelectedOscillator2SoundfontPreset, giRolandSoundfont, 1
         ;a2L, a2R    loscil3 kAmpAdjust*kAmpEnvelope*gkOscil2Amp * sqrt(1 - kSliderCompensation), 1, 2, 2
         a2TempL = a2TempL + a2L 
         a2TempR = a2TempR + a2R 
@@ -575,16 +595,25 @@ instr 6 ;SOUND PRODUCING INSTRUMENT
     asigL       moogladder  aTempL, gkFilterCutoff, gkFilterRes
     asigR       moogladder  aTempR, gkFilterCutoff, gkFilterRes
 
-    #include "filters.inc"
+    ; #include "filters.inc"
 
-    asigL = aFiltered
-    asigR = aFiltered
+    ; asigL = aFiltered
+    ; asigR = aFiltered
 
     gaOscilL = gaOscilL + asigL*aAmpEnv/2
     gaOscilR = gaOscilR + asigR*aAmpEnv/2
     gkNoteOn = 0
 
 endin
+
+
+; Global LFO, always running
+instr 90 
+
+#include "lfo.inc"
+
+endin
+
 
 ; ------- EFFECT INSTRUMENTS -------
 
@@ -593,13 +622,18 @@ instr 108
         kgoto continue
 
     distIsActive: 
-        a1          distort1 gaOscilL, gkDistGain, .2, 0, 0
-        a2          distort1 gaOscilR, gkDistGain, .2, 0, 0
-        gaOscilL    = sqrt(1 - gkDistMix)*gaOscilL + a1*sqrt(gkDistMix)
-        gaOscilR    = sqrt(1 - gkDistMix)*gaOscilR + a2*sqrt(gkDistMix)
+        aMasterL    chnget "masterL"
+        aMasterR    chnget "masterR"
+
+        aWetL          distort1 aMasterL, gkDistGain, .2, 0, 0
+        aWetR          distort1 aMasterR, gkDistGain, .2, 0, 0
+
+        chnset      sqrt(1 - gkDistMix)*aMasterL + sqrt(gkDistMix)*aWetL, "masterL"
+        chnset      sqrt(1 - gkDistMix)*aMasterR + sqrt(gkDistMix)*aWetR, "masterR" 
         kgoto continue
 
     continue:
+
 endin
 
 
@@ -608,34 +642,35 @@ instr 109
         kgoto continue
 
     phaserIsActive: 
-        iFeedback   chnget "phaserFeed"
-        kFreq  oscil 4000, gkPhaserFreq, 1
-        kMod   = kFreq + 5600
-        a1          phaser1 gaOscilL, kMod, 4, iFeedback
-        a2          phaser1 gaOscilR, kMod, 4, iFeedback
-        gaOscilL    = sqrt(1 - gkPhaserMix)*gaOscilL + a1*sqrt(gkPhaserMix)
-        gaOscilR    = sqrt(1 - gkPhaserMix)*gaOscilR + a2*sqrt(gkPhaserMix)
-        kgoto continue
+        aMasterL    chnget "masterL"
+        aMasterR    chnget "masterR"
+
+        kFreq       oscil 4000, gkPhaserFreq, 1
+        kMod        = kFreq + 5600
+        aWetL          phaser1 aMasterL, kMod, 4, gkPhaserFeed
+        aWetR          phaser1 aMasterR, kMod, 4, gkPhaserFeed
+
+        chnset      sqrt(1 - gkPhaserMix)*aMasterL + sqrt(gkPhaserMix)*aWetL, "masterL"
+        chnset      sqrt(1 - gkPhaserMix)*aMasterR + sqrt(gkPhaserMix)*aWetR, "masterR"  
+
     continue:
+
 endin
 
 instr 110
-    a1L = 0
-    a1R = 0
-    a2L = 0
-    a2R = 0
-
     if (gkChorusState == 1) kgoto chorusIsActive
         kgoto       continue
 
     chorusIsActive: 
-        aL, aR StChorus gaOscilL, gaOscilR, gkChorusFreq, gkChorusDepth, gkChorusWidth
-        gaOscilL    = sqrt(1 - gkChorusMix)*gaOscilL + aL*sqrt(gkChorusMix)
-        gaOscilR    = sqrt(1 - gkChorusMix)*gaOscilR + aR*sqrt(gkChorusMix)    
-        kgoto       continue
+        aMasterL    chnget "masterL"
+        aMasterR    chnget "masterR"
+
+        aWetL, aWetR StChorus aMasterL, aMasterR, gkChorusFreq, gkChorusDepth, gkChorusWidth
+
+        chnset      sqrt(1 - gkChorusMix)*aMasterL + sqrt(gkChorusMix)*aWetL, "masterL"
+        chnset      sqrt(1 - gkChorusMix)*aMasterR + sqrt(gkChorusMix)*aWetR, "masterR"   
+ 
     continue:
-        aL = 0
-        aR = 0
     ; vdelay3, lpf18 med dist -> 10,
 endin
 
@@ -645,52 +680,55 @@ instr 111
         kgoto       continue
 
     delayIsActive: 
-        aDelayTime  = a(gkDelayTime + .01)
-        aFeedback   init 0
+        aMasterL    chnget "masterL"
+        aMasterR    chnget "masterR"
 
-        aL vdelay3 gaOscilL + aFeedback, aDelayTime, 4000
-        aR vdelay3 gaOscilR + aFeedback, aDelayTime, 4000
+        aDelayTimeL  = a(gkDelayTime + .01)
+        aDelayTimeR  = a(gkDelayTime/2 + .01)
+        aFeedbackL  init 0
+        aFeedbackR  init 0
+        aWetL       vdelay3 aMasterL + aFeedbackL, aDelayTimeL, 4000
+        aWetR       vdelay3 aMasterR + aFeedbackR, aDelayTimeR, 4000
+        aFeedbackL  = aWetL * gkDelayFeedback
+        aFeedbackR  = aWetR * gkDelayFeedback
 
-        aFeedback = aL * gkDelayFeedback
+        chnset      sqrt(1 - gkDelayMix)*aMasterL + sqrt(gkDelayMix)*aWetL, "masterL"
+        chnset      sqrt(1 - gkDelayMix)*aMasterR + sqrt(gkDelayMix)*aWetR, "masterR"  
 
-        gaOscilL    = sqrt(1 - gkDelayMix)*gaOscilL + aL*sqrt(gkDelayMix)
-        gaOscilR    = sqrt(1 - gkDelayMix)*gaOscilR + aR*sqrt(gkDelayMix)
-        kgoto       continue
     continue:
-        aL = 0
-        aR = 0
+
 endin
 
 
 instr 112
-    a1L = 0
-    a1R = 0
-    a2L = 0
-    a2R = 0
-
     if (gkReverbState == 1) kgoto reverbIsActive
         kgoto       continue
 
     reverbIsActive: 
-        aL, aR      reverbsc gaOscilL, gaOscilR, gkReverbRoomSize, gkReverbFreq
-        gaOscilL    = sqrt(1 - gkReverbMix)*gaOscilL + aL*sqrt(gkReverbMix)
-        gaOscilR    = sqrt(1 - gkReverbMix)*gaOscilR + aR*sqrt(gkReverbMix)
-        kgoto       continue
-    continue:
-        aL = 0
-        aR = 0
+        aMasterL    chnget "masterL"
+        aMasterR    chnget "masterR"
 
-    ; vdelay3, lpf18 med dist -> 10,
+        aWetL, aWetR reverbsc aMasterL, aMasterR, gkReverbRoomSize*0.9, gkReverbFreq
+
+        chnset      sqrt(1 - gkReverbMix)*aMasterL + sqrt(gkReverbMix)*aWetL, "masterL"
+        chnset      sqrt(1 - gkReverbMix)*aMasterR + sqrt(gkReverbMix)*aWetR, "masterR"
+    
+    continue:
+
 endin
 
 
 instr 199
-    gaOscilL        limit gaOscilL, -.5, .5
-    gaOscilR        limit gaOscilR, -.5, .5
 
-                    outs    gaOscilL + gaOscilR, gaOscilL + gaOscilR
-    gaOscilL        = 0
-    gaOscilR        = 0
+    aMasterL        chnget "masterL"
+    aMasterR        chnget "masterR"
+    aMasterL        limit aMasterL, -.5, .5
+    aMasterR        limit aMasterR, -.5, .5
+
+                    outs    aMasterL, aMasterR
+
+                    chnclear "masterL"
+                    chnclear "masterR"
 endin
 
 
@@ -706,25 +744,30 @@ kOscil1FineTune chnget "oscil1FineTune"
 kOscil1Amp      chnget "oscil1Amp"
 kOscil1Mod      chnget "oscil1Mod"
 kOscil1Mod2     chnget "oscil1Mod2"
+kOscil1Fatness  chnget "oscil1Fatness"
 kOscil2FineTune chnget "oscil2FineTune"
 kOscil2Tune     chnget "oscil2Tune"
 kOscil2Amp      chnget "oscil2Amp"
 kOscil2Mod      chnget "oscil2Mod"
 kOscil2Mod2     chnget "oscil2Mod2"
+kOscil2Fatness  chnget "oscil2Fatness"
+
 gkOscil1State   = kOscil1State
 gkFineTuneOsc1  = kOscil1FineTune
 gkOscil1Amp     = kOscil1Amp
-gkOscil1Mod     portk kOscil1Mod, .02
-gkOscil1Mod2    portk kOscil1Mod2, .02
+gkOscil1Mod     = kOscil1Mod
+gkOscil1Mod2    = kOscil1Mod2
+gkOscil1Fatness = kOscil1Fatness
 gkOscil2State   = kOscil2State + 10     ; COMPENSATING FOR VALUES COMING FROM UISEGMENTEDCONTROL
 gkFineTuneOsc2  = kOscil2FineTune
+gkOscil2Fatness = kOscil2Fatness
 
 ; Adding port when changing value
 kOsc2TunePort   portk kOscil2Tune, .01
 gkOscil2Tune    = floor(kOsc2TunePort)
 gkOscil2Amp     = kOscil2Amp
-gkOscil2Mod     portk kOscil2Mod, .02
-gkOscil2Mod2    portk kOscil2Mod2, .02
+gkOscil2Mod     = kOscil2Mod
+gkOscil2Mod2    = kOscil2Mod2
 
 ; Amp envelope
 kattack         chnget "attack"
@@ -831,14 +874,6 @@ gkDelayMix      = kDelayMix
 endin
 
 
-; Global LFO, always running
-instr 201 
-
-#include "lfo.inc"
-
-endin
-
-
 instr 300 
 
 printk2 gkOscil1State
@@ -847,11 +882,13 @@ printk2 gkFineTuneOsc1
 printk2 gkOscil1Amp 
 printk2 gkOscil1Mod 
 printk2 gkOscil1Mod2 
+printk2 gkOscil1Fatness
 printk2 gkFineTuneOsc2  
 printk2 gkOscil2Tune
 printk2 gkOscil2Amp 
 printk2 gkOscil2Mod 
 printk2 gkOscil2Mod2 
+printk2 gkOscil2Fatness
 printk2 gkAmpAttack     
 printk2 gkAmpDecay      
 printk2 gkAmpSustain    
@@ -900,7 +937,7 @@ printk2 gkDelayMix
 endin
 
 instr 400 
-    sfilist giZeldaSoundfont 
+    ;sfilist giZeldaSoundfont 
 endin
 
 instr 401
@@ -939,6 +976,7 @@ f1 0 16384 10 1
 f2 0 0 1 "kickroll.wav" 0 0 0
 
 i6   0 360000
+i90  0 360000
 i108 0 360000
 i109 0 360000
 i110 0 360000
@@ -946,8 +984,7 @@ i111 0 360000
 i112 0 360000
 i199 0 360000
 i200 0 360000
-i201 0 360000
-i300 0 360000
+;i300 0 360000
  
 </CsScore>
 </CsoundSynthesizer>

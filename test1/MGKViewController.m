@@ -27,7 +27,6 @@
 @property (strong, nonatomic) ABAudiobusController *audiobusController;
 @property (strong, nonatomic) ABAudiobusAudioUnitWrapper *audiobusAudioUnitWrapper;
 @property (strong, nonatomic) ABOutputPort *output;
-
 @end
 
 // Sources
@@ -162,11 +161,14 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
     [self.csound addValueCacheable:[[CachedCustomKnob alloc]init:v1.oscView.oscillator1AmplitudeKnob channelName:@"oscil1Amp"]];
     [self.csound addValueCacheable:[[CachedCustomKnob alloc]init:v1.oscView.oscillator1ModKnob channelName:@"oscil1Mod"]];
     [self.csound addValueCacheable:[[CachedCustomKnob alloc]init:v1.oscView.oscillator1Mod2Knob channelName:@"oscil1Mod2"]];
+    [self.csound addValueCacheable:[[CachedCustomKnob alloc]init:v1.oscView.oscillator1FatnessKnob channelName:@"oscil1Fatness"]];
+
     [self.csound addValueCacheable:[[CachedCustomKnob alloc]init:v1.oscView.oscillator2FineTuneKnob channelName:@"oscil2FineTune"]];
     [self.csound addValueCacheable:[[CachedCustomKnob alloc]init:v1.oscView.oscillator2TuneKnob channelName:@"oscil2Tune"]];
     [self.csound addValueCacheable:[[CachedCustomKnob alloc]init:v1.oscView.oscillator2AmplitudeKnob channelName:@"oscil2Amp"]];
     [self.csound addValueCacheable:[[CachedCustomKnob alloc]init:v1.oscView.oscillator2ModKnob channelName:@"oscil2Mod"]];
     [self.csound addValueCacheable:[[CachedCustomKnob alloc]init:v1.oscView.oscillator2Mod2Knob channelName:@"oscil2Mod2"]];
+    [self.csound addValueCacheable:[[CachedCustomKnob alloc]init:v1.oscView.oscillator2FatnessKnob channelName:@"oscil2Fatness"]];
 
     [self.csound addSlider:v1.envView.ampEnvelopeView.ampAttackKnob forChannelName:@"attack"];
     [self.csound addSlider:v1.envView.ampEnvelopeView.ampDecayKnob forChannelName:@"decay"];
@@ -396,7 +398,8 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
     if (isPolyphonic) {
         [mCsound sendScore:[NSString stringWithFormat:@"i-1.%003d 0 0", midikey]];
     } else {
-        [mCsound sendScore:[NSString stringWithFormat:@"i-2.%003d 0 0", midikey]];
+        NSLog(@"Monophonic MOno, mono");
+        [mCsound sendScore:[NSString stringWithFormat:@"i-5.%003d 0 0", midikey]];
     }
 }
 
@@ -414,7 +417,7 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
     } else {
         NSLog(@"Note on, mono");
 
-        [mCsound sendScore:[NSString stringWithFormat:@"i2.%003d 0 -2 %d 0", midikey, midikey]];
+        [mCsound sendScore:[NSString stringWithFormat:@"i5.%003d 0 -2 %d 0", midikey, midikey]];
     }
 }
 
@@ -490,7 +493,20 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
 - (void)updateCsoundValues
 {
     [v1.oscView.oscillator1Slider sendActionsForControlEvents:UIControlEventValueChanged];
+    [v1.oscView.oscillator1FineTuneKnob sendActionsForControlEvents:UIControlEventValueChanged];
+    [v1.oscView.oscillator1ModKnob sendActionsForControlEvents:UIControlEventValueChanged];
+    [v1.oscView.oscillator1Mod2Knob sendActionsForControlEvents:UIControlEventValueChanged];
+    [v1.oscView.oscillator1AmplitudeKnob sendActionsForControlEvents:UIControlEventValueChanged];
+    [v1.oscView.oscillator1FatnessKnob sendActionsForControlEvents:UIControlEventValueChanged];
+    
     [v1.oscView.oscillator2Slider sendActionsForControlEvents:UIControlEventValueChanged];
+    [v1.oscView.oscillator2FineTuneKnob sendActionsForControlEvents:UIControlEventValueChanged];
+    [v1.oscView.oscillator2TuneKnob sendActionsForControlEvents:UIControlEventValueChanged];
+    [v1.oscView.oscillator2ModKnob sendActionsForControlEvents:UIControlEventValueChanged];
+    [v1.oscView.oscillator2Mod2Knob sendActionsForControlEvents:UIControlEventValueChanged];
+    [v1.oscView.oscillator2AmplitudeKnob sendActionsForControlEvents:UIControlEventValueChanged];
+    [v1.oscView.oscillator2FatnessKnob sendActionsForControlEvents:UIControlEventValueChanged];
+    
     [v1.envView.ampEnvelopeView.ampAttackKnob sendActionsForControlEvents:UIControlEventValueChanged];
     [v1.envView.ampEnvelopeView.ampDecayKnob sendActionsForControlEvents:UIControlEventValueChanged];
     [v1.envView.ampEnvelopeView.ampSustainKnob sendActionsForControlEvents:UIControlEventValueChanged];
@@ -504,17 +520,25 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
     [v1.filterView.filterEnvAmtKnob sendActionsForControlEvents:UIControlEventValueChanged];
     [v1.lfoView.lfoAmpKnob sendActionsForControlEvents:UIControlEventValueChanged];
     [v1.lfoView.lfoFreqKnob sendActionsForControlEvents:UIControlEventValueChanged];
-    [v1.oscView.oscillator1FineTuneKnob sendActionsForControlEvents:UIControlEventValueChanged];
-    [v1.oscView.oscillator1AmplitudeKnob sendActionsForControlEvents:UIControlEventValueChanged];
-    [v1.oscView.oscillator2FineTuneKnob sendActionsForControlEvents:UIControlEventValueChanged];
-    [v1.oscView.oscillator2AmplitudeKnob sendActionsForControlEvents:UIControlEventValueChanged];
+    
     
     // EFFECTS
     [v5.distortionView.distGainKnob sendActionsForControlEvents:UIControlEventValueChanged];
     [v5.distortionView.distMixKnob sendActionsForControlEvents:UIControlEventValueChanged];
+    
     [v5.phaserView.phaserFreqKnob sendActionsForControlEvents:UIControlEventValueChanged];
     [v5.phaserView.phaserFeedbackKnob sendActionsForControlEvents:UIControlEventValueChanged];
     [v5.phaserView.phaserMixKnob sendActionsForControlEvents:UIControlEventValueChanged];
+    
+    [v5.chorusView.param1Knob sendActionsForControlEvents:UIControlEventValueChanged];
+    [v5.chorusView.param2Knob sendActionsForControlEvents:UIControlEventValueChanged];
+    [v5.chorusView.param3Knob sendActionsForControlEvents:UIControlEventValueChanged];
+    [v5.chorusView.mixKnob sendActionsForControlEvents:UIControlEventValueChanged];
+
+    [v5.delayView.param1Knob sendActionsForControlEvents:UIControlEventValueChanged];
+    [v5.delayView.param2Knob sendActionsForControlEvents:UIControlEventValueChanged];
+    [v5.delayView.mixKnob sendActionsForControlEvents:UIControlEventValueChanged];
+    
     [v5.reverbView.reverbRoomSizeKnob sendActionsForControlEvents:UIControlEventValueChanged];
     [v5.reverbView.reverbFreqKnob sendActionsForControlEvents:UIControlEventValueChanged];
     [v5.reverbView.reverbMixKnob sendActionsForControlEvents:UIControlEventValueChanged];

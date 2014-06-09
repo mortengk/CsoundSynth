@@ -102,7 +102,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="OSC 3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TCU-3h-oV7">
-                    <rect key="frame" x="846" y="42" width="71" height="33"/>
+                    <rect key="frame" x="937" y="39" width="71" height="33"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -125,15 +125,34 @@
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YbM-eC-oes">
+                    <rect key="frame" x="818" y="22" width="72" height="72"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                </view>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b54-p7-YkZ">
+                    <rect key="frame" x="818" y="127" width="72" height="72"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                </view>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Phatness" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LeW-3Y-axc">
+                    <rect key="frame" x="823" y="103" width="63" height="16"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="oscillator1AmplitudePlaceholder" destination="fWR-Cn-CIE" id="f1b-Iv-5VO"/>
+                <outlet property="oscillator1FatnessPlaceholder" destination="YbM-eC-oes" id="2d4-wG-kkd"/>
                 <outlet property="oscillator1FineTunePlaceholder" destination="mA0-4P-DTf" id="lRh-qG-DSv"/>
                 <outlet property="oscillator1Mod2Placeholder" destination="MjA-x8-CDb" id="Pap-hU-eTt"/>
                 <outlet property="oscillator1ModPlaceholder" destination="SEG-Rj-fLs" id="XPG-xm-4U0"/>
                 <outlet property="oscillator1Slider" destination="fUh-he-J4i" id="vWw-3X-0bq"/>
                 <outlet property="oscillator2AmplitudePlaceholder" destination="ynm-42-lqX" id="OWT-OG-pAF"/>
+                <outlet property="oscillator2FatnessPlaceholder" destination="b54-p7-YkZ" id="Q2Q-WT-MLB"/>
                 <outlet property="oscillator2FineTunePlaceholder" destination="D1P-h0-oTi" id="GWE-PY-qxi"/>
                 <outlet property="oscillator2Mod2Placeholder" destination="zq1-Bi-XUY" id="eai-9P-Gg4"/>
                 <outlet property="oscillator2ModPlaceholder" destination="8gL-aa-G3b" id="dUQ-wM-e2V"/>

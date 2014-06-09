@@ -14,11 +14,13 @@
 @synthesize oscillator1FineTuneKnob;
 @synthesize oscillator1ModKnob;
 @synthesize oscillator1Mod2Knob;
+@synthesize oscillator1FatnessKnob;
 @synthesize oscillator2AmplitudeKnob;
 @synthesize oscillator2FineTuneKnob;
 @synthesize oscillator2TuneKnob;
 @synthesize oscillator2ModKnob;
 @synthesize oscillator2Mod2Knob;
+@synthesize oscillator2FatnessKnob;
 @synthesize oscillator1Slider;
 @synthesize oscillator2Slider;
 
@@ -80,10 +82,20 @@
         self.oscillator1Mod2Placeholder.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"blank_image"]];
         [self.oscillator1Mod2Placeholder addSubview:self.oscillator1Mod2Knob];
         [self.view addSubview:self.oscillator1ModPlaceholder];
-        self.oscillator1Mod2Knob.defaultValue = .5;
+        self.oscillator1Mod2Knob.defaultValue = 0;
         self.oscillator1Mod2Knob.minimumValue = 0;
         self.oscillator1Mod2Knob.maximumValue = 1;
-        self.oscillator1Mod2Knob.value = .5;
+        self.oscillator1Mod2Knob.value = 0;
+        
+        // Mod 2
+        oscillator1FatnessKnob = [[MGKRotaryKnob alloc]initWithFrame:self.oscillator1FatnessPlaceholder.bounds];
+        self.oscillator1FatnessPlaceholder.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"blank_image"]];
+        [self.oscillator1FatnessPlaceholder addSubview:self.oscillator1FatnessKnob];
+        [self.view addSubview:self.oscillator1FatnessPlaceholder];
+        self.oscillator1FatnessKnob.defaultValue = 0;
+        self.oscillator1FatnessKnob.minimumValue = 0;
+        self.oscillator1FatnessKnob.maximumValue = 1;
+        self.oscillator1FatnessKnob.value = 0;
         
         // OSCILLATOR 2
         // Fine tune
@@ -131,11 +143,20 @@
         self.oscillator2Mod2Placeholder.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"blank_image"]];
         [self.oscillator2Mod2Placeholder addSubview:self.oscillator2Mod2Knob];
         [self.view addSubview:self.oscillator2ModPlaceholder];
-        self.oscillator2Mod2Knob.defaultValue = .5;
+        self.oscillator2Mod2Knob.defaultValue = 0;
         self.oscillator2Mod2Knob.minimumValue = 0;
         self.oscillator2Mod2Knob.maximumValue = 1;
-        self.oscillator2Mod2Knob.value = .5;
+        self.oscillator2Mod2Knob.value = 0;
 
+        // Mod 2
+        oscillator2FatnessKnob = [[MGKRotaryKnob alloc]initWithFrame:self.oscillator2FatnessPlaceholder.bounds];
+        self.oscillator2FatnessPlaceholder.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"blank_image"]];
+        [self.oscillator2FatnessPlaceholder addSubview:self.oscillator2FatnessKnob];
+        [self.view addSubview:self.oscillator2FatnessPlaceholder];
+        self.oscillator2FatnessKnob.defaultValue = 0;
+        self.oscillator2FatnessKnob.minimumValue = 0;
+        self.oscillator2FatnessKnob.maximumValue = 1;
+        self.oscillator2FatnessKnob.value = 0;
     }
     return self;
 }
