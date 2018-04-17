@@ -138,7 +138,6 @@
 		5A921044192035B4002AD8CB /* waveformsTriangleOff.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A921010192035B4002AD8CB /* waveformsTriangleOff.png */; };
 		5A921045192035B4002AD8CB /* waveformsTriangleOn.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A921011192035B4002AD8CB /* waveformsTriangleOn.png */; };
 		5A9969E01901C77800A08BAA /* MGKSoundfontSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9969DF1901C77800A08BAA /* MGKSoundfontSelectionViewController.m */; };
-		5AA66D4F18EEAB5E002E18CD /* libAudiobus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AA66D4E18EEAB5E002E18CD /* libAudiobus.a */; };
 		5AA66D5118EEB731002E18CD /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AA66D5018EEB731002E18CD /* Accelerate.framework */; };
 		5AA66D5318EEB73A002E18CD /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AA66D5218EEB73A002E18CD /* AudioToolbox.framework */; };
 		5AA66D5518EEB745002E18CD /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AA66D5418EEB745002E18CD /* Security.framework */; };
@@ -355,20 +354,6 @@
 		5A921011192035B4002AD8CB /* waveformsTriangleOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = waveformsTriangleOn.png; sourceTree = "<group>"; };
 		5A9969DE1901C77800A08BAA /* MGKSoundfontSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGKSoundfontSelectionViewController.h; sourceTree = "<group>"; };
 		5A9969DF1901C77800A08BAA /* MGKSoundfontSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGKSoundfontSelectionViewController.m; sourceTree = "<group>"; };
-		5AA66D4118EEAB5E002E18CD /* ABAnimatedTrigger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABAnimatedTrigger.h; sourceTree = "<group>"; };
-		5AA66D4218EEAB5E002E18CD /* ABAudiobusAudioUnitWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABAudiobusAudioUnitWrapper.h; sourceTree = "<group>"; };
-		5AA66D4318EEAB5E002E18CD /* ABAudiobusController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABAudiobusController.h; sourceTree = "<group>"; };
-		5AA66D4418EEAB5E002E18CD /* ABCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABCommon.h; sourceTree = "<group>"; };
-		5AA66D4518EEAB5E002E18CD /* ABFilterPort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABFilterPort.h; sourceTree = "<group>"; };
-		5AA66D4618EEAB5E002E18CD /* ABInputPort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABInputPort.h; sourceTree = "<group>"; };
-		5AA66D4718EEAB5E002E18CD /* ABLiveBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABLiveBuffer.h; sourceTree = "<group>"; };
-		5AA66D4818EEAB5E002E18CD /* ABMultiStreamBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABMultiStreamBuffer.h; sourceTree = "<group>"; };
-		5AA66D4918EEAB5E002E18CD /* ABOutputPort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABOutputPort.h; sourceTree = "<group>"; };
-		5AA66D4A18EEAB5E002E18CD /* ABPeer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABPeer.h; sourceTree = "<group>"; };
-		5AA66D4B18EEAB5E002E18CD /* ABPort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABPort.h; sourceTree = "<group>"; };
-		5AA66D4C18EEAB5E002E18CD /* ABTrigger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABTrigger.h; sourceTree = "<group>"; };
-		5AA66D4D18EEAB5E002E18CD /* Audiobus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Audiobus.h; sourceTree = "<group>"; };
-		5AA66D4E18EEAB5E002E18CD /* libAudiobus.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAudiobus.a; path = test1/libAudiobus.a; sourceTree = "<group>"; };
 		5AA66D5018EEB731002E18CD /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		5AA66D5218EEB73A002E18CD /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		5AA66D5418EEB745002E18CD /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -461,7 +446,6 @@
 				5AA66D5518EEB745002E18CD /* Security.framework in Frameworks */,
 				5AA66D5318EEB73A002E18CD /* AudioToolbox.framework in Frameworks */,
 				5AA66D5118EEB731002E18CD /* Accelerate.framework in Frameworks */,
-				5AA66D4F18EEAB5E002E18CD /* libAudiobus.a in Frameworks */,
 				5A588CAC18ACE6CD00FF058F /* CoreMotion.framework in Frameworks */,
 				5AAFDB7A18A405A9007BE1D5 /* QuartzCore.framework in Frameworks */,
 				5AAFDB7518A3FA23007BE1D5 /* CoreMIDI.framework in Frameworks */,
@@ -511,7 +495,6 @@
 				5AA66D5418EEB745002E18CD /* Security.framework */,
 				5AA66D5218EEB73A002E18CD /* AudioToolbox.framework */,
 				5AA66D5018EEB731002E18CD /* Accelerate.framework */,
-				5AA66D4E18EEAB5E002E18CD /* libAudiobus.a */,
 				5A588CAB18ACE6CD00FF058F /* CoreMotion.framework */,
 				5AAFDB7918A405A9007BE1D5 /* QuartzCore.framework */,
 				5AAFDB7418A3FA23007BE1D5 /* CoreMIDI.framework */,
@@ -561,7 +544,6 @@
 				5A87B01718C6870A00649083 /* PGArc.h */,
 				5A920FDD192035B4002AD8CB /* Images */,
 				5A920FC81920344A002AD8CB /* Synth engine */,
-				5AA66D3F18EEAAF6002E18CD /* Audiobus */,
 				5A54B45A188FF2240083FFDD /* Images.xcassets */,
 				5A920F44192031AE002AD8CB /* Views */,
 				5A54B449188FF2240083FFDD /* Supporting Files */,
@@ -805,34 +787,6 @@
 				5A921011192035B4002AD8CB /* waveformsTriangleOn.png */,
 			);
 			path = Images;
-			sourceTree = "<group>";
-		};
-		5AA66D3F18EEAAF6002E18CD /* Audiobus */ = {
-			isa = PBXGroup;
-			children = (
-				5AA66D4018EEAB5E002E18CD /* Audiobus */,
-			);
-			name = Audiobus;
-			sourceTree = "<group>";
-		};
-		5AA66D4018EEAB5E002E18CD /* Audiobus */ = {
-			isa = PBXGroup;
-			children = (
-				5AA66D4118EEAB5E002E18CD /* ABAnimatedTrigger.h */,
-				5AA66D4218EEAB5E002E18CD /* ABAudiobusAudioUnitWrapper.h */,
-				5AA66D4318EEAB5E002E18CD /* ABAudiobusController.h */,
-				5AA66D4418EEAB5E002E18CD /* ABCommon.h */,
-				5AA66D4518EEAB5E002E18CD /* ABFilterPort.h */,
-				5AA66D4618EEAB5E002E18CD /* ABInputPort.h */,
-				5AA66D4718EEAB5E002E18CD /* ABLiveBuffer.h */,
-				5AA66D4818EEAB5E002E18CD /* ABMultiStreamBuffer.h */,
-				5AA66D4918EEAB5E002E18CD /* ABOutputPort.h */,
-				5AA66D4A18EEAB5E002E18CD /* ABPeer.h */,
-				5AA66D4B18EEAB5E002E18CD /* ABPort.h */,
-				5AA66D4C18EEAB5E002E18CD /* ABTrigger.h */,
-				5AA66D4D18EEAB5E002E18CD /* Audiobus.h */,
-			);
-			path = Audiobus;
 			sourceTree = "<group>";
 		};
 		5AAFDB2B18A3FA04007BE1D5 /* csound-iOS */ = {
@@ -1320,11 +1274,7 @@
 				);
 				INFOPLIST_FILE = "test1/test1-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/Morten/XCode/2014/test1/csound-iOS/libs",
-					"$(PROJECT_DIR)/test1",
-				);
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/csound-iOS/libs";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -1348,11 +1298,7 @@
 				);
 				INFOPLIST_FILE = "test1/test1-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/Morten/XCode/2014/test1/csound-iOS/libs",
-					"$(PROJECT_DIR)/test1",
-				);
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/test1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;

@@ -11,7 +11,6 @@
 #import "CachedCustomKnob.h"
 #import "CachedUISegmentedControl.h"
 #import <CoreMIDI/CoreMIDI.h>
-#import "Audiobus.h"
 
 #define DESTINATION_ADDRESS @"169.254.253.0"
 
@@ -24,9 +23,6 @@
 @property (assign) MIDINetworkSession *midiSession;
 @property (assign) MIDIEndpointRef destinationEndPoint;
 @property (assign) MIDIPortRef outputPort;
-@property (strong, nonatomic) ABAudiobusController *audiobusController;
-@property (strong, nonatomic) ABAudiobusAudioUnitWrapper *audiobusAudioUnitWrapper;
-@property (strong, nonatomic) ABOutputPort *output;
 @end
 
 // Sources
@@ -91,11 +87,6 @@ NSString* phaserSpeedString = @"Phaser speed";
 @synthesize FMOscillator1SelectionViewController;
 @synthesize FMOscillator2SelectionViewController;
 @synthesize FMPopoverController;
-
-// Audiobus
-@synthesize audiobusController = _audiobusController;
-@synthesize output = _output;
-@synthesize audiobusAudioUnitWrapper;
 
 // MIDI
 @synthesize midiSession;
@@ -347,27 +338,6 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
     }
 }
 
-- (void)initAudiobus
-{
-    // Create an Audiobus instance
-    self.audiobusController = [[ABAudiobusController alloc] initWithAppLaunchURL:[NSURL URLWithString:@"test1.audiobus://"]
-                                                                           apiKey:@"MTM5OTE2Mjg3MSoqKnRlc3QxKioqdGVzdDEuYXVkaW9idXM6Ly8=:HyEKtliJLU2SSfwTnpzNUG26EYlJysczrsB4UYCz3dzEemNdyrkKA1ndo0pEkqgdwWeNRPLni3KHQ6t9t0hkvn3mTOLMMqP7HsXhZekgBCRA5IqPOE1OQ1LoS5BbOFJb"];
-    
-    self.audiobusController.connectionPanelPosition = ABAudiobusConnectionPanelPositionLeft;
-
-//    AudioUnit au = *[self.csound getAudioUnit];
-//
-//    ABOutputPort *output = [self.audiobusController addOutputPortNamed:@"Audio Output" title:NSLocalizedString(@"Main App Output", @"")];
-//    
-//    self.audiobusAudioUnitWrapper = [[ABAudiobusAudioUnitWrapper alloc]
-//                                     initWithAudiobusController:self.audiobusController
-//                                     audioUnit:au
-//                                     output:output
-//                                     input:nil];
-//    NSLog(@"AUDIOBUS: %@", self.audiobusAudioUnitWrapper);
-}
-
-
 #pragma mark KeyboardView
 
 - (void)initKeyboardViewWithWidth:(int)width over:(int)NUMBER_OF_OCTAVES
@@ -486,7 +456,6 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
 {
     NSIndexPath *indexPath=[NSIndexPath indexPathForRow:0 inSection:0];
     [self.myTable selectRowAtIndexPath:indexPath animated:YES  scrollPosition:UITableViewScrollPositionBottom];
-    //[self initAudiobus];
 }
 
 

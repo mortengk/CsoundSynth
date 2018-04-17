@@ -30,7 +30,6 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>test1</string>
-				<string>test1.audiobus</string>
 			</array>
 		</dict>
 	</array>
