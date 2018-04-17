@@ -134,6 +134,7 @@
 
 - (void)awakeFromNib
 {
+    [super awakeFromNib];
     [self.sourceTable1 registerNib:[UINib nibWithNibName:@"CustomCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"Cell"];
     self.sourceTable1.backgroundColor = [UIColor clearColor];
     [self.destinationTable1 registerNib:[UINib nibWithNibName:@"CustomCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"Cell"];

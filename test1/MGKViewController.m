@@ -519,8 +519,10 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
 - (void)initControlSources
 {
     int numberOFModMatrices = 8;
-    self.controlSources = [[NSMutableArray alloc]initWithObjects:nil];
-    self.controlDestinations = [[NSMutableArray alloc]initWithObjects:nil];
+    NSMutableArray *controlSources = [[NSMutableArray alloc]init]; // TODO: Init with objects?
+    NSMutableArray *controlDestinations = [[NSMutableArray alloc]init];
+    self.controlSources = controlSources;
+    self.controlDestinations = controlDestinations;
     RotaryKnob* knob = [[RotaryKnob alloc]init];
     NSNumber* num = [[NSNumber alloc]initWithFloat:0];
     for (int i = 0; i < numberOFModMatrices; i++) {
@@ -615,7 +617,7 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
         if([currentDestination isEqual:[NSNull null]]) {
             continue;
         } else {
-            currentDestination.value = fabsf(d)*currentDestination.maximumValue;
+            currentDestination.value = fabs(d)*currentDestination.maximumValue;
         }
     }
     [self updateCsoundValues];
@@ -1096,7 +1098,7 @@ static void CheckError(OSStatus error, const char *operation)
         NSLog(@"Recording stopped");
         isRecording = NO;
     }
-    NSLog(@"%hhd", isRecording);
+    NSLog(@"%i", isRecording);
 }
 
 - (IBAction)polyphonySwitch:(id)sender

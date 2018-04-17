@@ -45,7 +45,7 @@
 {
     NSLog(@"array: %@", sourceArray);
     
-    NSLog(@"NUmber of destinations: %i", [sourceArray count]);
+    NSLog(@"NUmber of destinations: %lu", (unsigned long)[sourceArray count]);
     return (unsigned long)[sourceArray count];
 }
 

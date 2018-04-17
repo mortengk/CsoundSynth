@@ -31,6 +31,7 @@
 
 - (void)awakeFromNib
 {
+    [super awakeFromNib];
     [self.myTable registerNib:[UINib nibWithNibName:@"CustomCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"Cell"];
     self.myTable.backgroundColor = [UIColor clearColor];
 }
