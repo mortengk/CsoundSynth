@@ -20,8 +20,6 @@
 @property (nonatomic, retain) IBOutlet View1 *view;
 
 // Knobs
-
-
 @property (strong, nonatomic) IBOutlet UIView *envelopePlaceholder;
 @property (strong, nonatomic) IBOutlet UIView *filterPlaceholder;
 @property (strong, nonatomic) IBOutlet UIView *lfoPlaceholder;
@@ -42,6 +40,5 @@
 - (IBAction)oscillator2Changed:(UISegmentedControl *)sender;
 - (IBAction)oscillator1SliderChanged:(UISlider *)sender;
 - (IBAction)oscillator2SliderChanged:(UISlider *)sender;
-
 
 @end

@@ -18,7 +18,6 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        
         // Initialization code
         NSArray *a = [[UINib nibWithNibName:@"envelopeView" bundle:nil]instantiateWithOwner:nil options:nil];
         self = a[0];
