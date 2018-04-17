@@ -28,7 +28,7 @@
         self.backgroundColor = [UIColor orangeColor];
         
         // Phaser frequency
-        phaserFreqKnob = [[MGKRotaryKnob alloc]initWithFrame:phaserFreqPlaceholder.bounds];
+        phaserFreqKnob = [[RotaryKnob alloc]initWithFrame:phaserFreqPlaceholder.bounds];
         phaserFreqPlaceholder.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"blank_image"]];
         [phaserFreqPlaceholder addSubview:phaserFreqKnob];
         [view addSubview:phaserFreqPlaceholder];
@@ -38,7 +38,7 @@
         phaserFreqKnob.value = phaserFreqKnob.defaultValue;
         
         // Phaser feedback
-        phaserFeedbackKnob = [[MGKRotaryKnob alloc]initWithFrame:phaserFeedbackPlaceholder.bounds];
+        phaserFeedbackKnob = [[RotaryKnob alloc]initWithFrame:phaserFeedbackPlaceholder.bounds];
         phaserFeedbackPlaceholder.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"blank_image"]];
         [phaserFeedbackPlaceholder addSubview:phaserFeedbackKnob];
         [view addSubview:phaserFeedbackPlaceholder];
@@ -48,7 +48,7 @@
         phaserFeedbackKnob.value = .5;
         
         // Phaser mix
-        phaserMixKnob = [[MGKRotaryKnob alloc]initWithFrame:phaserMixPlaceholder.bounds];
+        phaserMixKnob = [[RotaryKnob alloc]initWithFrame:phaserMixPlaceholder.bounds];
         phaserMixPlaceholder.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"blank_image"]];
         [phaserMixPlaceholder addSubview:phaserMixKnob];
         [view addSubview:phaserMixPlaceholder];

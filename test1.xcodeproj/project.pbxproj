@@ -172,7 +172,7 @@
 		5ACFAECD19375C2A009AA375 /* DelayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5ACFAECC19375C2A009AA375 /* DelayView.xib */; };
 		5ACFAECF19375C34009AA375 /* FlangerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5ACFAECE19375C34009AA375 /* FlangerView.xib */; };
 		5AE8A1A218AAAA06001222FB /* DatabaseHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AE8A1A118AAAA06001222FB /* DatabaseHandler.m */; };
-		5AF339F81897083B0079CD74 /* MGKRotaryKnob.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF339F71897083B0079CD74 /* MGKRotaryKnob.m */; };
+		5AF339F81897083B0079CD74 /* RotaryKnob.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF339F71897083B0079CD74 /* RotaryKnob.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -449,8 +449,8 @@
 		5AE8A1A018AAAA06001222FB /* DatabaseHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatabaseHandler.h; sourceTree = "<group>"; };
 		5AE8A1A118AAAA06001222FB /* DatabaseHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatabaseHandler.m; sourceTree = "<group>"; };
 		5AEA05771903CD22005D2253 /* test1.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = test1.entitlements; sourceTree = "<group>"; };
-		5AF339F61897083B0079CD74 /* MGKRotaryKnob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGKRotaryKnob.h; sourceTree = "<group>"; };
-		5AF339F71897083B0079CD74 /* MGKRotaryKnob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGKRotaryKnob.m; sourceTree = "<group>"; };
+		5AF339F61897083B0079CD74 /* RotaryKnob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RotaryKnob.h; sourceTree = "<group>"; };
+		5AF339F71897083B0079CD74 /* RotaryKnob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RotaryKnob.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -546,8 +546,8 @@
 				5A8DCAFA1900137800FE132D /* MGKPresetViewController.m */,
 				5A8568B8190470D4008DDC51 /* MGKRecordViewController.h */,
 				5A8568B9190470D4008DDC51 /* MGKRecordViewController.m */,
-				5AF339F61897083B0079CD74 /* MGKRotaryKnob.h */,
-				5AF339F71897083B0079CD74 /* MGKRotaryKnob.m */,
+				5AF339F61897083B0079CD74 /* RotaryKnob.h */,
+				5AF339F71897083B0079CD74 /* RotaryKnob.m */,
 				5A9969DE1901C77800A08BAA /* MGKSoundfontSelectionViewController.h */,
 				5A9969DF1901C77800A08BAA /* MGKSoundfontSelectionViewController.m */,
 				5A4BBC301920C75F0064072C /* MGKSoundfontSelectionViewController.xib */,
@@ -1138,7 +1138,7 @@
 				5A54B453188FF2240083FFDD /* MGKAppDelegate.m in Sources */,
 				5AB5CAC918DB45DE00D5F57C /* CustomOscillatorSlider.m in Sources */,
 				5A920FC6192032DB002AD8CB /* View1.m in Sources */,
-				5AF339F81897083B0079CD74 /* MGKRotaryKnob.m in Sources */,
+				5AF339F81897083B0079CD74 /* RotaryKnob.m in Sources */,
 				5A920F7C192031AE002AD8CB /* OctaveView.m in Sources */,
 				5AE8A1A218AAAA06001222FB /* DatabaseHandler.m in Sources */,
 				5A920FB4192032DB002AD8CB /* AmpEnvelopeView.m in Sources */,
@@ -1319,6 +1319,7 @@
 					/Users/Morten/XCode/2014/test1/test1,
 				);
 				INFOPLIST_FILE = "test1/test1-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/Morten/XCode/2014/test1/csound-iOS/libs",
@@ -1346,6 +1347,7 @@
 					/Users/Morten/XCode/2014/test1/test1,
 				);
 				INFOPLIST_FILE = "test1/test1-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/Morten/XCode/2014/test1/csound-iOS/libs",

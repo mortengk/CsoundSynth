@@ -28,7 +28,7 @@
     }
     
     //fmKnob1Placeholder = [[UIView alloc]init];
-    fmKnob1 = [[MGKRotaryKnob alloc]initWithFrame:fmKnob1Placeholder.bounds];
+    fmKnob1 = [[RotaryKnob alloc]initWithFrame:fmKnob1Placeholder.bounds];
     fmKnob1Placeholder.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"blank_image"]];
     [fmKnob1Placeholder addSubview:fmKnob1];
     [self.view addSubview:fmKnob1Placeholder];

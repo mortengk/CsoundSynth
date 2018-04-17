@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MGKRotaryKnob.h"
 #import "PlainOscillator1View.h"
 #import "SampleOscillator1View.h"
 #import "CustomOscillatorSlider.h"
@@ -37,7 +36,6 @@
 @property (strong, nonatomic) IBOutlet UISegmentedControl *oscillator1SegmentedControl;
 @property (strong, nonatomic) IBOutlet CustomOscillatorSlider *oscillator1Slider;
 @property (strong, nonatomic) IBOutlet UISlider *oscillator2Slider;
-
 @property (strong, nonatomic) IBOutlet UISegmentedControl *oscillator2SegmentedControl;
 
 - (IBAction)oscillator1Changed:(UISegmentedControl *)sender;

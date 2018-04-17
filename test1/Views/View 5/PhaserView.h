@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MGKRotaryKnob.h"
+#import "RotaryKnob.h"
 
 @interface PhaserView : UIView
 
@@ -18,8 +18,8 @@
 @property (weak, nonatomic) IBOutlet UIView *phaserFeedbackPlaceholder;
 @property (weak, nonatomic) IBOutlet UIView *phaserMixPlaceholder;
 
-@property (strong, nonatomic) MGKRotaryKnob *phaserFreqKnob;
-@property (strong, nonatomic) MGKRotaryKnob *phaserFeedbackKnob;
-@property (strong, nonatomic) MGKRotaryKnob *phaserMixKnob;
+@property (strong, nonatomic) RotaryKnob *phaserFreqKnob;
+@property (strong, nonatomic) RotaryKnob *phaserFeedbackKnob;
+@property (strong, nonatomic) RotaryKnob *phaserMixKnob;
 
 @end

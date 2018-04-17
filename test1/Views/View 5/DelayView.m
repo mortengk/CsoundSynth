@@ -28,7 +28,7 @@
         self.backgroundColor = [UIColor yellowColor];
         
         // Delay time
-        param1Knob = [[MGKRotaryKnob alloc]initWithFrame:param1Placeholder.bounds];
+        param1Knob = [[RotaryKnob alloc]initWithFrame:param1Placeholder.bounds];
         param1Placeholder.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"blank_image"]];
         [param1Placeholder addSubview:param1Knob];
         [view addSubview:param1Placeholder];
@@ -37,7 +37,7 @@
         param1Knob.value = .1;
         
         // Feedback
-        param2Knob = [[MGKRotaryKnob alloc]initWithFrame:param2Placeholder.bounds];
+        param2Knob = [[RotaryKnob alloc]initWithFrame:param2Placeholder.bounds];
         param2Placeholder.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"blank_image"]];
         [param2Placeholder addSubview:param2Knob];
         [view addSubview:param2Placeholder];
@@ -47,7 +47,7 @@
         param2Knob.value = .1;
         
         // Mix
-        mixKnob = [[MGKRotaryKnob alloc]initWithFrame:mixPlaceholder.bounds];
+        mixKnob = [[RotaryKnob alloc]initWithFrame:mixPlaceholder.bounds];
         mixPlaceholder.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"blank_image"]];
         [mixPlaceholder addSubview:mixKnob];
         [view addSubview:mixPlaceholder];

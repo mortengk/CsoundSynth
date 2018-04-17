@@ -1,6 +1,6 @@
 
 #import <QuartzCore/QuartzCore.h>
-#import "MGKRotaryKnob.h"
+#import "RotaryKnob.h"
 
 /*
 	For our purposes, it's more convenient if we put 0 degrees at the top, 
@@ -11,7 +11,7 @@
 const float MaxAngle = 118.0f;
 const float MinDistanceSquared = 16.0f;
 
-@implementation MGKRotaryKnob
+@implementation RotaryKnob
 {
 	UIImageView *_backgroundImageView;  // shows the background image
 	UIImageView *_foregroundImageView;  // shows the foreground image
@@ -30,7 +30,7 @@ const float MinDistanceSquared = 16.0f;
 	{
 		[self commonInit];
         
-        self.interactionStyle = MGKRotaryKnobInteractionStyleSliderVertical;
+        self.interactionStyle = RotaryKnobInteractionStyleSliderVertical;
         self.scalingFactor = 2.0f;
         self.defaultValue = self.maximumValue/2;
         self.resetsToDefault = YES;
@@ -52,7 +52,7 @@ const float MinDistanceSquared = 16.0f;
 
 - (void)commonInit
 {
-	_interactionStyle = MGKRotaryKnobInteractionStyleRotating;
+	_interactionStyle = RotaryKnobInteractionStyleRotating;
 	_minimumValue = 0.0f;
 	_maximumValue = 1.0f;
 	_value = _defaultValue = 0.5f;
@@ -108,7 +108,7 @@ const float MinDistanceSquared = 16.0f;
 - (float)valueForPosition:(CGPoint)point
 {
 	float delta;
-	if (self.interactionStyle == MGKRotaryKnobInteractionStyleSliderVertical)
+	if (self.interactionStyle == RotaryKnobInteractionStyleSliderVertical)
 		delta = _touchOrigin.y - point.y;
 	else
 		delta = point.x - _touchOrigin.x;
@@ -155,7 +155,7 @@ const float MinDistanceSquared = 16.0f;
 {
 	CGPoint point = [touch locationInView:self];
 
-	if (self.interactionStyle == MGKRotaryKnobInteractionStyleRotating)
+	if (self.interactionStyle == RotaryKnobInteractionStyleRotating)
 	{
 		// If the touch is too close to the center, we can't calculate a decent
 		// angle and the knob becomes too jumpy.
@@ -188,7 +188,7 @@ const float MinDistanceSquared = 16.0f;
 
 	CGPoint point = [touch locationInView:self];
 
-	if (self.interactionStyle == MGKRotaryKnobInteractionStyleRotating)
+	if (self.interactionStyle == RotaryKnobInteractionStyleRotating)
 	{
 		if ([self squaredDistanceToCenter:point] < MinDistanceSquared)
 			return NO;

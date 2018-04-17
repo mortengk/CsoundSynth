@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MGKRotaryKnob.h"
+#import "RotaryKnob.h"
 
 @interface FilterView : UIView
 
@@ -15,9 +15,9 @@
 @property (weak, nonatomic) IBOutlet UIView *knobPlaceholder5;
 @property (weak, nonatomic) IBOutlet UIView *knobPlaceholder6;
 @property (weak, nonatomic) IBOutlet UIView *filterEnvAmtPlaceholder;
-@property (strong, nonatomic) MGKRotaryKnob *filterCutoffKnob;
-@property (strong, nonatomic) MGKRotaryKnob *filterResonanceKnob;
-@property (strong, nonatomic) MGKRotaryKnob *filterEnvAmtKnob;
+@property (strong, nonatomic) RotaryKnob *filterCutoffKnob;
+@property (strong, nonatomic) RotaryKnob *filterResonanceKnob;
+@property (strong, nonatomic) RotaryKnob *filterEnvAmtKnob;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *filterSegmentedControl;
 
 - (IBAction)filterTypeChanged:(UISegmentedControl *)sender;

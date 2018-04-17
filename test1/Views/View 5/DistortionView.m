@@ -24,7 +24,7 @@
         self = a[0];
         self.backgroundColor = [UIColor blueColor];
         
-        distGainKnob = [[MGKRotaryKnob alloc]initWithFrame:distGainPlaceholder.bounds];
+        distGainKnob = [[RotaryKnob alloc]initWithFrame:distGainPlaceholder.bounds];
         distGainPlaceholder.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"blank_image"]];
         [distGainPlaceholder addSubview:distGainKnob];
         [view addSubview:distGainPlaceholder];
@@ -33,7 +33,7 @@
         distGainKnob.value = .1;
         
         // mix
-        distMixKnob = [[MGKRotaryKnob alloc]initWithFrame:distMixPlaceholder.bounds];
+        distMixKnob = [[RotaryKnob alloc]initWithFrame:distMixPlaceholder.bounds];
         distMixPlaceholder.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"blank_image"]];
         [distMixPlaceholder addSubview:distMixKnob];
         [view addSubview:distMixPlaceholder];

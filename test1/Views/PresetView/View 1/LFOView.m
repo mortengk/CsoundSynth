@@ -27,7 +27,7 @@
         [self initSegmentedControl];
         
         // LFO1 amplitude
-        lfoAmpKnob = [[MGKRotaryKnob alloc]initWithFrame:self.lfoAmpPlaceholder.bounds];
+        lfoAmpKnob = [[RotaryKnob alloc]initWithFrame:self.lfoAmpPlaceholder.bounds];
         self.lfoAmpPlaceholder.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"blank_image"]];
         [self.lfoAmpPlaceholder addSubview:self.lfoAmpKnob];
         [self.view addSubview:lfoAmpPlaceholder];
@@ -37,7 +37,7 @@
         self.lfoAmpKnob.value = self.lfoAmpKnob.defaultValue;
         
         // LFO1 speed
-        lfoFreqKnob = [[MGKRotaryKnob alloc]initWithFrame:self.lfoFreqPlaceholder.bounds];
+        lfoFreqKnob = [[RotaryKnob alloc]initWithFrame:self.lfoFreqPlaceholder.bounds];
         self.lfoFreqPlaceholder.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"blank_image"]];
         [self.lfoFreqPlaceholder addSubview:self.lfoFreqKnob];
         [self.view addSubview:self.lfoFreqPlaceholder];
@@ -47,7 +47,7 @@
         self.lfoFreqKnob.value = self.lfoFreqKnob.defaultValue;
         
         // LFO1 delay
-        lfoDelayKnob = [[MGKRotaryKnob alloc]initWithFrame:self.lfoDelayPlaceholder.bounds];
+        lfoDelayKnob = [[RotaryKnob alloc]initWithFrame:self.lfoDelayPlaceholder.bounds];
         self.lfoDelayPlaceholder.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"blank_image"]];
         [self.lfoDelayPlaceholder addSubview:self.lfoDelayKnob];
         [self.view addSubview:self.lfoDelayPlaceholder];

@@ -3,15 +3,15 @@
 
 typedef enum
 {
-	MGKRotaryKnobInteractionStyleRotating,
-	MGKRotaryKnobInteractionStyleSliderHorizontal,
-	MGKRotaryKnobInteractionStyleSliderVertical
+	RotaryKnobInteractionStyleRotating,
+	RotaryKnobInteractionStyleSliderHorizontal,
+	RotaryKnobInteractionStyleSliderVertical
 }
-MGKRotaryKnobInteractionStyle;
+RotaryKnobInteractionStyle;
 
-@interface MGKRotaryKnob : UIControl
+@interface RotaryKnob : UIControl
 
-@property (nonatomic, assign) MGKRotaryKnobInteractionStyle interactionStyle;
+@property (nonatomic, assign) RotaryKnobInteractionStyle interactionStyle;
 @property (nonatomic, strong) UIImage* backgroundImage;
 @property (nonatomic, strong) UIImage* foregroundImage;
 @property (nonatomic, strong, readonly) UIImage* currentKnobImage;

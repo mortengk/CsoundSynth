@@ -27,7 +27,7 @@
         [self initFilterUISegmentedControl];
 
         // Filter cutoff
-        filterCutoffKnob = [[MGKRotaryKnob alloc]initWithFrame:self.knobPlaceholder5.bounds];
+        filterCutoffKnob = [[RotaryKnob alloc]initWithFrame:self.knobPlaceholder5.bounds];
         self.knobPlaceholder5.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"blank_image"]];
         [self.knobPlaceholder5 addSubview:self.filterCutoffKnob];
         [self.view addSubview:self.knobPlaceholder5];
@@ -37,7 +37,7 @@
         self.filterCutoffKnob.defaultValue = self.filterCutoffKnob.value;
         
         // Filter resonance
-        filterResonanceKnob = [[MGKRotaryKnob alloc]initWithFrame:self.knobPlaceholder6.bounds];
+        filterResonanceKnob = [[RotaryKnob alloc]initWithFrame:self.knobPlaceholder6.bounds];
         self.knobPlaceholder6.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"blank_image"]];
         [self.knobPlaceholder6 addSubview:self.filterResonanceKnob];
         [self.view addSubview:self.knobPlaceholder6];
@@ -47,7 +47,7 @@
         self.filterResonanceKnob.defaultValue = self.filterResonanceKnob.value;
         
         // Filter envelope amount
-        filterEnvAmtKnob = [[MGKRotaryKnob alloc]initWithFrame:self.filterEnvAmtPlaceholder.bounds];
+        filterEnvAmtKnob = [[RotaryKnob alloc]initWithFrame:self.filterEnvAmtPlaceholder.bounds];
         self.filterEnvAmtPlaceholder.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"blank_image"]];
         [self.filterEnvAmtPlaceholder addSubview:self.filterEnvAmtKnob];
         [self.view addSubview:self.filterEnvAmtPlaceholder];

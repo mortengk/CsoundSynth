@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MGKRotaryKnob.h"
+#import "RotaryKnob.h"
 #import "DistortionView.h"
 #import "PhaserView.h"
 #import "ReverbView.h"

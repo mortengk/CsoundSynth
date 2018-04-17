@@ -28,7 +28,7 @@
         self.backgroundColor = [UIColor greenColor];
         
         // Reverb room size
-        reverbRoomSizeKnob = [[MGKRotaryKnob alloc]initWithFrame:reverbRoomSizePlaceholder.bounds];
+        reverbRoomSizeKnob = [[RotaryKnob alloc]initWithFrame:reverbRoomSizePlaceholder.bounds];
         reverbRoomSizePlaceholder.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"blank_image"]];
         [reverbRoomSizePlaceholder addSubview:reverbRoomSizeKnob];
         [view addSubview:reverbRoomSizePlaceholder];
@@ -37,7 +37,7 @@
         reverbRoomSizeKnob.value = .8;
         
         // Reverb frequency
-        reverbFreqKnob = [[MGKRotaryKnob alloc]initWithFrame:reverbFreqPlaceholder.bounds];
+        reverbFreqKnob = [[RotaryKnob alloc]initWithFrame:reverbFreqPlaceholder.bounds];
         reverbFreqPlaceholder.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"blank_image"]];
         [reverbFreqPlaceholder addSubview:reverbFreqKnob];
         [view addSubview:reverbFreqPlaceholder];
@@ -47,7 +47,7 @@
         reverbFreqKnob.value = 12000;
         
         // Reverb mix
-        reverbMixKnob = [[MGKRotaryKnob alloc]initWithFrame:reverbMixPlaceholder.bounds];
+        reverbMixKnob = [[RotaryKnob alloc]initWithFrame:reverbMixPlaceholder.bounds];
         reverbMixPlaceholder.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"blank_image"]];
         [reverbMixPlaceholder addSubview:reverbMixKnob];
         [view addSubview:reverbMixPlaceholder];

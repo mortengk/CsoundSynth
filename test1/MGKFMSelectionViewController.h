@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MGKViewController.h"
-#import "MGKRotaryKnob.h"
+#import "RotaryKnob.h"
 
 @interface MGKFMSelectionViewController : UIViewController
 
@@ -16,7 +16,7 @@
 @property (nonatomic, strong) MGKViewController* mainViewController;
 @property (strong, nonatomic) IBOutlet UIView *fmKnob1Placeholder;
 @property (weak, nonatomic) IBOutlet UIView *fmKnob2Placeholder;
-@property (strong, nonatomic) MGKRotaryKnob *fmKnob1;
-@property (strong, nonatomic) MGKRotaryKnob *fmKnob2;
+@property (strong, nonatomic) RotaryKnob *fmKnob1;
+@property (strong, nonatomic) RotaryKnob *fmKnob2;
 
 @end

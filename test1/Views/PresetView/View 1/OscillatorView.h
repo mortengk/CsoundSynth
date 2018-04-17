@@ -7,24 +7,24 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MGKRotaryKnob.h"
+#import "RotaryKnob.h"
 #import "customOscillatorSlider.h"
 
 @interface OscillatorView : UIView
 
 @property (strong, nonatomic) UIView *view;
 
-@property (strong, nonatomic) MGKRotaryKnob *oscillator1FineTuneKnob;
-@property (strong, nonatomic) MGKRotaryKnob *oscillator1AmplitudeKnob;
-@property (strong, nonatomic) MGKRotaryKnob *oscillator1ModKnob;
-@property (strong, nonatomic) MGKRotaryKnob *oscillator1Mod2Knob;
-@property (strong, nonatomic) MGKRotaryKnob *oscillator1FatnessKnob;
-@property (strong, nonatomic) MGKRotaryKnob *oscillator2FineTuneKnob;
-@property (strong, nonatomic) MGKRotaryKnob *oscillator2TuneKnob;
-@property (strong, nonatomic) MGKRotaryKnob *oscillator2AmplitudeKnob;
-@property (strong, nonatomic) MGKRotaryKnob *oscillator2ModKnob;
-@property (strong, nonatomic) MGKRotaryKnob *oscillator2Mod2Knob;
-@property (strong, nonatomic) MGKRotaryKnob *oscillator2FatnessKnob;
+@property (strong, nonatomic) RotaryKnob *oscillator1FineTuneKnob;
+@property (strong, nonatomic) RotaryKnob *oscillator1AmplitudeKnob;
+@property (strong, nonatomic) RotaryKnob *oscillator1ModKnob;
+@property (strong, nonatomic) RotaryKnob *oscillator1Mod2Knob;
+@property (strong, nonatomic) RotaryKnob *oscillator1FatnessKnob;
+@property (strong, nonatomic) RotaryKnob *oscillator2FineTuneKnob;
+@property (strong, nonatomic) RotaryKnob *oscillator2TuneKnob;
+@property (strong, nonatomic) RotaryKnob *oscillator2AmplitudeKnob;
+@property (strong, nonatomic) RotaryKnob *oscillator2ModKnob;
+@property (strong, nonatomic) RotaryKnob *oscillator2Mod2Knob;
+@property (strong, nonatomic) RotaryKnob *oscillator2FatnessKnob;
 @property (strong, nonatomic) UIView* oscillator1HiddenSubviewTouchRecognization;
 @property (strong, nonatomic) UIView* oscillator2HiddenSubviewTouchRecognization;
 

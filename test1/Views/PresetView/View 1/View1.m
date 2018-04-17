@@ -96,10 +96,10 @@
     [[NSNotificationCenter defaultCenter]postNotificationName:@"oscillator2InstrumentChanged" object:nil userInfo:dict];
 }
 
-- (void)setKnob:(MGKRotaryKnob*)knob toPlaceholder:(UIView*)placeholder
+- (void)setKnob:(RotaryKnob*)knob toPlaceholder:(UIView*)placeholder
 {
     NSLog(@"KNAPPEN: %@", knob);
-    knob = [[MGKRotaryKnob alloc]initWithFrame:placeholder.bounds];
+    knob = [[RotaryKnob alloc]initWithFrame:placeholder.bounds];
     [knob addTarget:self action:@selector(handleValueChanged:) forControlEvents:UIControlEventValueChanged];
     placeholder.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"blank_image"]];
     [placeholder addSubview:knob];

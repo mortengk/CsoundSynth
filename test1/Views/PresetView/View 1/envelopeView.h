@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MHRotaryKnob.h"
 #import "customEnvelopeSlider.h"
 #import "AmpEnvelopeView.h"
 #import "PitchEnvelopeView.h"

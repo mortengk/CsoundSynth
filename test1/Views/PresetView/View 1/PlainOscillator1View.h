@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MHRotaryKnob.h"
+#import "RotaryKnob.h"
 
 @interface PlainOscillator1View : UIView
 
@@ -15,7 +15,7 @@
 @property (weak, nonatomic) IBOutlet UIView *oscillator1FineTunePlaceholder;
 @property (weak, nonatomic) IBOutlet UIView *oscillator1AmplitudePlaceholder;
 
-@property (strong, nonatomic) MHRotaryKnob *oscillator1FineTuneKnob;
-@property (strong, nonatomic) MHRotaryKnob *oscillator1AmplitudeKnob;
+@property (strong, nonatomic) RotaryKnob *oscillator1FineTuneKnob;
+@property (strong, nonatomic) RotaryKnob *oscillator1AmplitudeKnob;
 
 @end

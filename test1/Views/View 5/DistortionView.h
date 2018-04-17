@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MGKRotaryKnob.h"
+#import "RotaryKnob.h"
 
 @interface DistortionView : UIView
 
@@ -17,7 +17,7 @@
 @property (weak, nonatomic) IBOutlet UIView *distGainPlaceholder;
 @property (weak, nonatomic) IBOutlet UIView *distMixPlaceholder;
 
-@property (strong, nonatomic) MGKRotaryKnob *distGainKnob;
-@property (strong, nonatomic) MGKRotaryKnob *distMixKnob;
+@property (strong, nonatomic) RotaryKnob *distGainKnob;
+@property (strong, nonatomic) RotaryKnob *distMixKnob;
 
 @end

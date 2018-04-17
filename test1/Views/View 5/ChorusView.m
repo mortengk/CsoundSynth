@@ -30,7 +30,7 @@
         self.backgroundColor = [UIColor redColor];
         
         // Parameter 1
-        param1Knob = [[MGKRotaryKnob alloc]initWithFrame:param1Placeholder.bounds];
+        param1Knob = [[RotaryKnob alloc]initWithFrame:param1Placeholder.bounds];
         param1Placeholder.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"blank_image"]];
         [param1Placeholder addSubview:param1Knob];
         [view addSubview:param1Placeholder];
@@ -39,7 +39,7 @@
         param1Knob.value = .05;
         
         // Parameter 2
-        param2Knob = [[MGKRotaryKnob alloc]initWithFrame:param2Placeholder.bounds];
+        param2Knob = [[RotaryKnob alloc]initWithFrame:param2Placeholder.bounds];
         param2Placeholder.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"blank_image"]];
         [param2Placeholder addSubview:param2Knob];
         [view addSubview:param2Placeholder];
@@ -49,7 +49,7 @@
         param2Knob.value = .2;
         
         // Parameter 3
-        param3Knob = [[MGKRotaryKnob alloc]initWithFrame:param3Placeholder.bounds];
+        param3Knob = [[RotaryKnob alloc]initWithFrame:param3Placeholder.bounds];
         param3Placeholder.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"blank_image"]];
         [param3Placeholder addSubview:param3Knob];
         [view addSubview:param3Placeholder];
@@ -59,7 +59,7 @@
         param3Knob.value = .75;
         
         // Mix
-        mixKnob = [[MGKRotaryKnob alloc]initWithFrame:mixPlaceholder.bounds];
+        mixKnob = [[RotaryKnob alloc]initWithFrame:mixPlaceholder.bounds];
         mixPlaceholder.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"blank_image"]];
         [mixPlaceholder addSubview:mixKnob];
         [view addSubview:mixPlaceholder];

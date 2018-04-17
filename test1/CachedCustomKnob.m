@@ -8,11 +8,11 @@
 
 -(void)updateValueCache:(id)sender {
     //cachedValue = ((UISlider*)sender).value;
-    cachedValue = ((MGKRotaryKnob*)sender).value;
+    cachedValue = ((RotaryKnob*)sender).value;
     self.cacheDirty = YES;
 }
 
--(CachedCustomKnob*)init:(MGKRotaryKnob*)knob channelName:(NSString*)channelName {
+-(CachedCustomKnob*)init:(RotaryKnob*)knob channelName:(NSString*)channelName {
     if (self = [super init]) {
         mhKnob = knob;
         self.channelName = channelName;

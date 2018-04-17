@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MHRotaryKnob.h"
 #import "CustomEnvelopeSlider.h"
 
 @interface FilterEnvelopeView : UIView

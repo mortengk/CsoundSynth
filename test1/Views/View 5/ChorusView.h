@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MGKRotaryKnob.h"
+#import "RotaryKnob.h"
 
 @interface ChorusView : UIView
 
@@ -19,9 +19,9 @@
 @property (weak, nonatomic) IBOutlet UIView *param3Placeholder;
 @property (weak, nonatomic) IBOutlet UIView *mixPlaceholder;
 
-@property (strong, nonatomic) MGKRotaryKnob *param1Knob;
-@property (strong, nonatomic) MGKRotaryKnob *param2Knob;
-@property (strong, nonatomic) MGKRotaryKnob *param3Knob;
-@property (strong, nonatomic) MGKRotaryKnob *mixKnob;
+@property (strong, nonatomic) RotaryKnob *param1Knob;
+@property (strong, nonatomic) RotaryKnob *param2Knob;
+@property (strong, nonatomic) RotaryKnob *param3Knob;
+@property (strong, nonatomic) RotaryKnob *mixKnob;
 
 @end

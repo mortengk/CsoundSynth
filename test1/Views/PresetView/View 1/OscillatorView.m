@@ -46,7 +46,7 @@
         
         // OSCILLATOR 1
         // Fine tune
-        oscillator1FineTuneKnob = [[MGKRotaryKnob alloc]initWithFrame:self.oscillator1FineTunePlaceholder.bounds];
+        oscillator1FineTuneKnob = [[RotaryKnob alloc]initWithFrame:self.oscillator1FineTunePlaceholder.bounds];
         self.oscillator1FineTunePlaceholder.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"blank_image"]];
         [self.oscillator1FineTunePlaceholder addSubview:self.oscillator1FineTuneKnob];
         [self.view addSubview:self.oscillator1FineTunePlaceholder];
@@ -58,7 +58,7 @@
         NSLog(@"Bounds: %@", NSStringFromCGRect(self.oscillator1FineTuneKnob.bounds));
         
         // Amplitude
-        oscillator1AmplitudeKnob = [[MGKRotaryKnob alloc]initWithFrame:self.oscillator1AmplitudePlaceholder.bounds];
+        oscillator1AmplitudeKnob = [[RotaryKnob alloc]initWithFrame:self.oscillator1AmplitudePlaceholder.bounds];
         self.oscillator1AmplitudePlaceholder.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"blank_image"]];
         [self.oscillator1AmplitudePlaceholder addSubview:self.oscillator1AmplitudeKnob];
         [self.view addSubview:self.oscillator1AmplitudePlaceholder];
@@ -68,7 +68,7 @@
         self.oscillator1AmplitudeKnob.value = .6;
         
         // Mod
-        oscillator1ModKnob = [[MGKRotaryKnob alloc]initWithFrame:self.oscillator1ModPlaceholder.bounds];
+        oscillator1ModKnob = [[RotaryKnob alloc]initWithFrame:self.oscillator1ModPlaceholder.bounds];
         self.oscillator1ModPlaceholder.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"blank_image"]];
         [self.oscillator1ModPlaceholder addSubview:self.oscillator1ModKnob];
         [self.view addSubview:self.oscillator1ModPlaceholder];
@@ -78,7 +78,7 @@
         self.oscillator1ModKnob.value = .5;
         
         // Mod 2
-        oscillator1Mod2Knob = [[MGKRotaryKnob alloc]initWithFrame:self.oscillator1Mod2Placeholder.bounds];
+        oscillator1Mod2Knob = [[RotaryKnob alloc]initWithFrame:self.oscillator1Mod2Placeholder.bounds];
         self.oscillator1Mod2Placeholder.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"blank_image"]];
         [self.oscillator1Mod2Placeholder addSubview:self.oscillator1Mod2Knob];
         [self.view addSubview:self.oscillator1ModPlaceholder];
@@ -88,7 +88,7 @@
         self.oscillator1Mod2Knob.value = 0;
         
         // Mod 2
-        oscillator1FatnessKnob = [[MGKRotaryKnob alloc]initWithFrame:self.oscillator1FatnessPlaceholder.bounds];
+        oscillator1FatnessKnob = [[RotaryKnob alloc]initWithFrame:self.oscillator1FatnessPlaceholder.bounds];
         self.oscillator1FatnessPlaceholder.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"blank_image"]];
         [self.oscillator1FatnessPlaceholder addSubview:self.oscillator1FatnessKnob];
         [self.view addSubview:self.oscillator1FatnessPlaceholder];
@@ -99,7 +99,7 @@
         
         // OSCILLATOR 2
         // Fine tune
-        oscillator2FineTuneKnob = [[MGKRotaryKnob alloc]initWithFrame:self.oscillator2FineTunePlaceholder.bounds];
+        oscillator2FineTuneKnob = [[RotaryKnob alloc]initWithFrame:self.oscillator2FineTunePlaceholder.bounds];
         self.oscillator2FineTunePlaceholder.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"blank_image"]];
         [self.oscillator2FineTunePlaceholder addSubview:self.oscillator2FineTuneKnob];
         [self.view addSubview:self.oscillator2FineTunePlaceholder];
@@ -109,7 +109,7 @@
         self.oscillator2FineTuneKnob.value = 0;
         
         // Tune
-        oscillator2TuneKnob = [[MGKRotaryKnob alloc]initWithFrame:self.oscillator2TunePlaceholder.bounds];
+        oscillator2TuneKnob = [[RotaryKnob alloc]initWithFrame:self.oscillator2TunePlaceholder.bounds];
         self.oscillator2TunePlaceholder.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"blank_image"]];
         [self.oscillator2TunePlaceholder addSubview:self.oscillator2TuneKnob];
         [self.view addSubview:self.oscillator2TunePlaceholder];
@@ -119,7 +119,7 @@
         self.oscillator2TuneKnob.value = -12;
         
         // Amplitude
-        oscillator2AmplitudeKnob = [[MGKRotaryKnob alloc]initWithFrame:self.oscillator2AmplitudePlaceholder.bounds];
+        oscillator2AmplitudeKnob = [[RotaryKnob alloc]initWithFrame:self.oscillator2AmplitudePlaceholder.bounds];
         self.oscillator2AmplitudePlaceholder.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"blank_image"]];
         [self.oscillator2AmplitudePlaceholder addSubview:self.oscillator2AmplitudeKnob];
         [self.view addSubview:self.oscillator2AmplitudePlaceholder];
@@ -129,7 +129,7 @@
         self.oscillator2AmplitudeKnob.value = .6;
         
         // Mod
-        oscillator2ModKnob = [[MGKRotaryKnob alloc]initWithFrame:self.oscillator2ModPlaceholder.bounds];
+        oscillator2ModKnob = [[RotaryKnob alloc]initWithFrame:self.oscillator2ModPlaceholder.bounds];
         self.oscillator2ModPlaceholder.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"blank_image"]];
         [self.oscillator2ModPlaceholder addSubview:self.oscillator2ModKnob];
         [self.view addSubview:self.oscillator2ModPlaceholder];
@@ -139,7 +139,7 @@
         self.oscillator2ModKnob.value = .5;
         
         // Mod 2
-        oscillator2Mod2Knob = [[MGKRotaryKnob alloc]initWithFrame:self.oscillator2Mod2Placeholder.bounds];
+        oscillator2Mod2Knob = [[RotaryKnob alloc]initWithFrame:self.oscillator2Mod2Placeholder.bounds];
         self.oscillator2Mod2Placeholder.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"blank_image"]];
         [self.oscillator2Mod2Placeholder addSubview:self.oscillator2Mod2Knob];
         [self.view addSubview:self.oscillator2ModPlaceholder];
@@ -149,7 +149,7 @@
         self.oscillator2Mod2Knob.value = 0;
 
         // Mod 2
-        oscillator2FatnessKnob = [[MGKRotaryKnob alloc]initWithFrame:self.oscillator2FatnessPlaceholder.bounds];
+        oscillator2FatnessKnob = [[RotaryKnob alloc]initWithFrame:self.oscillator2FatnessPlaceholder.bounds];
         self.oscillator2FatnessPlaceholder.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"blank_image"]];
         [self.oscillator2FatnessPlaceholder addSubview:self.oscillator2FatnessKnob];
         [self.view addSubview:self.oscillator2FatnessPlaceholder];

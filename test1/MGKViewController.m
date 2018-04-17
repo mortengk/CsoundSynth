@@ -552,7 +552,7 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
     int numberOFModMatrices = 8;
     self.controlSources = [[NSMutableArray alloc]initWithObjects:nil];
     self.controlDestinations = [[NSMutableArray alloc]initWithObjects:nil];
-    MGKRotaryKnob* knob = [[MGKRotaryKnob alloc]init];
+    RotaryKnob* knob = [[RotaryKnob alloc]init];
     NSNumber* num = [[NSNumber alloc]initWithFloat:0];
     for (int i = 0; i < numberOFModMatrices; i++) {
         [controlDestinations setObject:knob atIndexedSubscript:i];
@@ -641,7 +641,7 @@ NSInteger CURRENT_INSTRUMENT_OSC2_INT;
 {
     for (int i = 0; i < [controlSources count]; ++i) {
         [controlSources replaceObjectAtIndex:i withObject:[NSString stringWithFormat:@"%f", *sourcePointerArray[i]]];
-        MGKRotaryKnob* currentDestination = controlDestinations[i];
+        RotaryKnob* currentDestination = controlDestinations[i];
         double d = [controlSources[i] doubleValue];
         if([currentDestination isEqual:[NSNull null]]) {
             continue;

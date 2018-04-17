@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MGKRotaryKnob.h"
+#import "RotaryKnob.h"
 
 @interface ReverbView : UIView
 
@@ -18,8 +18,8 @@
 @property (weak, nonatomic) IBOutlet UIView *reverbFreqPlaceholder;
 @property (weak, nonatomic) IBOutlet UIView *reverbMixPlaceholder;
 
-@property (strong, nonatomic) MGKRotaryKnob *reverbRoomSizeKnob;
-@property (strong, nonatomic) MGKRotaryKnob *reverbFreqKnob;
-@property (strong, nonatomic) MGKRotaryKnob *reverbMixKnob;
+@property (strong, nonatomic) RotaryKnob *reverbRoomSizeKnob;
+@property (strong, nonatomic) RotaryKnob *reverbFreqKnob;
+@property (strong, nonatomic) RotaryKnob *reverbMixKnob;
 
 @end
